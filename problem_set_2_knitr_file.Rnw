@@ -1,0 +1,123 @@
+\documentclass{article}
+
+\title{Problem Set 2}
+\author{Tony Lashley}
+\date{April 13, 2015}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\graphicspath{{/Users/Tony/Pictures/}}
+
+\begin{document}
+\maketitle
+
+\section{Machinery for the Schelling Model}
+\subsection{Write a function that calculates distances between coordinate points}
+<<>>==
+
+individual <- c(x = 0,y = 0)
+print(individual)
+neighbors = matrix(1:8, ncol = 2, byrow = T)
+print(neighbors)
+colnames(neighbors) <- c("X","Y")
+dstances = matrix(ncol = 3, byrow = T)
+colnames(dstances) <- c("X","Y", "Pythgorean")
+
+f1 <- function(individual, neighbors){  
+  
+  for (i in 1:nrow(neighbors)){
+    
+    neighbor_longitude = neighbors[i,1] 
+    ## Find your neighbor's longitude
+    neighbor_latitude =  neighbors[i,2] 
+    ## Find your neighbor's latitude
+    individual_longitude = individual[1] 
+    ## Find your own longitude
+    individual_latitude =  individual[2] 
+    ## Find your own latitude
+    
+    lftrghtdstance = abs(neighbor_longitude - individual_longitude)
+    ## Find east/west distance between indiv. and neighbor
+    updowndstance = abs(neighbor_latitude - individual_latitude)
+    ## Find north/south distance between indiv. and neighbor
+    pyth = sqrt(((lftrghtdstance)^2) + ((updowndstance)^2))
+    ## Find Euclidian distance
+    currentdistance = c(lftrghtdstance,updowndstance,pyth)
+    ## Make vector with Manhattan and Euclidian distances
+  
+  
+    dstances <- rbind(dstances, currentdistance)
+    ## Add vector as row in matrix of distances
+  }
+  
+  return(dstances)
+}
+
+f1(individual, neighbors)
+
+@
+
+\subsection{Write a function that simulates Schelling's Segregation model}
+<<>>==
+
+library(RANN)
+library(ggplot2)
+library(reshape2)
+
+testRacialPreferenceTable <- matrix(1:15, ncol = 5, nrow = 3)
+testRacialPreferenceTable[1,] <- c("R",1, 50, 5, 2)
+testRacialPreferenceTable[2,] <- c("G", 0, 25, 5, 2)
+testRacialPreferenceTable[3,] <- c("B", -1, 25, 5, 2)
+colnames(testRacialPreferenceTable) <- c("Color", "Value", "Pop.", "Test Pool Size", "Racial Threshold")
+
+nR <- as.numeric(testRacialPreferenceTable[1,"Pop."])
+nG <- as.numeric(testRacialPreferenceTable[2,"Pop."])
+nB <- as.numeric(testRacialPreferenceTable[3,"Pop."])
+
+n <- sum(nR + nG + nB)
+## Find total population from summing each racial population
+
+values = c(1,-1,0)
+
+Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
+  set.seed(20016)
+  LocationTable <- matrix(ncol = 3)
+  
+  for (i in 1:nR){
+    x <- runif(1, min=0, max=1)
+    y <- runif(1, min=0, max=1)
+    currentpointR = c(1,x,y)
+    
+    LocationTable <- rbind(LocationTable, currentpointR)
+    
+  }
+  
+  for (i in 1:nG){
+    x <- runif(1, min=0, max=1)
+    y <- runif(1, min=0, max=1)
+    currentpointG = c(0,x,y)
+    
+    LocationTable <- rbind(LocationTable, currentpointG)
+  }
+ 
+  for (i in 1:nB){
+    x <- runif(1, min=0, max=1)
+    y <- runif(1, min=0, max=1)
+    currentpointB = c(-1,x,y)
+    
+    LocationTable <- rbind(LocationTable, currentpointB)
+  }
+ 
+  colors <- factor(LocationTable[,1])
+  
+  qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] > .1, "red", ifelse(LocationTable[,1] < -.1, "blue", "green")))
+  
+  
+}
+  
+Schelling(testRacialPreferenceTable)
+@
+
+
+
+\end{document}
