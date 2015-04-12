@@ -152,24 +152,26 @@
 \hlstd{n} \hlkwb{<-} \hlkwd{sum}\hlstd{(nR} \hlopt{+} \hlstd{nG} \hlopt{+} \hlstd{nB)}
 \hlcom{## Find total population from summing each racial population}
 
-\hlstd{values} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{0}\hlstd{)}
-
 \hlstd{Schelling} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{racialPreferenceTable} \hlstd{= testRacialPreferenceTable)\{}
   \hlkwd{set.seed}\hlstd{(}\hlnum{20016}\hlstd{)}
   \hlstd{LocationTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{3}\hlstd{)}
+  \hlcom{## Initalizing table for initial neighborhood coordinates}
 
   \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{nR)\{}
     \hlstd{x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlcom{## Generate random X coordinate between 0 and 1 for point}
     \hlstd{y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlcom{## Generate random Y coordinate between 0 and 1 for point}
     \hlstd{currentpointR} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,x,y)}
-
+    \hlcom{## Create vector with point coordinates, labeling point as red}
     \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, currentpointR)}
-
+    \hlcom{## Add red point to table of all neighborhood coordinates}
   \hlstd{\}}
 
   \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{nG)\{}
     \hlstd{x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
     \hlstd{y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+
     \hlstd{currentpointG} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,x,y)}
 
     \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, currentpointG)}
@@ -185,7 +187,7 @@
 
   \hlstd{colors} \hlkwb{<-} \hlkwd{factor}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{])}
 
-  \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{>} \hlnum{.1}\hlstd{,} \hlstr{"blue"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{.1}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"green"}\hlstd{)))}
+  \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{>} \hlnum{.1}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{.1}\hlstd{,} \hlstr{"blue"}\hlstd{,} \hlstr{"green"}\hlstd{)))}
 
 
 \hlstd{\}}

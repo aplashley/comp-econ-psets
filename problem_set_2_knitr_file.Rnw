@@ -77,24 +77,26 @@ nB <- as.numeric(testRacialPreferenceTable[3,"Pop."])
 n <- sum(nR + nG + nB)
 ## Find total population from summing each racial population
 
-values = c(1,-1,0)
-
 Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
   set.seed(20016)
   LocationTable <- matrix(ncol = 3)
+  ## Initalizing table for initial neighborhood coordinates
   
   for (i in 1:nR){
     x <- runif(1, min=0, max=1)
+    ## Generate random X coordinate between 0 and 1 for point
     y <- runif(1, min=0, max=1)
+    ## Generate random Y coordinate between 0 and 1 for point
     currentpointR = c(1,x,y)
-    
+    ## Create vector with point coordinates, labeling point as red
     LocationTable <- rbind(LocationTable, currentpointR)
-    
+    ## Add red point to table of all neighborhood coordinates
   }
   
   for (i in 1:nG){
     x <- runif(1, min=0, max=1)
     y <- runif(1, min=0, max=1)
+    
     currentpointG = c(0,x,y)
     
     LocationTable <- rbind(LocationTable, currentpointG)

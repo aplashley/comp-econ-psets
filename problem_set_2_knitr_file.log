@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  12 APR 2015 17:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  12 APR 2015 18:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -197,41 +197,47 @@ Overfull \hbox (200.99524pt too wide) in paragraph at lines 146--146
  []
 
 
-Overfull \hbox (37.99672pt too wide) in paragraph at lines 157--157
+Overfull \hbox (37.99672pt too wide) in paragraph at lines 155--155
 [][]\OT1/cmtt/m/n/10 Schelling[] []<-[] []function[][]([][]racialPreferenceTabl
 e[] []= testRacialPreferenceTable)\OMS/cmsy/m/n/10 f[][] 
  []
 
 
-Overfull \hbox (437.24318pt too wide) in paragraph at lines 188--188
-[]  []\OT1/cmtt/m/n/10 qplot[][]([][]x[] []= LocationTable[,[][]2[][]],[] []y[]
- []= LocationTable [,[][]3[][]],[] []col[] []=[] []ifelse[][](LocationTable[,[]
-[]1[][]][] []>[] [].1[][],[] []"blue"[][],[] []ifelse[][](LocationTable[,[][]1[
-][]][] []< -[][].1[][],[] []"red"[][],[] []"green"[][])))[][] 
+Overfull \hbox (3.2331pt too wide) in paragraph at lines 166--166
+[]    []\OT1/cmtt/m/it/10 ## Create vector with point coordinates, labeling poi
+nt as red[][] 
  []
 
 
-Overfull \hbox (5.27693pt too wide) in paragraph at lines 197--197
+Overfull \hbox (437.24318pt too wide) in paragraph at lines 190--190
+[]  []\OT1/cmtt/m/n/10 qplot[][]([][]x[] []= LocationTable[,[][]2[][]],[] []y[]
+ []= LocationTable [,[][]3[][]],[] []col[] []=[] []ifelse[][](LocationTable[,[]
+[]1[][]][] []>[] [].1[][],[] []"red"[][],[] []ifelse[][](LocationTable[,[][]1[]
+[]][] []< -[][].1[][],[] []"blue"[][],[] []"green"[][])))[][] 
+ []
+
+
+Overfull \hbox (5.27693pt too wide) in paragraph at lines 199--199
 []\OT1/cmtt/m/n/10 ## Warning: Removed 1 rows containing missing values (geom[]
 point).[] 
  []
 
 [2]
-Underfull \vbox (badness 10000) detected at line 197
+Underfull \vbox (badness 10000) detected at line 199
  []
 
 
-Underfull \vbox (badness 10000) detected at line 197
+Underfull \vbox (badness 10000) detected at line 199
  []
 
 [3] <figure/unnamed-chunk-2-1.pdf, id=19, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 198.
+Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 200.
 (pdftex.def)             Requested size: 345.0pt x 345.00414pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 198--199
+Overfull \hbox (15.0pt too wide) in paragraph at lines 200--201
 [][] 
  []
 
@@ -239,7 +245,7 @@ Overfull \hbox (15.0pt too wide) in paragraph at lines 198--199
 Here is how much of TeX's memory you used:
  1987 strings out of 493117
  28274 string characters out of 6135433
- 102503 words of memory out of 5000000
+ 102507 words of memory out of 5000000
  5432 multiletter control sequences out of 15000+600000
  7923 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -252,7 +258,7 @@ al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/tex
 live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on problem_set_2_knitr_file.pdf (4 pages, 89163 bytes).
+Output written on problem_set_2_knitr_file.pdf (4 pages, 90696 bytes).
 PDF statistics:
  52 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream
