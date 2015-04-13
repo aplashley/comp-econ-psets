@@ -44,5 +44,5 @@ Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
  return(LocationTable) 
 }
 
-qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] > .1, "red", ifelse(LocationTable[,1] < -.1, "blue", "green")))
+qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] > .1, "red", ifelse(LocationTable[,1] < -.1, "blue", "green"))) + 
 

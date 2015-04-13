@@ -109,12 +109,12 @@ Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
     
     LocationTable <- rbind(LocationTable, currentpointB)
   }
- 
-  colors <- factor(LocationTable[,1])
   
-  qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] > .1, "red", ifelse(LocationTable[,1] < -.1, "blue", "green")))
+  LocationTable <- LocationTable[-1,]
   
+  p <- qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] < -0.5, "green", ifelse(LocationTable[,1] < 0.5, "red", "blue"))) + theme(legend.position = "none")
   
+  print(p)
 }
   
 Schelling(testRacialPreferenceTable)

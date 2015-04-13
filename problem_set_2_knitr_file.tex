@@ -185,18 +185,16 @@
     \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, currentpointB)}
   \hlstd{\}}
 
-  \hlstd{colors} \hlkwb{<-} \hlkwd{factor}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{])}
+  \hlstd{LocationTable} \hlkwb{<-} \hlstd{LocationTable[}\hlopt{-}\hlnum{1}\hlstd{,]}
 
-  \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{>} \hlnum{.1}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{.1}\hlstd{,} \hlstr{"blue"}\hlstd{,} \hlstr{"green"}\hlstd{)))}
+  \hlstd{p} \hlkwb{<-} \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{0.5}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{<} \hlnum{0.5}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"blue"}\hlstd{)))} \hlopt{+} \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{"none"}\hlstd{)}
 
-
+  \hlkwd{print}\hlstd{(p)}
 \hlstd{\}}
 
 \hlkwd{Schelling}\hlstd{(testRacialPreferenceTable)}
 \end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: Removed 1 rows containing missing values (geom\_point).}}\end{kframe}
+\end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
 
 \end{knitrout}
