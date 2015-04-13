@@ -61,14 +61,29 @@ f1(individual, neighbors)
 <<>>==
 
 library(RANN)
+library(FNN)
 library(ggplot2)
 library(reshape2)
 
+library(foreach)  
+library(doParallel)  
+library(parallel)
+
+require(foreach)
+require(doParallel)
+require(parallel)
+require(ggplot2)
+
+numCores <- detectCores()  
+cl <- makeCluster(numCores)  
+registerDoParallel(cl)
+
 testRacialPreferenceTable <- matrix(1:15, ncol = 5, nrow = 3)
-testRacialPreferenceTable[1,] <- c("R",1, 50, 5, 2)
-testRacialPreferenceTable[2,] <- c("G", 0, 25, 5, 2)
-testRacialPreferenceTable[3,] <- c("B", -1, 25, 5, 2)
+testRacialPreferenceTable[1,] <- c("R",1, 20, 5, 2)
+testRacialPreferenceTable[2,] <- c("G", 0, 10, 5, 2)
+testRacialPreferenceTable[3,] <- c("B", -1, 10, 5, 2)
 colnames(testRacialPreferenceTable) <- c("Color", "Value", "Pop.", "Test Pool Size", "Racial Threshold")
+print(testRacialPreferenceTable)
 
 nR <- as.numeric(testRacialPreferenceTable[1,"Pop."])
 nG <- as.numeric(testRacialPreferenceTable[2,"Pop."])
@@ -77,8 +92,14 @@ nB <- as.numeric(testRacialPreferenceTable[3,"Pop."])
 n <- sum(nR + nG + nB)
 ## Find total population from summing each racial population
 
+inputs <- testRacialPreferenceTable
+
+stop.val <- .95
+##happy_counter <- 0
+
 Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
   set.seed(20016)
+  library(ggplot2)
   LocationTable <- matrix(ncol = 3)
   ## Initalizing table for initial neighborhood coordinates
   
@@ -111,11 +132,86 @@ Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
   }
   
   LocationTable <- LocationTable[-1,]
+  print(LocationTable)
   
-  p <- qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] < -0.5, "green", ifelse(LocationTable[,1] < 0.5, "red", "blue"))) + theme(legend.position = "none")
-  
+  p <- qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] < -0.5, "red", ifelse(LocationTable[,1] < 0.5, "green", "blue"))) + theme(legend.position = "none")
   
   print(p)
+  
+  
+  ##while ((happy_counter/n) < stop.val){
+  
+    justXYtable = LocationTable[,-1]
+    #Make seperate table with race value column removed
+    
+    for (row in sample(1:n)){
+    ## For a point in the location table...
+    
+      if (LocationTable[row,1] == 1){
+      ##If the point is red...
+      
+        testpool <- as.numeric(racialPreferenceTable[1,4])
+        ## Pull m value for given race
+        threshold <- as.numeric(racialPreferenceTable[1,5])
+        ##Pull j value for given race
+      }
+    
+      if(LocationTable[row,1] == 0){
+      ##If the point is green...
+      
+        testpool <- as.numeric(racialPreferenceTable[2,4])
+        threshold <- as.numeric(racialPreferenceTable[2,5])
+      }
+    
+      if(LocationTable[row,1] == -1){
+      ##If the point is blue...
+      
+        testpool <- as.numeric(racialPreferenceTable[3,4])
+        threshold <- as.numeric(racialPreferenceTable[3,5])
+      
+      } 
+
+      neighborList <- get.knn(data = justXYtable, k = testpool)$nn.index
+      ## Create matrix of m closest neighbors for each point
+      
+      for (column in 1:ncol(neighborList)){
+      ## For each closest neighbor of the given point
+      
+        a_neighbor <- neighborList[row,column]
+        ## Find numerical value of neighboor in Location matrix
+        a_neighbors_race <- LocationTable[a_neighbor,1]
+        ## Find neighbor's race
+        
+        own_race <- LocationTable[row,1]
+        ##Find individual's race  
+        bad_neighbors <- 0
+        ##Initialize value for number of neighbors individual doesn't want
+      
+        cycles <- 0
+          
+          if (a_neighbors_race != own_race){
+            
+            bad_neighbors <- bad_neighbors + 1
+            ## If a neighbor's race is different from individual's, increase number of
+            ## bad neighbors
+            
+            if (bad_neighbors > threshold){
+              ##If the number of bad neighbors exceeds threshold...
+              new_x <- runif(1, min=0, max=1)
+              new_y <- runif(1, min=0, max=1)
+              LocationTable[row,2] <- new_x
+              LocationTable[row,3] <- new_y
+              cycles <- cycles + 1
+              
+            } 
+          } 
+      }
+    }
+
+}
+
+results <- foreach(i=testRacialPreferenceTable) %dopar% {  
+  Schelling(i)
 }
   
 Schelling(testRacialPreferenceTable)

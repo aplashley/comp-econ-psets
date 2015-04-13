@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  12 APR 2015 22:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  13 APR 2015 06:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**problem_set_2_knitr_file.tex
-(./problem_set_2_knitr_file.tex
+**problem_set_2_knitr_file_switching.tex
+(./problem_set_2_knitr_file_switching.tex
 LaTeX2e <2014/05/01>
 Babel <3.9k> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/article.cls
@@ -85,8 +85,8 @@ LaTeX Info: Redefining \cite on input line 694.
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-(./problem_set_2_knitr_file.aux)
-\openout1 = `problem_set_2_knitr_file.aux'.
+(./problem_set_2_knitr_file_switching.aux)
+\openout1 = `problem_set_2_knitr_file_switching.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
@@ -190,73 +190,111 @@ Overfull \hbox (6.74693pt too wide) in paragraph at lines 104--104
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Package color Info: Redefining color shadecolor on input line 136.
 
-Overfull \hbox (200.99524pt too wide) in paragraph at lines 146--146
+Overfull \hbox (200.99524pt too wide) in paragraph at lines 164--164
 [][]\OT1/cmtt/m/n/10 colnames[][](testRacialPreferenceTable)[] []<-[] []c[][]([
 ][]"Color"[][],[] []"Value"[][],[] []"Pop."[][],[] []"Test Pool Size"[][],[] []
 "Racial Threshold"[][])[][] 
  []
 
 
-Overfull \hbox (37.99672pt too wide) in paragraph at lines 155--155
+Overfull \hbox (37.99672pt too wide) in paragraph at lines 186--186
 [][]\OT1/cmtt/m/n/10 Schelling[] []<-[] []function[][]([][]racialPreferenceTabl
 e[] []= testRacialPreferenceTable)\OMS/cmsy/m/n/10 f[][] 
  []
 
 
-Overfull \hbox (3.2331pt too wide) in paragraph at lines 166--166
+Overfull \hbox (3.2331pt too wide) in paragraph at lines 198--198
 []    []\OT1/cmtt/m/it/10 ## Create vector with point coordinates, labeling poi
 nt as red[][] 
  []
 
 
-Overfull \hbox (652.4913pt too wide) in paragraph at lines 190--190
+Overfull \hbox (652.4913pt too wide) in paragraph at lines 223--223
 []  []\OT1/cmtt/m/n/10 p[] []<-[] []qplot[][]([][]x[] []= LocationTable[,[][]2[
 ][]],[] []y[] []= LocationTable [,[][]3[][]],[] []col[] []=[] []ifelse[][](Loca
-tionTable[,[][]1[][]][] []< -[][]0.5[][],[] []"green"[][],[] []ifelse[][](Locat
-ionTable[,[][]1[][]][] []<[] []0.5[][],[] []"red"[][],[] []"blue"[][])))[] []+[
+tionTable[,[][]1[][]][] []< -[][]0.5[][],[] []"red"[][],[] []ifelse[][](Locatio
+nTable[,[][]1[][]][] []<[] []0.5[][],[] []"green"[][],[] []"blue"[][])))[] []+[
 ] []theme[][]([][]legend.position[] []=[] []"none"[][])[][] 
  []
 
-[2]
-Underfull \vbox (badness 10000) detected at line 198
+LaTeX Font Info:    Font shape `OMS/cmtt/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 228.
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 260--260
+[]      []\OT1/cmtt/m/n/10 neighborList[] []<-[] []get.knn[][]([][]data[] []= j
+ustXYtable,[] []k[] []= testpool)[][]$[][]nn.index[][] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 198
+Overfull \hbox (45.23273pt too wide) in paragraph at lines 274--274
+[]        []\OT1/cmtt/m/it/10 ##Initialize value for number of neighbors indivi
+dual doesn^^Mt want[][] 
  []
 
-[3] <figure/unnamed-chunk-2-1.pdf, id=19, 505.89pt x 505.89pt>
+
+Overfull \hbox (108.23218pt too wide) in paragraph at lines 281--281
+[]            []\OT1/cmtt/m/it/10 ## If a neighbor^^Ms race is different from i
+ndividual^^Ms, increase number of[][] 
+ []
+
+
+Overfull \hbox (8.48305pt too wide) in paragraph at lines 285--285
+[]              []\OT1/cmtt/m/it/10 ##If the number of bad neighbors exceeds th
+reshold...[][] 
+ []
+
+LaTeX Font Info:    Font shape `OMS/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 305.
+[2] [3]
+Underfull \vbox (badness 10000) detected at line 351
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 351
+ []
+
+[4]
+Underfull \vbox (badness 10000) detected at line 351
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 351
+ []
+
+[5] [6] <figure/unnamed-chunk-2-1.pdf, id=29, 505.89pt x 505.89pt>
 File: figure/unnamed-chunk-2-1.pdf Graphic file (type pdf)
 
 <use figure/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 199.
+Package pdftex.def Info: figure/unnamed-chunk-2-1.pdf used on input line 352.
 (pdftex.def)             Requested size: 345.0pt x 345.00414pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 199--200
+Overfull \hbox (15.0pt too wide) in paragraph at lines 352--353
 [][] 
  []
 
-[4 <./figure/unnamed-chunk-2-1.pdf>] (./problem_set_2_knitr_file.aux) ) 
+[7 <./figure/unnamed-chunk-2-1.pdf>] (./problem_set_2_knitr_file_switching.aux)
+ ) 
 Here is how much of TeX's memory you used:
- 1986 strings out of 493117
- 28256 string characters out of 6135433
- 102930 words of memory out of 5000000
- 5431 multiletter control sequences out of 15000+600000
- 7923 words of font info for 29 fonts, out of 8000000 for 9000
+ 1990 strings out of 493117
+ 28400 string characters out of 6135433
+ 137477 words of memory out of 5000000
+ 5434 multiletter control sequences out of 15000+600000
+ 8178 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,6n,23p,566b,284s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/lo
-cal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/loc
-al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/loc
-al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
-/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on problem_set_2_knitr_file.pdf (4 pages, 89961 bytes).
+ 38i,6n,23p,576b,284s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
+b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
+/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on problem_set_2_knitr_file_switching.pdf (7 pages, 100945 bytes
+).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 66 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

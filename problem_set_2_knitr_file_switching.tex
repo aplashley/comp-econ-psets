@@ -136,15 +136,41 @@
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(RANN)}
+\hlkwd{library}\hlstd{(FNN)}
 \hlkwd{library}\hlstd{(ggplot2)}
 \hlkwd{library}\hlstd{(reshape2)}
 
-\hlstd{testRacialPreferenceTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{1}\hlopt{:}\hlnum{15}\hlstd{,} \hlkwc{ncol} \hlstd{=} \hlnum{5}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlnum{3}\hlstd{)}
-\hlstd{testRacialPreferenceTable[}\hlnum{1}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"R"}\hlstd{,}\hlnum{1}\hlstd{,} \hlnum{50}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
-\hlstd{testRacialPreferenceTable[}\hlnum{2}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"G"}\hlstd{,} \hlnum{0}\hlstd{,} \hlnum{25}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
-\hlstd{testRacialPreferenceTable[}\hlnum{3}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"B"}\hlstd{,} \hlopt{-}\hlnum{1}\hlstd{,} \hlnum{25}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
-\hlkwd{colnames}\hlstd{(testRacialPreferenceTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Color"}\hlstd{,} \hlstr{"Value"}\hlstd{,} \hlstr{"Pop."}\hlstd{,} \hlstr{"Test Pool Size"}\hlstd{,} \hlstr{"Racial Threshold"}\hlstd{)}
+\hlkwd{library}\hlstd{(foreach)}
+\hlkwd{library}\hlstd{(doParallel)}
+\end{alltt}
 
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: iterators\\\#\# Loading required package: parallel}}\begin{alltt}
+\hlkwd{library}\hlstd{(parallel)}
+
+\hlkwd{require}\hlstd{(foreach)}
+\hlkwd{require}\hlstd{(doParallel)}
+\hlkwd{require}\hlstd{(parallel)}
+\hlkwd{require}\hlstd{(ggplot2)}
+
+\hlstd{numCores} \hlkwb{<-} \hlkwd{detectCores}\hlstd{()}
+\hlstd{cl} \hlkwb{<-} \hlkwd{makeCluster}\hlstd{(numCores)}
+\hlkwd{registerDoParallel}\hlstd{(cl)}
+
+\hlstd{testRacialPreferenceTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{1}\hlopt{:}\hlnum{15}\hlstd{,} \hlkwc{ncol} \hlstd{=} \hlnum{5}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlnum{3}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{1}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"R"}\hlstd{,}\hlnum{1}\hlstd{,} \hlnum{20}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{2}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"G"}\hlstd{,} \hlnum{0}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{3}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"B"}\hlstd{,} \hlopt{-}\hlnum{1}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlkwd{colnames}\hlstd{(testRacialPreferenceTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Color"}\hlstd{,} \hlstr{"Value"}\hlstd{,} \hlstr{"Pop."}\hlstd{,} \hlstr{"Test Pool Size"}\hlstd{,} \hlstr{"Racial Threshold"}\hlstd{)}
+\hlkwd{print}\hlstd{(testRacialPreferenceTable)}
+\end{alltt}
+\begin{verbatim}
+##      Color Value Pop. Test Pool Size Racial Threshold
+## [1,] "R"   "1"   "20" "5"            "2"             
+## [2,] "G"   "0"   "10" "5"            "2"             
+## [3,] "B"   "-1"  "10" "5"            "2"
+\end{verbatim}
+\begin{alltt}
 \hlstd{nR} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{1}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
 \hlstd{nG} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{2}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
 \hlstd{nB} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{3}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
@@ -152,8 +178,14 @@
 \hlstd{n} \hlkwb{<-} \hlkwd{sum}\hlstd{(nR} \hlopt{+} \hlstd{nG} \hlopt{+} \hlstd{nB)}
 \hlcom{## Find total population from summing each racial population}
 
+\hlstd{inputs} \hlkwb{<-} \hlstd{testRacialPreferenceTable}
+
+\hlstd{stop.val} \hlkwb{<-} \hlnum{.95}
+\hlcom{##happy_counter <- 0}
+
 \hlstd{Schelling} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{racialPreferenceTable} \hlstd{= testRacialPreferenceTable)\{}
   \hlkwd{set.seed}\hlstd{(}\hlnum{20016}\hlstd{)}
+  \hlkwd{library}\hlstd{(ggplot2)}
   \hlstd{LocationTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{3}\hlstd{)}
   \hlcom{## Initalizing table for initial neighborhood coordinates}
 
@@ -186,15 +218,136 @@
   \hlstd{\}}
 
   \hlstd{LocationTable} \hlkwb{<-} \hlstd{LocationTable[}\hlopt{-}\hlnum{1}\hlstd{,]}
+  \hlkwd{print}\hlstd{(LocationTable)}
 
-  \hlstd{p} \hlkwb{<-} \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{0.5}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{<} \hlnum{0.5}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"blue"}\hlstd{)))} \hlopt{+} \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{"none"}\hlstd{)}
-
+  \hlstd{p} \hlkwb{<-} \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{2}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{3}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{< -}\hlnum{0.5}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{1}\hlstd{]} \hlopt{<} \hlnum{0.5}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlstr{"blue"}\hlstd{)))} \hlopt{+} \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{"none"}\hlstd{)}
 
   \hlkwd{print}\hlstd{(p)}
+
+
+  \hlcom{##while ((happy_counter/n) < stop.val)\{}
+
+    \hlstd{justXYtable} \hlkwb{=} \hlstd{LocationTable[,}\hlopt{-}\hlnum{1}\hlstd{]}
+    \hlcom{#Make seperate table with race value column removed}
+
+    \hlkwa{for} \hlstd{(row} \hlkwa{in} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlstd{n))\{}
+    \hlcom{## For a point in the location table...}
+
+      \hlkwa{if} \hlstd{(LocationTable[row,}\hlnum{1}\hlstd{]} \hlopt{==} \hlnum{1}\hlstd{)\{}
+      \hlcom{##If the point is red...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{])}
+        \hlcom{## Pull m value for given race}
+        \hlstd{threshold} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{1}\hlstd{,}\hlnum{5}\hlstd{])}
+        \hlcom{##Pull j value for given race}
+      \hlstd{\}}
+
+      \hlkwa{if}\hlstd{(LocationTable[row,}\hlnum{1}\hlstd{]} \hlopt{==} \hlnum{0}\hlstd{)\{}
+      \hlcom{##If the point is green...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{2}\hlstd{,}\hlnum{4}\hlstd{])}
+        \hlstd{threshold} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{2}\hlstd{,}\hlnum{5}\hlstd{])}
+      \hlstd{\}}
+
+      \hlkwa{if}\hlstd{(LocationTable[row,}\hlnum{1}\hlstd{]} \hlopt{== -}\hlnum{1}\hlstd{)\{}
+      \hlcom{##If the point is blue...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{])}
+        \hlstd{threshold} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{3}\hlstd{,}\hlnum{5}\hlstd{])}
+
+      \hlstd{\}}
+
+      \hlstd{neighborList} \hlkwb{<-} \hlkwd{get.knn}\hlstd{(}\hlkwc{data} \hlstd{= justXYtable,} \hlkwc{k} \hlstd{= testpool)}\hlopt{$}\hlstd{nn.index}
+      \hlcom{## Create matrix of m closest neighbors for each point}
+
+      \hlkwa{for} \hlstd{(column} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{ncol}\hlstd{(neighborList))\{}
+      \hlcom{## For each closest neighbor of the given point}
+
+        \hlstd{a_neighbor} \hlkwb{<-} \hlstd{neighborList[row,column]}
+        \hlcom{## Find numerical value of neighboor in Location matrix}
+        \hlstd{a_neighbors_race} \hlkwb{<-} \hlstd{LocationTable[a_neighbor,}\hlnum{1}\hlstd{]}
+        \hlcom{## Find neighbor's race}
+
+        \hlstd{own_race} \hlkwb{<-} \hlstd{LocationTable[row,}\hlnum{1}\hlstd{]}
+        \hlcom{##Find individual's race  }
+        \hlstd{bad_neighbors} \hlkwb{<-} \hlnum{0}
+        \hlcom{##Initialize value for number of neighbors individual doesn't want}
+
+        \hlstd{cycles} \hlkwb{<-} \hlnum{0}
+
+          \hlkwa{if} \hlstd{(a_neighbors_race} \hlopt{!=} \hlstd{own_race)\{}
+
+            \hlstd{bad_neighbors} \hlkwb{<-} \hlstd{bad_neighbors} \hlopt{+} \hlnum{1}
+            \hlcom{## If a neighbor's race is different from individual's, increase number of}
+            \hlcom{## bad neighbors}
+
+            \hlkwa{if} \hlstd{(bad_neighbors} \hlopt{>} \hlstd{threshold)\{}
+              \hlcom{##If the number of bad neighbors exceeds threshold...}
+              \hlstd{new_x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+              \hlstd{new_y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+              \hlstd{LocationTable[row,}\hlnum{2}\hlstd{]} \hlkwb{<-} \hlstd{new_x}
+              \hlstd{LocationTable[row,}\hlnum{3}\hlstd{]} \hlkwb{<-} \hlstd{new_y}
+              \hlstd{cycles} \hlkwb{<-} \hlstd{cycles} \hlopt{+} \hlnum{1}
+
+            \hlstd{\}}
+          \hlstd{\}}
+      \hlstd{\}}
+    \hlstd{\}}
+
 \hlstd{\}}
 
+\hlstd{results} \hlkwb{<-} \hlkwd{foreach}\hlstd{(}\hlkwc{i}\hlstd{=testRacialPreferenceTable)} \hlopt{%dopar%} \hlstd{\{}
+  \hlkwd{Schelling}\hlstd{(i)}
+\hlstd{\}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in \{: task 1 failed - "{}subscript out of bounds"{}}}\begin{alltt}
 \hlkwd{Schelling}\hlstd{(testRacialPreferenceTable)}
 \end{alltt}
+\begin{verbatim}
+##               [,1]       [,2]       [,3]
+## currentpointR    1 0.88087670 0.29227436
+## currentpointR    1 0.50111460 0.53932951
+## currentpointR    1 0.34984375 0.39117480
+## currentpointR    1 0.71935381 0.35087338
+## currentpointR    1 0.46636470 0.50625997
+## currentpointR    1 0.37548038 0.79547449
+## currentpointR    1 0.48403496 0.71971009
+## currentpointR    1 0.16247257 0.68690637
+## currentpointR    1 0.19127365 0.88560590
+## currentpointR    1 0.71405276 0.60097207
+## currentpointR    1 0.60577097 0.84048701
+## currentpointR    1 0.63742605 0.22005018
+## currentpointR    1 0.03969718 0.80952938
+## currentpointR    1 0.69181073 0.26153457
+## currentpointR    1 0.65363839 0.66415248
+## currentpointR    1 0.63901260 0.83302126
+## currentpointR    1 0.52979992 0.25700429
+## currentpointR    1 0.98889149 0.16865283
+## currentpointR    1 0.42661108 0.61516778
+## currentpointR    1 0.87949560 0.24409957
+## currentpointG    0 0.31329813 0.98882309
+## currentpointG    0 0.41195102 0.26577442
+## currentpointG    0 0.25931412 0.98791598
+## currentpointG    0 0.73325532 0.20144791
+## currentpointG    0 0.07781230 0.53302146
+## currentpointG    0 0.96087329 0.90699890
+## currentpointG    0 0.56762140 0.30803760
+## currentpointG    0 0.81676286 0.37110086
+## currentpointG    0 0.46643300 0.11548545
+## currentpointG    0 0.91045513 0.42004432
+## currentpointB   -1 0.95330606 0.99217334
+## currentpointB   -1 0.21233086 0.34319235
+## currentpointB   -1 0.60603245 0.03649611
+## currentpointB   -1 0.49077000 0.05688147
+## currentpointB   -1 0.07772721 0.55111953
+## currentpointB   -1 0.52250407 0.68272916
+## currentpointB   -1 0.44620386 0.21901630
+## currentpointB   -1 0.26996361 0.03462394
+## currentpointB   -1 0.16472249 0.53875963
+## currentpointB   -1 0.29034521 0.59171952
+\end{verbatim}
 \end{kframe}
 \includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
 
