@@ -95,7 +95,7 @@ n <- sum(nR + nG + nB)
 inputs <- testRacialPreferenceTable
 
 stop.val <- .95
-##happy_counter <- 0
+happy_counter <- 0
 
 Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
   set.seed(20016)
@@ -132,90 +132,153 @@ Schelling <- function(racialPreferenceTable = testRacialPreferenceTable){
   }
   
   LocationTable <- LocationTable[-1,]
+  Count <- c(1:nrow(LocationTable))
+  ## Create column counting number of points or people
+  
+  Happy <- c(rep(0, nrow(LocationTable)))
+  ## Create column to keep track of if person is happy
+  
+  LocationTable <- cbind(Count, LocationTable, Happy)
+  ## Add columns to Location Table
+    
   print(LocationTable)
   
-  p <- qplot(x = LocationTable[,2], y = LocationTable [,3], col = ifelse(LocationTable[,1] < -0.5, "red", ifelse(LocationTable[,1] < 0.5, "green", "blue"))) + theme(legend.position = "none")
+  p <- qplot(x = LocationTable[,3], y = LocationTable [,4], col = ifelse(LocationTable[,2] < -0.5, "red", ifelse(LocationTable[,2] < 0.5, "green", "blue"))) + theme(legend.position = "none")
   
   print(p)
   
+
+  testpoolR <- as.numeric(racialPreferenceTable[1,4])
+  ## Pull m value for given race
+  thresholdR <- as.numeric(racialPreferenceTable[1,5])
+  ##Pull j value for given race
   
-  ##while ((happy_counter/n) < stop.val){
+  testpoolG <- as.numeric(racialPreferenceTable[2,4])
+  thresholdG <- as.numeric(racialPreferenceTable[2,5])
   
-    justXYtable = LocationTable[,-1]
-    #Make seperate table with race value column removed
-    
+  testpoolB <- as.numeric(racialPreferenceTable[3,4])
+  thresholdB <- as.numeric(racialPreferenceTable[3,5])
+  
+  maxtestnumb <- max(testpoolR, testpoolG, testpoolB)
+  #Finding max testpool value so we can create neighborlist outside loop
+  testpool <- maxtestnumb
+  ## Initializing testpool variable as max testpool number outside loop
+  
+  minthresholdnumb <- min(thresholdR, thresholdG, thresholdB)
+  threshold <- minthresholdnumb
+  
+  justXYtable = LocationTable[,-1]
+  #Make seperate table with race value column removed
+  
+  neighborList <- get.knn(data = justXYtable, k = maxtestnumb)$nn.index
+  ## Create matrix of m closest neighbors for each point
+  
+  print(neighborList)
+  
+  bad_neighbors <- 0
+  good_neighbors <- 0
+  total_neighbors <- bad_neighbors + good_neighbors
+  ##Initialize value for number of neighbors individual likes and doesn't
+  
+  cycles <- 0
+  row <- 0
+  
+while ((happy_counter/n) < stop.val){
+
+    cycles <- cycles + 1  
+    happy_counter<- sum(LocationTable[,5])
+
     for (row in sample(1:n)){
-    ## For a point in the location table...
+    ##For a point in the location table...
+      
+      own_race <- LocationTable[row,1]
     
-      if (LocationTable[row,1] == 1){
+      if(LocationTable[row,1] == 1){
       ##If the point is red...
       
-        testpool <- as.numeric(racialPreferenceTable[1,4])
-        ## Pull m value for given race
-        threshold <- as.numeric(racialPreferenceTable[1,5])
-        ##Pull j value for given race
+        testpool <- testpoolR
+        ## Pull m value for individual given race
+        threshold <- thresholdR
+        ##Pull j value for indvidual given race
+        own_race <- 1
       }
     
       if(LocationTable[row,1] == 0){
       ##If the point is green...
       
-        testpool <- as.numeric(racialPreferenceTable[2,4])
-        threshold <- as.numeric(racialPreferenceTable[2,5])
+        testpool <- testpoolG
+        threshold <- thresholdG
+        own_race <- 0
       }
     
       if(LocationTable[row,1] == -1){
       ##If the point is blue...
       
-        testpool <- as.numeric(racialPreferenceTable[3,4])
-        threshold <- as.numeric(racialPreferenceTable[3,5])
-      
+        testpool <- testpoolB
+        threshold <- thresholdB
+        own_race <- -1
       } 
 
-      neighborList <- get.knn(data = justXYtable, k = testpool)$nn.index
-      ## Create matrix of m closest neighbors for each point
-      
-      for (column in 1:ncol(neighborList)){
+      for (column in sample(1:testpool)){
       ## For each closest neighbor of the given point
       
         a_neighbor <- neighborList[row,column]
         ## Find numerical value of neighboor in Location matrix
+        
         a_neighbors_race <- LocationTable[a_neighbor,1]
         ## Find neighbor's race
-        
-        own_race <- LocationTable[row,1]
-        ##Find individual's race  
-        bad_neighbors <- 0
-        ##Initialize value for number of neighbors individual doesn't want
-      
-        cycles <- 0
           
-          if (a_neighbors_race != own_race){
+          while ((bad_neighbors + good_neighbors) < testpool){
             
-            bad_neighbors <- bad_neighbors + 1
-            ## If a neighbor's race is different from individual's, increase number of
-            ## bad neighbors
-            
-            if (bad_neighbors > threshold){
-              ##If the number of bad neighbors exceeds threshold...
-              new_x <- runif(1, min=0, max=1)
-              new_y <- runif(1, min=0, max=1)
-              LocationTable[row,2] <- new_x
-              LocationTable[row,3] <- new_y
-              cycles <- cycles + 1
+            if (a_neighbors_race != own_race){
               
-            } 
-          } 
-      }
+              bad_neighbors <- bad_neighbors + 1
+              ## If a neighbor's race is different from individual's, 
+              ## increase number of bad neighbors
+            
+                if (bad_neighbors > threshold){
+                ##If the number of bad neighbors exceeds threshold...
+                  
+                  new_x <- runif(1, min=0, max=1)
+                  new_y <- runif(1, min=0, max=1)
+                  LocationTable[row,3] <- new_x
+                  LocationTable[row,4] <- new_y
+                  
+              
+                } 
+            }
+        
+            if (a_neighbors_race == own_race){
+            good_neighbors <- goodneighbors + 1
+            
+              if ((good_neighbors + bad_neighbors) == testpool){
+                LocationTable[row,5] = 1
+              }
+            
+            }
+          }
+        }
     }
+ 
+  p <- qplot(x = LocationTable[,3], y = LocationTable [,4], col = ifelse(LocationTable[,2] < -0.5, "red", ifelse(LocationTable[,2] < 0.5, "green", "blue"))) + theme(legend.position = "none")
 
+   if (cycles %% 5 == 0) print(p)
+  }
+
+print(cycles)
 }
+
 
 results <- foreach(i=testRacialPreferenceTable) %dopar% {  
-  Schelling(i)
-}
-  
+    Schelling(i)
+  }
+
 Schelling(testRacialPreferenceTable)
+print(system.time(Schelling(testRacialPreferenceTable)))
+
 @
+
+\section{Machinery for the Schelling Model}
 
 
 
