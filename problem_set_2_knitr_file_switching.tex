@@ -1,4 +1,53 @@
-\documentclass{article}
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 
 \title{Problem Set 2}
 \author{Tony Lashley}
@@ -7,7 +56,7 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \graphicspath{{/Users/Tony/Pictures/}}
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
 
@@ -83,5 +132,350 @@
 \end{knitrout}
 
 \subsection{Write a function that simulates Schelling's Segregation model}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(RANN)}
+\hlkwd{library}\hlstd{(FNN)}
+\hlkwd{library}\hlstd{(ggplot2)}
+\hlkwd{library}\hlstd{(reshape2)}
+
+\hlkwd{library}\hlstd{(foreach)}
+\hlkwd{library}\hlstd{(doParallel)}
+\end{alltt}
 
 
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: iterators\\\#\# Loading required package: parallel}}\begin{alltt}
+\hlkwd{library}\hlstd{(parallel)}
+
+\hlkwd{require}\hlstd{(foreach)}
+\hlkwd{require}\hlstd{(doParallel)}
+\hlkwd{require}\hlstd{(parallel)}
+\hlkwd{require}\hlstd{(ggplot2)}
+
+\hlstd{numCores} \hlkwb{<-} \hlkwd{detectCores}\hlstd{()}
+\hlstd{cl} \hlkwb{<-} \hlkwd{makeCluster}\hlstd{(numCores)}
+\hlkwd{registerDoParallel}\hlstd{(cl)}
+
+\hlstd{testRacialPreferenceTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlnum{1}\hlopt{:}\hlnum{15}\hlstd{,} \hlkwc{ncol} \hlstd{=} \hlnum{5}\hlstd{,} \hlkwc{nrow} \hlstd{=} \hlnum{3}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{1}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"R"}\hlstd{,}\hlnum{1}\hlstd{,} \hlnum{20}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{2}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"G"}\hlstd{,} \hlnum{0}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlstd{testRacialPreferenceTable[}\hlnum{3}\hlstd{,]} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"B"}\hlstd{,} \hlopt{-}\hlnum{1}\hlstd{,} \hlnum{10}\hlstd{,} \hlnum{5}\hlstd{,} \hlnum{2}\hlstd{)}
+\hlkwd{colnames}\hlstd{(testRacialPreferenceTable)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Color"}\hlstd{,} \hlstr{"Value"}\hlstd{,} \hlstr{"Pop."}\hlstd{,} \hlstr{"Test Pool Size"}\hlstd{,} \hlstr{"Racial Threshold"}\hlstd{)}
+\hlkwd{print}\hlstd{(testRacialPreferenceTable)}
+\end{alltt}
+\begin{verbatim}
+##      Color Value Pop. Test Pool Size Racial Threshold
+## [1,] "R"   "1"   "20" "5"            "2"             
+## [2,] "G"   "0"   "10" "5"            "2"             
+## [3,] "B"   "-1"  "10" "5"            "2"
+\end{verbatim}
+\begin{alltt}
+\hlstd{nR} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{1}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
+\hlstd{nG} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{2}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
+\hlstd{nB} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(testRacialPreferenceTable[}\hlnum{3}\hlstd{,}\hlstr{"Pop."}\hlstd{])}
+
+\hlstd{n} \hlkwb{<-} \hlkwd{sum}\hlstd{(nR} \hlopt{+} \hlstd{nG} \hlopt{+} \hlstd{nB)}
+\hlcom{## Find total population from summing each racial population}
+
+\hlstd{inputs} \hlkwb{<-} \hlstd{testRacialPreferenceTable}
+
+\hlstd{stop.val} \hlkwb{<-} \hlnum{.95}
+\hlstd{happy_counter} \hlkwb{<-} \hlnum{0}
+
+\hlstd{Schelling} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{racialPreferenceTable} \hlstd{= testRacialPreferenceTable)\{}
+  \hlkwd{set.seed}\hlstd{(}\hlnum{20016}\hlstd{)}
+  \hlkwd{library}\hlstd{(ggplot2)}
+  \hlstd{LocationTable} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{3}\hlstd{)}
+  \hlcom{## Initalizing table for initial neighborhood coordinates}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{nR)\{}
+    \hlstd{x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlcom{## Generate random X coordinate between 0 and 1 for point}
+    \hlstd{y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlcom{## Generate random Y coordinate between 0 and 1 for point}
+    \hlstd{R} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,x,y)}
+    \hlcom{## Create vector with point coordinates, labeling point as red}
+    \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, R)}
+    \hlcom{## Add red point to table of all neighborhood coordinates}
+  \hlstd{\}}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{nG)\{}
+    \hlstd{x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlstd{y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+
+    \hlstd{G} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,x,y)}
+
+    \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, G)}
+  \hlstd{\}}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{nB)\{}
+    \hlstd{x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlstd{y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+    \hlstd{B} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,x,y)}
+
+    \hlstd{LocationTable} \hlkwb{<-} \hlkwd{rbind}\hlstd{(LocationTable, B)}
+  \hlstd{\}}
+
+  \hlstd{LocationTable} \hlkwb{<-} \hlstd{LocationTable[}\hlopt{-}\hlnum{1}\hlstd{,]}
+  \hlstd{Count} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(LocationTable))}
+  \hlcom{## Create column counting number of points or people}
+
+  \hlstd{Happy} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{nrow}\hlstd{(LocationTable)))}
+  \hlcom{## Create column to keep track of if person is happy}
+
+  \hlstd{Testpool} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{nrow}\hlstd{(LocationTable)))}
+  \hlcom{## Create column for indvidual's testpool}
+
+  \hlstd{Threshold} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{nrow}\hlstd{(LocationTable)))}
+  \hlcom{## Create column for indvidual's threshold}
+
+  \hlstd{LocationTable} \hlkwb{<-} \hlkwd{cbind}\hlstd{(Count, LocationTable, Happy, Testpool, Threshold)}
+  \hlcom{## Add columns to Location Table}
+
+
+  \hlstd{p} \hlkwb{<-} \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{3}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{4}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{2}\hlstd{]} \hlopt{< -}\hlnum{0.5}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{2}\hlstd{]} \hlopt{<} \hlnum{0.5}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlstr{"blue"}\hlstd{)))} \hlopt{+} \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{"none"}\hlstd{)}
+
+  \hlkwd{print}\hlstd{(p)}
+
+  \hlstd{testpoolR} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{])}
+  \hlcom{## Pull m value for given race}
+  \hlstd{thresholdR} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{1}\hlstd{,}\hlnum{5}\hlstd{])}
+  \hlcom{##Pull j value for given race}
+
+  \hlstd{testpoolG} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{2}\hlstd{,}\hlnum{4}\hlstd{])}
+  \hlstd{thresholdG} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{2}\hlstd{,}\hlnum{5}\hlstd{])}
+
+  \hlstd{testpoolB} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{3}\hlstd{,}\hlnum{4}\hlstd{])}
+  \hlstd{thresholdB} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(racialPreferenceTable[}\hlnum{3}\hlstd{,}\hlnum{5}\hlstd{])}
+
+  \hlkwa{for} \hlstd{(row} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(LocationTable))\{}
+
+    \hlstd{own_race} \hlkwb{<-} \hlstd{LocationTable[row,}\hlnum{2}\hlstd{]}
+
+    \hlkwa{if}\hlstd{(own_race} \hlopt{==} \hlnum{1}\hlstd{)\{}
+    \hlcom{##If the point is red...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlstd{testpoolR}
+        \hlcom{## Pull m value for individual given race}
+        \hlstd{threshold} \hlkwb{<-} \hlstd{thresholdR}
+        \hlcom{##Pull j value for indvidual given race}
+
+        \hlstd{LocationTable[row,}\hlnum{6}\hlstd{]} \hlkwb{<-} \hlstd{testpool}
+        \hlstd{LocationTable[row,}\hlnum{7}\hlstd{]} \hlkwb{<-} \hlstd{threshold}
+
+      \hlstd{\}}
+
+      \hlkwa{if}\hlstd{(own_race} \hlopt{==} \hlnum{0}\hlstd{)\{}
+      \hlcom{##If the point is green...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlstd{testpoolG}
+        \hlstd{threshold} \hlkwb{<-} \hlstd{thresholdG}
+
+        \hlstd{LocationTable[row,}\hlnum{6}\hlstd{]} \hlkwb{<-} \hlstd{testpool}
+        \hlstd{LocationTable[row,}\hlnum{7}\hlstd{]} \hlkwb{<-} \hlstd{threshold}
+
+      \hlstd{\}}
+
+      \hlkwa{if}\hlstd{(own_race} \hlopt{== -}\hlnum{1}\hlstd{)\{}
+      \hlcom{##If the point is blue...}
+
+        \hlstd{testpool} \hlkwb{<-} \hlstd{testpoolB}
+        \hlstd{threshold} \hlkwb{<-} \hlstd{thresholdB}
+
+        \hlstd{LocationTable[row,}\hlnum{6}\hlstd{]} \hlkwb{<-} \hlstd{testpool}
+        \hlstd{LocationTable[row,}\hlnum{7}\hlstd{]} \hlkwb{<-} \hlstd{threshold}
+
+      \hlstd{\}}
+  \hlstd{\}}
+
+  \hlkwd{print}\hlstd{(LocationTable)}
+
+  \hlstd{maxtestnumb} \hlkwb{<-} \hlkwd{max}\hlstd{(testpoolR, testpoolG, testpoolB)}
+  \hlcom{#Finding max testpool value so we can create neighborlist outside loop}
+
+  \hlstd{LoopUnhappyLocationTable} \hlkwb{<-} \hlstd{LocationTable}
+
+  \hlstd{justXYtable} \hlkwb{=} \hlstd{LocationTable[,}\hlnum{3}\hlopt{:}\hlnum{4}\hlstd{]}
+  \hlcom{#Make seperate table with race value column removed for}
+  \hlcom{#nearest neighbor function}
+
+  \hlstd{neighborList} \hlkwb{<-} \hlkwd{get.knn}\hlstd{(}\hlkwc{data} \hlstd{= justXYtable,} \hlkwc{k} \hlstd{= maxtestnumb)}\hlopt{$}\hlstd{nn.index}
+  \hlcom{## Create matrix of m closest neighbors for each point}
+
+  \hlkwd{print}\hlstd{(neighborList)}
+
+  \hlcom{##Initialize value for total number of neighbors evaluate}
+
+  \hlstd{cycles} \hlkwb{<-} \hlnum{0}
+
+
+\hlkwa{while} \hlstd{((happy_counter}\hlopt{/}\hlstd{n)} \hlopt{<} \hlstd{stop.val)\{}
+
+     \hlstd{NumUnhappy} \hlkwb{<-} \hlkwd{nrow}\hlstd{(LoopUnhappyLocationTable)}
+
+     \hlstd{cycles} \hlkwb{<-} \hlstd{cycles} \hlopt{+} \hlnum{1}
+     \hlstd{happy_counter}\hlkwb{<-} \hlkwd{sum}\hlstd{(LocationTable[,}\hlnum{5}\hlstd{])}
+
+     \hlkwa{for} \hlstd{(row} \hlkwa{in} \hlstd{(}\hlnum{1}\hlopt{:}\hlstd{NumUnhappy))\{}
+     \hlcom{##For a point in the location table...}
+
+       \hlkwa{for} \hlstd{(column} \hlkwa{in} \hlnum{1}\hlopt{:}\hlstd{(LocationTable[row,}\hlnum{6}\hlstd{]))\{}
+       \hlcom{## For each closest neighbor of the given point}
+
+         \hlstd{neighborList} \hlkwb{<-} \hlstd{neighborList[,}\hlnum{1}\hlopt{:}\hlstd{LocationTable[row,}\hlnum{6}\hlstd{]]}
+         \hlcom{##Get rid of extraneous neighbors who are ranked lower than}
+         \hlcom{## k closest}
+
+         \hlstd{a_neighbor} \hlkwb{<-} \hlstd{neighborList[row,column]}
+         \hlcom{## Find numerical value of neighboor in Location matrix}
+
+         \hlstd{a_neighbors_race} \hlkwb{<-} \hlstd{LocationTable[a_neighbor,}\hlnum{1}\hlstd{]}
+         \hlcom{## Find neighbor's race}
+
+           \hlkwa{while} \hlstd{((bad_neighbors} \hlopt{+} \hlstd{good_neighbors)} \hlopt{<} \hlstd{(LocationTable[row,}\hlnum{6}\hlstd{]))\{}
+
+             \hlstd{good_neighbors} \hlkwb{<-} \hlnum{0}
+             \hlstd{bad_neighbors} \hlkwb{<-} \hlnum{0}
+
+             \hlkwa{if} \hlstd{(a_neighbors_race} \hlopt{==} \hlstd{own_race)\{}
+             \hlstd{good_neighbors} \hlkwb{<-} \hlstd{goodneighbors} \hlopt{+} \hlnum{1}
+
+               \hlkwa{if} \hlstd{((good_neighbors} \hlopt{+} \hlstd{bad_neighbors)} \hlopt{==} \hlstd{(LocationTable[row,}\hlnum{6}\hlstd{]))\{}
+                 \hlstd{LocationTable[row,}\hlnum{5}\hlstd{]} \hlkwb{=} \hlnum{1}
+                 \hlstd{LoopUnhappyLocationTable} \hlkwb{=} \hlstd{LoopUnhappyLocationTable[}\hlopt{-}\hlstd{row,]}
+               \hlstd{\}}
+             \hlstd{\}}
+
+             \hlkwa{if} \hlstd{(a_neighbors_race} \hlopt{!=} \hlstd{own_race)\{}
+
+               \hlstd{bad_neighbors} \hlkwb{<-} \hlstd{bad_neighbors} \hlopt{+} \hlnum{1}
+               \hlcom{## If a neighbor's race is different from individual's, }
+               \hlcom{## increase number of bad neighbors}
+
+                 \hlkwa{if} \hlstd{(bad_neighbors} \hlopt{>} \hlstd{(LocationTable[row,}\hlnum{7}\hlstd{]))\{}
+                 \hlcom{##If the number of bad neighbors exceeds threshold...}
+
+                   \hlstd{new_x} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+                   \hlstd{new_y} \hlkwb{<-} \hlkwd{runif}\hlstd{(}\hlnum{1}\hlstd{,} \hlkwc{min}\hlstd{=}\hlnum{0}\hlstd{,} \hlkwc{max}\hlstd{=}\hlnum{1}\hlstd{)}
+
+                   \hlstd{LocationTable[row,}\hlnum{3}\hlstd{]} \hlkwb{<-} \hlstd{new_x}
+                   \hlstd{LocationTable[row,}\hlnum{4}\hlstd{]} \hlkwb{<-} \hlstd{new_y}
+                   \hlstd{LoopUnhappyLocationTable[row,}\hlnum{3}\hlstd{]} \hlkwb{<-} \hlstd{new_x}
+                   \hlstd{LoopUnhappyLocationTable[row,}\hlnum{4}\hlstd{]} \hlkwb{<-} \hlstd{new_y}
+
+                 \hlstd{\}}
+             \hlstd{\}}
+           \hlstd{\}}
+         \hlstd{\}}
+     \hlstd{\}}
+
+   \hlstd{p} \hlkwb{<-} \hlkwd{qplot}\hlstd{(}\hlkwc{x} \hlstd{= LocationTable[,}\hlnum{3}\hlstd{],} \hlkwc{y} \hlstd{= LocationTable [,}\hlnum{4}\hlstd{],} \hlkwc{col} \hlstd{=} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{2}\hlstd{]} \hlopt{< -}\hlnum{0.5}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlkwd{ifelse}\hlstd{(LocationTable[,}\hlnum{2}\hlstd{]} \hlopt{<} \hlnum{0.5}\hlstd{,} \hlstr{"green"}\hlstd{,} \hlstr{"blue"}\hlstd{)))} \hlopt{+} \hlkwd{theme}\hlstd{(}\hlkwc{legend.position} \hlstd{=} \hlstr{"none"}\hlstd{)}
+
+    \hlkwa{if} \hlstd{(cycles} \hlopt{%%} \hlnum{5} \hlopt{==} \hlnum{0}\hlstd{) \{}\hlkwd{print}\hlstd{(p)\}}
+ \hlstd{\}}
+
+\hlkwd{return}\hlstd{(cycles)}
+\hlstd{\}}
+
+\hlkwd{Schelling}\hlstd{(testRacialPreferenceTable)}
+\end{alltt}
+\begin{verbatim}
+##   Count                          Happy Testpool Threshold
+## R     1  1 0.88087670 0.29227436     0        5         2
+## R     2  1 0.50111460 0.53932951     0        5         2
+## R     3  1 0.34984375 0.39117480     0        5         2
+## R     4  1 0.71935381 0.35087338     0        5         2
+## R     5  1 0.46636470 0.50625997     0        5         2
+## R     6  1 0.37548038 0.79547449     0        5         2
+## R     7  1 0.48403496 0.71971009     0        5         2
+## R     8  1 0.16247257 0.68690637     0        5         2
+## R     9  1 0.19127365 0.88560590     0        5         2
+## R    10  1 0.71405276 0.60097207     0        5         2
+## R    11  1 0.60577097 0.84048701     0        5         2
+## R    12  1 0.63742605 0.22005018     0        5         2
+## R    13  1 0.03969718 0.80952938     0        5         2
+## R    14  1 0.69181073 0.26153457     0        5         2
+## R    15  1 0.65363839 0.66415248     0        5         2
+## R    16  1 0.63901260 0.83302126     0        5         2
+## R    17  1 0.52979992 0.25700429     0        5         2
+## R    18  1 0.98889149 0.16865283     0        5         2
+## R    19  1 0.42661108 0.61516778     0        5         2
+## R    20  1 0.87949560 0.24409957     0        5         2
+## G    21  0 0.31329813 0.98882309     0        5         2
+## G    22  0 0.41195102 0.26577442     0        5         2
+## G    23  0 0.25931412 0.98791598     0        5         2
+## G    24  0 0.73325532 0.20144791     0        5         2
+## G    25  0 0.07781230 0.53302146     0        5         2
+## G    26  0 0.96087329 0.90699890     0        5         2
+## G    27  0 0.56762140 0.30803760     0        5         2
+## G    28  0 0.81676286 0.37110086     0        5         2
+## G    29  0 0.46643300 0.11548545     0        5         2
+## G    30  0 0.91045513 0.42004432     0        5         2
+## B    31 -1 0.95330606 0.99217334     0        5         2
+## B    32 -1 0.21233086 0.34319235     0        5         2
+## B    33 -1 0.60603245 0.03649611     0        5         2
+## B    34 -1 0.49077000 0.05688147     0        5         2
+## B    35 -1 0.07772721 0.55111953     0        5         2
+## B    36 -1 0.52250407 0.68272916     0        5         2
+## B    37 -1 0.44620386 0.21901630     0        5         2
+## B    38 -1 0.26996361 0.03462394     0        5         2
+## B    39 -1 0.16472249 0.53875963     0        5         2
+## B    40 -1 0.29034521 0.59171952     0        5         2
+##       [,1] [,2] [,3] [,4] [,5]
+##  [1,]   20   28   30   18    4
+##  [2,]    5   19   36    7   15
+##  [3,]   22   32    5   37   40
+##  [4,]   14   28   24   12   27
+##  [5,]    2   19    3   36   40
+##  [6,]    7   36   19   21    9
+##  [7,]   36   19    6   11   15
+##  [8,]   39   40   35   13   25
+##  [9,]   23   21   13    8    6
+## [10,]   15   36    2   16    4
+## [11,]   16    7   36   15    6
+## [12,]   14   24   27   17    4
+## [13,]    9    8   35   25   23
+## [14,]   12   24    4   27   17
+## [15,]   10   36   16    7   11
+## [16,]   11   15   36    7   10
+## [17,]   27   37   12   22   29
+## [18,]   20    1   24   30   28
+## [19,]    2    5   36    7   40
+## [20,]    1   18   28   24   30
+## [21,]   23    9    6    7   13
+## [22,]   37   17    3   29   27
+## [23,]   21    9    6   13    8
+## [24,]   14   12    4   20    1
+## [25,]   35   39    8   40   32
+## [26,]   31   16   11   15   10
+## [27,]   17   12   14   37    4
+## [28,]    4    1   30   20   14
+## [29,]   34   37   17   22   33
+## [30,]   28    1   20    4   18
+## [31,]   26   16   11   15   10
+## [32,]    3   39   22   25   35
+## [33,]   34   29   12   24   17
+## [34,]   29   33   37   17   12
+## [35,]   25   39    8   40   32
+## [36,]    7   19   15    2   11
+## [37,]   22   17   29   27   34
+## [38,]   29   34   37   22   32
+## [39,]   25   35   40    8   32
+## [40,]   39   19    8    5    3
+\end{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'bad\_neighbors' not found}}\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
+\begin{kframe}\begin{alltt}
+\hlcom{# print(system.time(Schelling(testRacialPreferenceTable)))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\section{Machinery for the Schelling Model}
+
+
+
+\end{document}
