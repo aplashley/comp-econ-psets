@@ -1,0 +1,18 @@
+\documentclass{article}
+
+\title{Problem Set 1}
+\author{Tony Lashley}
+\date{April 20, 2015}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+
+
+\begin{document}
+\section{Numerically solving for the steady state}
+\subsection{Write a function that calculates distances between coordinate points}
+
+
+
+
+\end{document}
