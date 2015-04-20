@@ -1,0 +1,136 @@
+\documentclass{article}
+
+\title{Problem Set 1}
+\author{Tony Lashley}
+\date{April 20, 2015}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+
+
+\begin{document}
+\section{Numerically solving for the steady state}
+\subsection{Write a function that analytically solves for the steady state of the model in section 1 given δ and r as inputs into the function}
+<<>>==
+
+library(ggplot2)
+library(reshape2)
+
+library(foreach)  
+library(doParallel)  
+library(parallel)
+
+require(foreach)
+require(doParallel)
+require(parallel)
+require(ggplot2)
+
+numCores <- detectCores()  
+cl <- makeCluster(numCores)  
+registerDoParallel(cl)
+
+testr1 = .2
+testdelt1 = .1
+testr2 = .3
+testdelt2 = .9
+
+oldsteadystatefunction <- function(r = testr, δ = testdelt){
+  
+Pss <- (100*(1+r)*δ) / ((δ^2) + ((1+δ)*r) + 1)
+Iss <- Pss
+Kss <- (100*(1+r)) / ((δ^2) + ((1+δ)*r) + 1)
+Rss <- 100 - Kss
+
+out <- c(Pss, Iss, Kss, Rss)
+return(out)
+
+}
+
+oldsteadystatefunction(testr1, testdelt1)
+oldsteadystatefunction(testr2, testdelt1)
+oldsteadystatefunction(testr1, testdelt2)
+
+newsteadystatefunction <- function(r = testr, δ = testdelt){
+  
+Pss <- (120*(1+r)*δ) / ((δ^2) + ((1+δ)*r) + 1)
+Iss <- Pss
+Kss <- (120*(1+r)) / ((δ^2) + ((1+δ)*r) + 1)
+Rss <- 120 - Kss
+
+out <- c(Pss, Iss, Kss, Rss)
+return(out)
+
+}
+@
+
+\subsection{Write a function that numerically solves for the steady state of the model}
+
+<<>>==
+
+set.seed(20866) 
+library(nleqslv)
+
+steadystateSolve <- function(x,r,δ){
+  
+  P = x[1]
+  I = x[2]
+  K = x[3]
+  R = x[4]
+  
+  F1 = (δ * K) - P
+  F2 = P - (((1 - δ)/(1 + r)) * P) - R
+  F3 = 100 - R - K
+  F4 = P - I
+
+  return(c(Pss=F1, Iss=F4, Kss=F3, Rss=F2))
+}
+
+sol1 <- nleqslv(x=c(10,10,10,10),
+fn = steadystateSolve, r = .2, δ = .1)
+
+sol2 <- nleqslv(x=c(10,10,10,10),
+fn = steadystateSolve, r = .3, δ = .1)
+
+sol3 <- nleqslv(x=c(10,10,10,10),
+fn = steadystateSolve, r = .2, δ = .9)
+
+print(sol1$x)
+print(sol2$x)
+print(sol3$x)
+
+@
+
+\section{Simulating economic transitions}
+\subsection{Change in the demand for housing}
+\subsubsection{Write function that takes previous steady state plus guess at next period price and returns the value of all parameters for the next 100 periods}
+
+<<>>==
+
+guess = 10
+
+oldSS = oldsteadystatefunction(testr1, testdelt1)
+newSS = newsteadystatefunction(testr1, testdelt1)
+
+adjustPath <- function(p = guess, maxperiods = 100, newSS, oldSS, 
+shockperiod = 3, delta = 0.1, r = 0.2) {
+  
+  table <- matrix(ncol = 4, nrow = maxperiods)
+  Period <- c(1:nrow(table))
+  table <- cbind(Period,table)
+  colnames(table) <- c("Period","P", "I", "K", "R")
+  
+  
+  
+}
+
+adjustPath(guess, 100, newSS, oldSS, 3, 0.1, 0.2)
+           
+@
+  
+
+
+
+
+
+
+\end{document}

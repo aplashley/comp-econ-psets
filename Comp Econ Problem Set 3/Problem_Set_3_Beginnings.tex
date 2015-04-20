@@ -1,0 +1,325 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\title{Problem Set 1}
+\author{Tony Lashley}
+\date{April 20, 2015}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\section{Numerically solving for the steady state}
+\subsection{Write a function that analytically solves for the steady state of the model in section 1 given δ and r as inputs into the function}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(ggplot2)}
+\hlkwd{library}\hlstd{(reshape2)}
+
+\hlkwd{library}\hlstd{(foreach)}
+\hlkwd{library}\hlstd{(doParallel)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: iterators\\\#\# Loading required package: parallel}}\begin{alltt}
+\hlkwd{library}\hlstd{(parallel)}
+
+\hlkwd{require}\hlstd{(foreach)}
+\hlkwd{require}\hlstd{(doParallel)}
+\hlkwd{require}\hlstd{(parallel)}
+\hlkwd{require}\hlstd{(ggplot2)}
+
+\hlstd{numCores} \hlkwb{<-} \hlkwd{detectCores}\hlstd{()}
+\hlstd{cl} \hlkwb{<-} \hlkwd{makeCluster}\hlstd{(numCores)}
+\hlkwd{registerDoParallel}\hlstd{(cl)}
+
+\hlstd{testr1} \hlkwb{=} \hlnum{.2}
+\hlstd{testdelt1} \hlkwb{=} \hlnum{.1}
+\hlstd{testr2} \hlkwb{=} \hlnum{.3}
+\hlstd{testdelt2} \hlkwb{=} \hlnum{.9}
+
+\hlstd{oldsteadystatefunction} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{r} \hlstd{= testr,}\hlkwc{δ} \hlstd{= testdelt)\{}
+
+\hlstd{Pss} \hlkwb{<-} \hlstd{(}\hlnum{100}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{r)}\hlopt{*}\hlstd{δ)} \hlopt{/} \hlstd{((δ}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlstd{((}\hlnum{1}\hlopt{+}\hlstd{δ)}\hlopt{*}\hlstd{r)} \hlopt{+} \hlnum{1}\hlstd{)}
+\hlstd{Iss} \hlkwb{<-} \hlstd{Pss}
+\hlstd{Kss} \hlkwb{<-} \hlstd{(}\hlnum{100}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{r))} \hlopt{/} \hlstd{((δ}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlstd{((}\hlnum{1}\hlopt{+}\hlstd{δ)}\hlopt{*}\hlstd{r)} \hlopt{+} \hlnum{1}\hlstd{)}
+\hlstd{Rss} \hlkwb{<-} \hlnum{100} \hlopt{-} \hlstd{Kss}
+
+\hlstd{out} \hlkwb{<-} \hlkwd{c}\hlstd{(Pss, Iss, Kss, Rss)}
+\hlkwd{return}\hlstd{(out)}
+
+\hlstd{\}}
+
+\hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt1)}
+\end{alltt}
+\begin{verbatim}
+## [1]  9.756098  9.756098 97.560976  2.439024
+\end{verbatim}
+\begin{alltt}
+\hlkwd{oldsteadystatefunction}\hlstd{(testr2, testdelt1)}
+\end{alltt}
+\begin{verbatim}
+## [1]  9.701493  9.701493 97.014925  2.985075
+\end{verbatim}
+\begin{alltt}
+\hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt2)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49.31507 49.31507 54.79452 45.20548
+\end{verbatim}
+\begin{alltt}
+\hlstd{newsteadystatefunction} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{r} \hlstd{= testr,}\hlkwc{δ} \hlstd{= testdelt)\{}
+
+\hlstd{Pss} \hlkwb{<-} \hlstd{(}\hlnum{120}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{r)}\hlopt{*}\hlstd{δ)} \hlopt{/} \hlstd{((δ}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlstd{((}\hlnum{1}\hlopt{+}\hlstd{δ)}\hlopt{*}\hlstd{r)} \hlopt{+} \hlnum{1}\hlstd{)}
+\hlstd{Iss} \hlkwb{<-} \hlstd{Pss}
+\hlstd{Kss} \hlkwb{<-} \hlstd{(}\hlnum{120}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{+}\hlstd{r))} \hlopt{/} \hlstd{((δ}\hlopt{^}\hlnum{2}\hlstd{)} \hlopt{+} \hlstd{((}\hlnum{1}\hlopt{+}\hlstd{δ)}\hlopt{*}\hlstd{r)} \hlopt{+} \hlnum{1}\hlstd{)}
+\hlstd{Rss} \hlkwb{<-} \hlnum{120} \hlopt{-} \hlstd{Kss}
+
+\hlstd{out} \hlkwb{<-} \hlkwd{c}\hlstd{(Pss, Iss, Kss, Rss)}
+\hlkwd{return}\hlstd{(out)}
+
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Write a function that numerically solves for the steady state of the model}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hlstd{(}\hlnum{20866}\hlstd{)}
+\hlkwd{library}\hlstd{(nleqslv)}
+
+\hlstd{steadystateSolve} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{r}\hlstd{,}\hlkwc{δ}\hlstd{)\{}
+
+  \hlstd{P} \hlkwb{=} \hlstd{x[}\hlnum{1}\hlstd{]}
+  \hlstd{I} \hlkwb{=} \hlstd{x[}\hlnum{2}\hlstd{]}
+  \hlstd{K} \hlkwb{=} \hlstd{x[}\hlnum{3}\hlstd{]}
+  \hlstd{R} \hlkwb{=} \hlstd{x[}\hlnum{4}\hlstd{]}
+
+  \hlstd{F1} \hlkwb{=} \hlstd{(δ} \hlopt{*} \hlstd{K)} \hlopt{-} \hlstd{P}
+  \hlstd{F2} \hlkwb{=} \hlstd{P} \hlopt{-} \hlstd{(((}\hlnum{1} \hlopt{-}\hlstd{δ)}\hlopt{/}\hlstd{(}\hlnum{1} \hlopt{+} \hlstd{r))} \hlopt{*} \hlstd{P)} \hlopt{-} \hlstd{R}
+  \hlstd{F3} \hlkwb{=} \hlnum{100} \hlopt{-} \hlstd{R} \hlopt{-} \hlstd{K}
+  \hlstd{F4} \hlkwb{=} \hlstd{P} \hlopt{-} \hlstd{I}
+
+  \hlkwd{return}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwc{Pss}\hlstd{=F1,} \hlkwc{Iss}\hlstd{=F4,} \hlkwc{Kss}\hlstd{=F3,} \hlkwc{Rss}\hlstd{=F2))}
+\hlstd{\}}
+
+\hlstd{sol1} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
+\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
+
+\hlstd{sol2} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
+\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.3}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
+
+\hlstd{sol3} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
+\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.9}\hlstd{)}
+
+\hlkwd{print}\hlstd{(sol1}\hlopt{$}\hlstd{x)}
+\end{alltt}
+\begin{verbatim}
+## [1]  9.756098  9.756098 97.560976  2.439024
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hlstd{(sol2}\hlopt{$}\hlstd{x)}
+\end{alltt}
+\begin{verbatim}
+## [1]  9.701493  9.701493 97.014925  2.985075
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hlstd{(sol3}\hlopt{$}\hlstd{x)}
+\end{alltt}
+\begin{verbatim}
+## [1] 49.31507 49.31507 54.79452 45.20548
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Simulating economic transitions}
+\subsection{Change in the demand for housing}
+\subsubsection{Write function that takes previous steady state plus guess at next period price and returns the value of all parameters for the next 100 periods}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{guess} \hlkwb{=} \hlnum{10}
+
+\hlstd{oldSS} \hlkwb{=} \hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt1)}
+\hlstd{newSS} \hlkwb{=} \hlkwd{newsteadystatefunction}\hlstd{(testr1, testdelt1)}
+
+\hlstd{adjustPath} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{p} \hlstd{= guess,} \hlkwc{maxperiods} \hlstd{=} \hlnum{100}\hlstd{,} \hlkwc{newSS}\hlstd{,} \hlkwc{oldSS}\hlstd{,}
+\hlkwc{shockperiod} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{delta} \hlstd{=} \hlnum{0.1}\hlstd{,} \hlkwc{r} \hlstd{=} \hlnum{0.2}\hlstd{) \{}
+
+  \hlstd{table} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{4}\hlstd{,} \hlkwc{nrow} \hlstd{= maxperiods)}
+  \hlstd{Period} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(table))}
+  \hlstd{table} \hlkwb{<-} \hlkwd{cbind}\hlstd{(Period,table)}
+  \hlkwd{colnames}\hlstd{(table)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Period"}\hlstd{,}\hlstr{"P"}\hlstd{,} \hlstr{"I"}\hlstd{,} \hlstr{"K"}\hlstd{,} \hlstr{"R"}\hlstd{)}
+
+  \hlkwd{return}\hlstd{(table)}
+
+\hlstd{\}}
+
+\hlkwd{adjustPath}\hlstd{(guess,} \hlnum{100}\hlstd{, newSS, oldSS,} \hlnum{3}\hlstd{,} \hlnum{0.1}\hlstd{,} \hlnum{0.2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##        Period  P  I  K  R
+##   [1,]      1 NA NA NA NA
+##   [2,]      2 NA NA NA NA
+##   [3,]      3 NA NA NA NA
+##   [4,]      4 NA NA NA NA
+##   [5,]      5 NA NA NA NA
+##   [6,]      6 NA NA NA NA
+##   [7,]      7 NA NA NA NA
+##   [8,]      8 NA NA NA NA
+##   [9,]      9 NA NA NA NA
+##  [10,]     10 NA NA NA NA
+##  [11,]     11 NA NA NA NA
+##  [12,]     12 NA NA NA NA
+##  [13,]     13 NA NA NA NA
+##  [14,]     14 NA NA NA NA
+##  [15,]     15 NA NA NA NA
+##  [16,]     16 NA NA NA NA
+##  [17,]     17 NA NA NA NA
+##  [18,]     18 NA NA NA NA
+##  [19,]     19 NA NA NA NA
+##  [20,]     20 NA NA NA NA
+##  [21,]     21 NA NA NA NA
+##  [22,]     22 NA NA NA NA
+##  [23,]     23 NA NA NA NA
+##  [24,]     24 NA NA NA NA
+##  [25,]     25 NA NA NA NA
+##  [26,]     26 NA NA NA NA
+##  [27,]     27 NA NA NA NA
+##  [28,]     28 NA NA NA NA
+##  [29,]     29 NA NA NA NA
+##  [30,]     30 NA NA NA NA
+##  [31,]     31 NA NA NA NA
+##  [32,]     32 NA NA NA NA
+##  [33,]     33 NA NA NA NA
+##  [34,]     34 NA NA NA NA
+##  [35,]     35 NA NA NA NA
+##  [36,]     36 NA NA NA NA
+##  [37,]     37 NA NA NA NA
+##  [38,]     38 NA NA NA NA
+##  [39,]     39 NA NA NA NA
+##  [40,]     40 NA NA NA NA
+##  [41,]     41 NA NA NA NA
+##  [42,]     42 NA NA NA NA
+##  [43,]     43 NA NA NA NA
+##  [44,]     44 NA NA NA NA
+##  [45,]     45 NA NA NA NA
+##  [46,]     46 NA NA NA NA
+##  [47,]     47 NA NA NA NA
+##  [48,]     48 NA NA NA NA
+##  [49,]     49 NA NA NA NA
+##  [50,]     50 NA NA NA NA
+##  [51,]     51 NA NA NA NA
+##  [52,]     52 NA NA NA NA
+##  [53,]     53 NA NA NA NA
+##  [54,]     54 NA NA NA NA
+##  [55,]     55 NA NA NA NA
+##  [56,]     56 NA NA NA NA
+##  [57,]     57 NA NA NA NA
+##  [58,]     58 NA NA NA NA
+##  [59,]     59 NA NA NA NA
+##  [60,]     60 NA NA NA NA
+##  [61,]     61 NA NA NA NA
+##  [62,]     62 NA NA NA NA
+##  [63,]     63 NA NA NA NA
+##  [64,]     64 NA NA NA NA
+##  [65,]     65 NA NA NA NA
+##  [66,]     66 NA NA NA NA
+##  [67,]     67 NA NA NA NA
+##  [68,]     68 NA NA NA NA
+##  [69,]     69 NA NA NA NA
+##  [70,]     70 NA NA NA NA
+##  [71,]     71 NA NA NA NA
+##  [72,]     72 NA NA NA NA
+##  [73,]     73 NA NA NA NA
+##  [74,]     74 NA NA NA NA
+##  [75,]     75 NA NA NA NA
+##  [76,]     76 NA NA NA NA
+##  [77,]     77 NA NA NA NA
+##  [78,]     78 NA NA NA NA
+##  [79,]     79 NA NA NA NA
+##  [80,]     80 NA NA NA NA
+##  [81,]     81 NA NA NA NA
+##  [82,]     82 NA NA NA NA
+##  [83,]     83 NA NA NA NA
+##  [84,]     84 NA NA NA NA
+##  [85,]     85 NA NA NA NA
+##  [86,]     86 NA NA NA NA
+##  [87,]     87 NA NA NA NA
+##  [88,]     88 NA NA NA NA
+##  [89,]     89 NA NA NA NA
+##  [90,]     90 NA NA NA NA
+##  [91,]     91 NA NA NA NA
+##  [92,]     92 NA NA NA NA
+##  [93,]     93 NA NA NA NA
+##  [94,]     94 NA NA NA NA
+##  [95,]     95 NA NA NA NA
+##  [96,]     96 NA NA NA NA
+##  [97,]     97 NA NA NA NA
+##  [98,]     98 NA NA NA NA
+##  [99,]     99 NA NA NA NA
+## [100,]    100 NA NA NA NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+  
+
+
+
+
+
+
+\end{document}

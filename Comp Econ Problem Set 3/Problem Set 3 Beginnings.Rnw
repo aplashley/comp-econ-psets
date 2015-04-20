@@ -10,9 +10,41 @@
 
 \begin{document}
 \section{Numerically solving for the steady state}
-\subsection{Write a function that calculates distances between coordinate points}
+\subsection{Write a function that analytically solves for the steady state of the model in section 1 given δ and r as inputs into the function}
+<<>>==
 
+library(ggplot2)
+library(reshape2)
 
+library(foreach)  
+library(doParallel)  
+library(parallel)
 
+require(foreach)
+require(doParallel)
+require(parallel)
+require(ggplot2)
+
+numCores <- detectCores()  
+cl <- makeCluster(numCores)  
+registerDoParallel(cl)
+
+testr = .2
+testdelt = .1
+
+steadystatefunction <- function(r = testr, δ = testdelt){
+  
+Pss <- (100*(1+r)*δ) / ((δ^2) + ((1+δ)*r) + 1)
+Iss <- Pss
+Kss <- (100*(1+r)*δ) / ((δ^2) + ((1+δ)*r) + 1)
+Rss <- 100 - Kss
+
+print("Steady state price is" Pss, "Steady state investment is" Iss )
+print("Steady state capital is" Kss, "Steady state rental price is" Rss)  
+
+}
+
+steadystatefunction(testr, testdelt)
+@
 
 \end{document}
