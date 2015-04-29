@@ -27,8 +27,8 @@ library(stargazer)
 
 setwd("/Users/Tony/Downloads")
 
-data <- read.csv("cps_00003.csv")
-datamatrix <- as.matrix(read.csv("cps_00003.csv"))
+data <- read.csv("cps_00004.csv")
+datamatrix <- as.matrix(read.csv("cps_00004.csv"))
 datamatrix <- datamatrix[,-5:-8]
 datamatrix <- datamatrix[,-2:-3]
 
@@ -60,9 +60,12 @@ incomeadjust <- function(data.m = datamatrix){
     
   }
   
-  return(datamatrix[,10])
-  print(head(datamatrix, n=5))
-  print(tail(datamatrix, n=5))
+ 
+  top <- head(datamatrix, n=5)
+  bottom<- tail(datamatrix, n=5)
+  
+  sample <- rbind(top,bottom)
+  return(sample)
   
 }
 
@@ -70,33 +73,59 @@ incomeadjust(datamatrix)
 
 @
 
+To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator, which told me that a dollar in 2004 has the same buying power as $1.25 in 2014. Therefore, to adjust 2004 income to its 2014 equivalent, I wrote a function that multiplied all 2004 incomes by $1.25.
+
 \subsection{Make a new variable that is log wage income in your data}
 
 <<>>==
 
-AdjustedIncomeCol <- incomeadjust(datamatrix)
+sample <- incomeadjust(datamatrix)
+logVar <- c(rep(NA, nrow(sample)))
+sample <- cbind(sample, logVar)
 
-logVarCol <- c(rep(NA, nrow(datamatrix)))
-newVarCols <- cbind(AdjustedIncomeCol, logVarCol)
 
-logvarf <- function(m.columns = newVarCols){
+
+logVarf <- function(data.m = sample){
   
-  for (i in 1:nrow(newVarCols)){
+  for (i in 1:nrow(sample)){
     
-    rowIncomeLog <- log(newVarCols[i,1]) 
-    newVarCols[i,2] = rowIncomeLog
+    rowIncomeLog <- log(sample[i,10]) 
+    sample[i,11] <- round(rowIncomeLog)
     
   }  
   
-  print(head(newVarCols, n=5))
-  print(tail(newVarCols, n=5))
+  ## return(datamatrix) Commenting out so it doesn't actually return this
+  print(sample)
   
 }
 
-logvarf(newVarCols)
+logVarf(sample)
 
 @
 
+\subsection{Construct "potential experience", which will be "Age - years of schooling - 5"}
 
+<<>>==
+
+sample <- logvarf(sample)
+potExp <- c(rep(NA, nrow(sample)))
+sample <- cbind(sample, potExp)
+
+potExpf <- function(data.m = sample){
+  
+  for (i in 1:nrow(sample)){
+    
+    rowPotExp <- log(sample[i,10]) 
+    sample[i,11] <- round(rowIncomeLog)
+    
+  }  
+  
+  ## return(datamatrix) Commenting out so it doesn't actually return this
+  print(sample)
+  
+}
+
+
+@
 
 \end{document}
