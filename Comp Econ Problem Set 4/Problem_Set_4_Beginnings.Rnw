@@ -1,0 +1,102 @@
+\documentclass{article}
+
+\title{Problem Set 1}
+\author{Tony Lashley}
+\date{April 30, 2015}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section{Function Approximation Warmup}
+\subsection{Exploring and downloading the data}
+
+<<>>==
+
+rm(list=ls())           # Clear the workspace
+set.seed(20866) 
+library(ggplot2)
+library(sandwich)
+library(car)
+library(xtable)
+library(aod)
+library(systemfit)
+library(MASS)
+library(stargazer)
+
+setwd("/Users/Tony/Downloads")
+
+data <- read.csv("cps_00003.csv")
+datamatrix <- as.matrix(read.csv("cps_00003.csv"))
+datamatrix <- datamatrix[,-5:-8]
+datamatrix <- datamatrix[,-2:-3]
+
+AdjInc <- c(rep(NA, nrow(datamatrix)))
+
+datamatrix <- cbind(datamatrix, AdjInc)
+
+incomeadjust <- function(data.m = datamatrix){
+  
+  for (i in 1:nrow(datamatrix)){
+    
+    year <- as.numeric(datamatrix[i,1])
+    income <- as.numeric(datamatrix[i,9])
+    
+    if (year == 2004){
+      
+      AdjustedIncome <- income * 1.25
+      datamatrix[i,10] = round(AdjustedIncome)
+      
+    }
+    
+    if (year == 2014){
+      
+      AdjustedIncome <- income
+      datamatrix[i,10] = round(AdjustedIncome)
+      
+    }
+    
+    
+  }
+  
+  return(datamatrix[,10])
+  print(head(datamatrix, n=5))
+  print(tail(datamatrix, n=5))
+  
+}
+
+incomeadjust(datamatrix)
+
+@
+
+\subsection{Make a new variable that is log wage income in your data}
+
+<<>>==
+
+AdjustedIncomeCol <- incomeadjust(datamatrix)
+
+logVarCol <- c(rep(NA, nrow(datamatrix)))
+newVarCols <- cbind(AdjustedIncomeCol, logVarCol)
+
+logvarf <- function(m.columns = newVarCols){
+  
+  for (i in 1:nrow(newVarCols)){
+    
+    rowIncomeLog <- log(newVarCols[i,1]) 
+    newVarCols[i,2] = rowIncomeLog
+    
+  }  
+  
+  print(head(newVarCols, n=5))
+  print(tail(newVarCols, n=5))
+  
+}
+
+logvarf(newVarCols)
+
+@
+
+
+
+\end{document}

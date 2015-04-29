@@ -1,0 +1,70 @@
+\documentclass{article}
+
+\title{Problem Set 1}
+\author{Tony Lashley}
+\date{April 30, 2015}
+
+\usepackage{mathtools}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section{Function Approximation Warmup}
+\subsection{Exploring and downloading the data}
+
+<<>>==
+
+rm(list=ls())           # Clear the workspace
+set.seed(20866) 
+library(ggplot2)
+library(sandwich)
+library(car)
+library(xtable)
+library(aod)
+library(AER)
+library(systemfit)
+library(MASS)
+library(stargazer)
+
+data <- read.csv("cps_00003.csv")
+datamatrix <- as.matrix(read.csv("cps_00003.csv"))
+datamatrix <- datamatrix[,-5:-8]
+datamatrix <- datamatrix[,-2:-3]
+
+AdjustedIncomeColumn <- c(rep(NA, nrow(datamatrix)))
+
+datamatrix <- cbind(datamatrix, AdjustedIncomeColumn)
+
+incomeadjust <- function(data.m = datamatrix){
+  
+  for (i in 1:nrow(datamatrix)){
+    
+    year <- as.numeric(datamatrix[i,1])
+    income <- as.numeric(datamatrix[i,9])
+    
+    if (year == 2004){
+      
+      AdjustedIncome <- income * 1.25
+      datamatrix[i,10] = AdjustedIncome
+      
+    }
+    
+    if (year == 2014){
+      
+      AdjustedIncome <- income
+      datamatrix[i,10] = AdjustedIncome
+      
+    }
+    
+    
+  }  
+  
+}
+
+incomeadjust(datamatrix)
+
+@
+
+
+
+\end{document}

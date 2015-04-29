@@ -57,8 +57,78 @@
 \usepackage{graphicx}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
+
+\section{Solving for steady state}
+\subsection{Write an equation that expresses price at period t as the discounted future flow of rent}
+
+\begin{math}
+P_t = R_t + ((1 - \delta) / (1 + r))R_t+1 + ((1 - \delta)^2 / (1 + r)^2)R_t+2 + \ldots
+\end{math}
+
+\subsection{Write down steady state equations}
+
+\begin{math}
+K_s = (1 - \delta)K_s + I_s \newline
+R_s = P_s - (1 - \delta) / (1 + r))P_s \newline
+K_s = 100 - R_s \newline
+I_s = P_s \newline
+\end{math}
+
+\subsection{Analytically solve steady state equations}
+
+\begin{math}
+P_s = 100(1 + r)(\delta) / (\delta^2 + (1 + \delta)r + 1) \\
+I_s = 100(1 + r)(\delta) / (\delta^2 + (1 + \delta)r + 1) \\
+K_s = 100(1 + r) / (\delta^2 + (1 + \delta)r + 1) \\
+R_s = 100 - (100(1 + r) / (\delta^2 + (1 + \delta)r + 1)) \\
+\end{math}
+
+\subsection{How do the steady state values change if r increases? What's the intuition?}
+
+\begin{itemize}
+  \item Steady state price level should increase, assuming $\delta >$ 1/99. \\
+  \item Steady state investment level should increase. \\
+  \item Steady state capital stock should increase. \\
+  \item Steady state capital stock should decrease. \\
+\end{itemize}
+
+Economic Intuition: If investors can now make more money keeping money in the bank or investing elsewhere in the economy, they will need more of an incentive to continue to invest in housing, and that incentive is higher prices. These higher prices will drive an increase in capital stock which will eventualy cause the natural steady-stat price to fall as there is now more housing stock.
+
+\subsection{How do the steady state values change if delta increases? What's the intuition?}
+\begin{itemize}
+  \item Steady state price level should increase\\
+  \item Steady state investment level should increase. \\
+  \item Steady state capital stock should decrease. \\
+  \item Steady state capital stock should increase. \\
+\end{itemize}
+
+Economic Intuition: An increase in delta means that houses depreciate more quickly, which means that more investment is required to maintain housing stock for demand, but this increase in depreciation also means that overall housing stock will go down as housing becomes a less appealing asset. and rents will increase as the PDV of a house shifts more towards the present.
+
+\subsection{Suppose demand shifts to 120 - R}
+
+If demand changes to 120 - R. this essentially means that the maximum rent that someone is willing to pay in time t has increased from 100 to 120. This upward/rightward shift in the demand curve means that steady-state price, investment, and housing stock values will increase as there becomes essentially more price discrimination in the market and the market will expand to create stock fo rthe new high-end demand, and rents should decrease as consumers now have more housing options. 
+
+\subsection{Suppose gov't begins taxing housing construction. How will this change steady state?}
+
+This effectively means that there is a tax on investment, which increase the steady state price of a house, and steady state investment rates, but has no effect on rental rates at steady state or housing stock. 
+
+If the gov't decided to begin taxing rent, it obviously means that steady-state rental rates would go up with the tax, and that demand and housing stock would fall, with investment and the price of a house
+
+\section{Counterfactual analysis}
+
+Graphs to follow. /newline
+
+
+
+
+
+
+
+
+
 \section{Numerically solving for the steady state}
 \subsection{Write a function that analytically solves for the steady state of the model in section 1 given δ and r as inputs into the function}
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -140,7 +210,7 @@
 \hlkwd{set.seed}\hlstd{(}\hlnum{20866}\hlstd{)}
 \hlkwd{library}\hlstd{(nleqslv)}
 
-\hlstd{steadystateSolve} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{r}\hlstd{,}\hlkwc{δ}\hlstd{)\{}
+\hlstd{oldsteadystateSolve} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{r}\hlstd{,}\hlkwc{δ}\hlstd{)\{}
 
   \hlstd{P} \hlkwb{=} \hlstd{x[}\hlnum{1}\hlstd{]}
   \hlstd{I} \hlkwb{=} \hlstd{x[}\hlnum{2}\hlstd{]}
@@ -155,15 +225,37 @@
   \hlkwd{return}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwc{Pss}\hlstd{=F1,} \hlkwc{Iss}\hlstd{=F4,} \hlkwc{Kss}\hlstd{=F3,} \hlkwc{Rss}\hlstd{=F2))}
 \hlstd{\}}
 
+\hlstd{newsteadystateSolve} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{,}\hlkwc{r}\hlstd{,}\hlkwc{δ}\hlstd{)\{}
+
+  \hlstd{P} \hlkwb{=} \hlstd{x[}\hlnum{1}\hlstd{]}
+  \hlstd{I} \hlkwb{=} \hlstd{x[}\hlnum{2}\hlstd{]}
+  \hlstd{K} \hlkwb{=} \hlstd{x[}\hlnum{3}\hlstd{]}
+  \hlstd{R} \hlkwb{=} \hlstd{x[}\hlnum{4}\hlstd{]}
+
+  \hlstd{F1} \hlkwb{=} \hlstd{(δ} \hlopt{*} \hlstd{K)} \hlopt{-} \hlstd{P}
+  \hlstd{F2} \hlkwb{=} \hlstd{P} \hlopt{-} \hlstd{(((}\hlnum{1} \hlopt{-}\hlstd{δ)}\hlopt{/}\hlstd{(}\hlnum{1} \hlopt{+} \hlstd{r))} \hlopt{*} \hlstd{P)} \hlopt{-} \hlstd{R}
+  \hlstd{F3} \hlkwb{=} \hlnum{120} \hlopt{-} \hlstd{R} \hlopt{-} \hlstd{K}
+  \hlstd{F4} \hlkwb{=} \hlstd{P} \hlopt{-} \hlstd{I}
+
+  \hlkwd{return}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwc{Pss}\hlstd{=F1,} \hlkwc{Iss}\hlstd{=F4,} \hlkwc{Kss}\hlstd{=F3,} \hlkwc{Rss}\hlstd{=F2))}
+\hlstd{\}}
+
 \hlstd{sol1} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
-\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
+\hlkwc{fn} \hlstd{= oldsteadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
 
 \hlstd{sol2} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
-\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.3}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
+\hlkwc{fn} \hlstd{= oldsteadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.3}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.1}\hlstd{)}
 
 \hlstd{sol3} \hlkwb{<-} \hlkwd{nleqslv}\hlstd{(}\hlkwc{x}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{),}
-\hlkwc{fn} \hlstd{= steadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.9}\hlstd{)}
+\hlkwc{fn} \hlstd{= oldsteadystateSolve,} \hlkwc{r} \hlstd{=} \hlnum{.2}\hlstd{,}\hlkwc{δ} \hlstd{=} \hlnum{.9}\hlstd{)}
 
+\hlkwd{newsteadystateSolve}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{97.56098}\hlstd{,}\hlnum{2.439024}\hlstd{),} \hlnum{.2}\hlstd{,} \hlnum{.1}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##       Pss       Iss       Kss       Rss 
+## -0.243902  0.000000 19.999996  0.060976
+\end{verbatim}
+\begin{alltt}
 \hlkwd{print}\hlstd{(sol1}\hlopt{$}\hlstd{x)}
 \end{alltt}
 \begin{verbatim}
@@ -196,13 +288,73 @@
 \hlstd{oldSS} \hlkwb{=} \hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt1)}
 \hlstd{newSS} \hlkwb{=} \hlkwd{newsteadystatefunction}\hlstd{(testr1, testdelt1)}
 
+\hlkwd{print}\hlstd{(newSS)}
+\end{alltt}
+\begin{verbatim}
+## [1]  11.707317  11.707317 117.073171   2.926829
+\end{verbatim}
+\begin{alltt}
 \hlstd{adjustPath} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{p} \hlstd{= guess,} \hlkwc{maxperiods} \hlstd{=} \hlnum{100}\hlstd{,} \hlkwc{newSS}\hlstd{,} \hlkwc{oldSS}\hlstd{,}
 \hlkwc{shockperiod} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{delta} \hlstd{=} \hlnum{0.1}\hlstd{,} \hlkwc{r} \hlstd{=} \hlnum{0.2}\hlstd{) \{}
 
   \hlstd{table} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{4}\hlstd{,} \hlkwc{nrow} \hlstd{= maxperiods)}
   \hlstd{Period} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(table))}
-  \hlstd{table} \hlkwb{<-} \hlkwd{cbind}\hlstd{(Period,table)}
-  \hlkwd{colnames}\hlstd{(table)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Period"}\hlstd{,}\hlstr{"P"}\hlstd{,} \hlstr{"I"}\hlstd{,} \hlstr{"K"}\hlstd{,} \hlstr{"R"}\hlstd{)}
+  \hlstd{PlusOneColumn} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(table)))}
+  \hlstd{table} \hlkwb{<-} \hlkwd{cbind}\hlstd{(Period,table,PlusOneColumn)}
+  \hlkwd{colnames}\hlstd{(table)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Period"}\hlstd{,}\hlstr{"P"}\hlstd{,} \hlstr{"I"}\hlstd{,} \hlstr{"K"}\hlstd{,} \hlstr{"R"}\hlstd{,} \hlstr{"Pt + 1"}\hlstd{)}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(table))\{}
+
+    \hlkwa{if} \hlstd{(i} \hlopt{<} \hlstd{shockperiod)\{}
+
+      \hlstd{table[i,}\hlnum{2}\hlopt{:}\hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{oldSS}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(i} \hlopt{==} \hlstd{shockperiod)\{}
+
+      \hlstd{Pt} \hlkwb{=} \hlstd{guess}
+      \hlstd{Ktminusone} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{]}
+
+      \hlstd{It} \hlkwb{=} \hlstd{Pt}
+      \hlstd{Kt} \hlkwb{=} \hlstd{((}\hlnum{1} \hlopt{-} \hlstd{delta)} \hlopt{*} \hlstd{Ktminusone)} \hlopt{+} \hlstd{It}
+      \hlstd{Rt} \hlkwb{=} \hlnum{120} \hlopt{-} \hlstd{Kt}
+      \hlstd{Ptplusone} \hlkwb{=} \hlstd{(((}\hlnum{1} \hlopt{+} \hlstd{r)} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{delta))} \hlopt{*} \hlstd{(Pt} \hlopt{-} \hlstd{Rt))}
+
+      \hlstd{table[i,}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{guess}
+      \hlstd{table[i,}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{guess}
+      \hlstd{table[i,}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{Kt}
+      \hlstd{table[i,} \hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{Rt}
+      \hlstd{table[i,} \hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{Ptplusone}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(i} \hlopt{>} \hlstd{shockperiod)\{}
+
+      \hlstd{Pt} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,} \hlnum{6}\hlstd{]}
+      \hlstd{Ktminusone} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{]}
+
+      \hlstd{It} \hlkwb{=} \hlstd{Pt}
+      \hlstd{Kt} \hlkwb{=} \hlstd{((}\hlnum{1} \hlopt{-} \hlstd{delta)} \hlopt{*} \hlstd{Ktminusone)} \hlopt{+} \hlstd{It}
+      \hlstd{Rt} \hlkwb{=} \hlnum{120} \hlopt{-} \hlstd{Kt}
+      \hlstd{Ptplusone} \hlkwb{=} \hlstd{(((}\hlnum{1} \hlopt{+} \hlstd{r)} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{delta))} \hlopt{*} \hlstd{(Pt} \hlopt{-} \hlstd{Rt))}
+
+      \hlstd{table[i,}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{Pt}
+      \hlstd{table[i,}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{Pt}
+      \hlstd{table[i,}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{Kt}
+      \hlstd{table[i,} \hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{Rt}
+      \hlstd{table[i,} \hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{Ptplusone}
+
+    \hlstd{\}}
+
+  \hlstd{\}}
+
+  \hlstd{table} \hlkwb{<-} \hlstd{table[,}\hlopt{-}\hlnum{6}\hlstd{]}
+  \hlcom{## Remove P t + 1 column}
+
+  \hlstd{table} \hlkwb{<-} \hlstd{table[}\hlopt{-}\hlnum{14}\hlopt{:-}\hlnum{100}\hlstd{,]}
+  \hlcom{## Remove all entries exceeding 10}
+  \hlcom{## time periods past shock for display}
 
   \hlkwd{return}\hlstd{(table)}
 
@@ -211,110 +363,261 @@
 \hlkwd{adjustPath}\hlstd{(guess,} \hlnum{100}\hlstd{, newSS, oldSS,} \hlnum{3}\hlstd{,} \hlnum{0.1}\hlstd{,} \hlnum{0.2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##        Period  P  I  K  R
-##   [1,]      1 NA NA NA NA
-##   [2,]      2 NA NA NA NA
-##   [3,]      3 NA NA NA NA
-##   [4,]      4 NA NA NA NA
-##   [5,]      5 NA NA NA NA
-##   [6,]      6 NA NA NA NA
-##   [7,]      7 NA NA NA NA
-##   [8,]      8 NA NA NA NA
-##   [9,]      9 NA NA NA NA
-##  [10,]     10 NA NA NA NA
-##  [11,]     11 NA NA NA NA
-##  [12,]     12 NA NA NA NA
-##  [13,]     13 NA NA NA NA
-##  [14,]     14 NA NA NA NA
-##  [15,]     15 NA NA NA NA
-##  [16,]     16 NA NA NA NA
-##  [17,]     17 NA NA NA NA
-##  [18,]     18 NA NA NA NA
-##  [19,]     19 NA NA NA NA
-##  [20,]     20 NA NA NA NA
-##  [21,]     21 NA NA NA NA
-##  [22,]     22 NA NA NA NA
-##  [23,]     23 NA NA NA NA
-##  [24,]     24 NA NA NA NA
-##  [25,]     25 NA NA NA NA
-##  [26,]     26 NA NA NA NA
-##  [27,]     27 NA NA NA NA
-##  [28,]     28 NA NA NA NA
-##  [29,]     29 NA NA NA NA
-##  [30,]     30 NA NA NA NA
-##  [31,]     31 NA NA NA NA
-##  [32,]     32 NA NA NA NA
-##  [33,]     33 NA NA NA NA
-##  [34,]     34 NA NA NA NA
-##  [35,]     35 NA NA NA NA
-##  [36,]     36 NA NA NA NA
-##  [37,]     37 NA NA NA NA
-##  [38,]     38 NA NA NA NA
-##  [39,]     39 NA NA NA NA
-##  [40,]     40 NA NA NA NA
-##  [41,]     41 NA NA NA NA
-##  [42,]     42 NA NA NA NA
-##  [43,]     43 NA NA NA NA
-##  [44,]     44 NA NA NA NA
-##  [45,]     45 NA NA NA NA
-##  [46,]     46 NA NA NA NA
-##  [47,]     47 NA NA NA NA
-##  [48,]     48 NA NA NA NA
-##  [49,]     49 NA NA NA NA
-##  [50,]     50 NA NA NA NA
-##  [51,]     51 NA NA NA NA
-##  [52,]     52 NA NA NA NA
-##  [53,]     53 NA NA NA NA
-##  [54,]     54 NA NA NA NA
-##  [55,]     55 NA NA NA NA
-##  [56,]     56 NA NA NA NA
-##  [57,]     57 NA NA NA NA
-##  [58,]     58 NA NA NA NA
-##  [59,]     59 NA NA NA NA
-##  [60,]     60 NA NA NA NA
-##  [61,]     61 NA NA NA NA
-##  [62,]     62 NA NA NA NA
-##  [63,]     63 NA NA NA NA
-##  [64,]     64 NA NA NA NA
-##  [65,]     65 NA NA NA NA
-##  [66,]     66 NA NA NA NA
-##  [67,]     67 NA NA NA NA
-##  [68,]     68 NA NA NA NA
-##  [69,]     69 NA NA NA NA
-##  [70,]     70 NA NA NA NA
-##  [71,]     71 NA NA NA NA
-##  [72,]     72 NA NA NA NA
-##  [73,]     73 NA NA NA NA
-##  [74,]     74 NA NA NA NA
-##  [75,]     75 NA NA NA NA
-##  [76,]     76 NA NA NA NA
-##  [77,]     77 NA NA NA NA
-##  [78,]     78 NA NA NA NA
-##  [79,]     79 NA NA NA NA
-##  [80,]     80 NA NA NA NA
-##  [81,]     81 NA NA NA NA
-##  [82,]     82 NA NA NA NA
-##  [83,]     83 NA NA NA NA
-##  [84,]     84 NA NA NA NA
-##  [85,]     85 NA NA NA NA
-##  [86,]     86 NA NA NA NA
-##  [87,]     87 NA NA NA NA
-##  [88,]     88 NA NA NA NA
-##  [89,]     89 NA NA NA NA
-##  [90,]     90 NA NA NA NA
-##  [91,]     91 NA NA NA NA
-##  [92,]     92 NA NA NA NA
-##  [93,]     93 NA NA NA NA
-##  [94,]     94 NA NA NA NA
-##  [95,]     95 NA NA NA NA
-##  [96,]     96 NA NA NA NA
-##  [97,]     97 NA NA NA NA
-##  [98,]     98 NA NA NA NA
-##  [99,]     99 NA NA NA NA
-## [100,]    100 NA NA NA NA
+##       Period             P             I             K            R
+##  [1,]      1  9.756098e+00  9.756098e+00  9.756098e+01 2.439024e+00
+##  [2,]      2  9.756098e+00  9.756098e+00  9.756098e+01 2.439024e+00
+##  [3,]      3  1.000000e+01  1.000000e+01  9.780488e+01 2.219512e+01
+##  [4,]      4 -1.626016e+01 -1.626016e+01  7.176423e+01 4.823577e+01
+##  [5,]      5 -8.599458e+01 -8.599458e+01 -2.140678e+01 1.414068e+02
+##  [6,]      6 -3.032018e+02 -3.032018e+02 -3.224679e+02 4.424679e+02
+##  [7,]      7 -9.942263e+02 -9.942263e+02 -1.284447e+03 1.404447e+03
+##  [8,]      8 -3.198232e+03 -3.198232e+03 -4.354234e+03 4.474234e+03
+##  [9,]      9 -1.022995e+04 -1.022995e+04 -1.414877e+04 1.426877e+04
+## [10,]     10 -3.266496e+04 -3.266496e+04 -4.539885e+04 4.551885e+04
+## [11,]     11 -1.042451e+05 -1.042451e+05 -1.451040e+05 1.452240e+05
+## [12,]     12 -3.326255e+05 -3.326255e+05 -4.632191e+05 4.633391e+05
+## [13,]     13 -1.061286e+06 -1.061286e+06 -1.478183e+06 1.478303e+06
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\subsubsection{Modify the function so that rather than filling every period of maxperiods, it only fills in rows of the matrix until sum of squared diff is less than .01 OR you reach max periods}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{guess} \hlkwb{=} \hlnum{8}
+
+\hlstd{oldSS} \hlkwb{=} \hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt1)}
+\hlstd{newSS} \hlkwb{=} \hlkwd{newsteadystatefunction}\hlstd{(testr1, testdelt1)}
+
+
+
+\hlstd{adjustPathlimited} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{p} \hlstd{= guess,} \hlkwc{maxperiods} \hlstd{=} \hlnum{40}\hlstd{,} \hlkwc{newSS}\hlstd{,} \hlkwc{oldSS}\hlstd{,}
+\hlkwc{shockperiod} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{delta} \hlstd{=} \hlnum{0.1}\hlstd{,} \hlkwc{r} \hlstd{=} \hlnum{0.2}\hlstd{) \{}
+
+  \hlstd{table} \hlkwb{<-} \hlkwd{matrix}\hlstd{(}\hlkwc{ncol} \hlstd{=} \hlnum{4}\hlstd{,} \hlkwc{nrow} \hlstd{= maxperiods)}
+  \hlstd{Period} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(table))}
+  \hlstd{PlusOneColumn} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(table)))}
+  \hlstd{SqDiffColumn} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(table)))}
+  \hlstd{table} \hlkwb{<-} \hlkwd{cbind}\hlstd{(Period,table,PlusOneColumn,SqDiffColumn)}
+  \hlkwd{colnames}\hlstd{(table)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Period"}\hlstd{,}\hlstr{"P"}\hlstd{,} \hlstr{"I"}\hlstd{,} \hlstr{"K"}\hlstd{,} \hlstr{"R"}\hlstd{,} \hlstr{"Pt + 1"}\hlstd{,} \hlstr{"Sq Diff"}\hlstd{)}
+
+  \hlstd{cycles} \hlkwb{<-} \hlnum{0}
+  \hlstd{totalsqdiff} \hlkwb{<-} \hlnum{100000000000}
+
+  \hlkwa{while} \hlstd{(cycles} \hlopt{<} \hlstd{maxperiods)\{}
+
+    \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(table))\{}
+      \hlstd{cycles} \hlkwb{<-} \hlstd{cycles} \hlopt{+} \hlnum{1}
+
+      \hlkwa{if} \hlstd{(i} \hlopt{<} \hlstd{shockperiod)\{}
+
+        \hlstd{table[i,}\hlnum{2}\hlopt{:}\hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{oldSS}
+
+      \hlstd{\}}
+
+      \hlkwa{if} \hlstd{(i} \hlopt{==} \hlstd{shockperiod)\{}
+
+        \hlstd{Pt} \hlkwb{=} \hlstd{guess}
+        \hlstd{Ktminusone} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{]}
+
+        \hlstd{It} \hlkwb{=} \hlstd{Pt}
+        \hlstd{Kt} \hlkwb{=} \hlstd{((}\hlnum{1} \hlopt{-} \hlstd{delta)} \hlopt{*} \hlstd{Ktminusone)} \hlopt{+} \hlstd{It}
+        \hlstd{Rt} \hlkwb{=} \hlnum{120} \hlopt{-} \hlstd{Kt}
+        \hlstd{Ptplusone} \hlkwb{=} \hlstd{(((}\hlnum{1} \hlopt{+} \hlstd{r)} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{delta))} \hlopt{*} \hlstd{(Pt} \hlopt{-} \hlstd{Rt))}
+
+        \hlstd{table[i,}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{guess}
+        \hlstd{table[i,}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{guess}
+        \hlstd{table[i,}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{Kt}
+        \hlstd{table[i,} \hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{Rt}
+        \hlstd{table[i,} \hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{Ptplusone}
+
+      \hlstd{\}}
+
+      \hlkwa{if} \hlstd{(i} \hlopt{>} \hlstd{shockperiod)\{}
+
+        \hlstd{Pt} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,} \hlnum{6}\hlstd{]}
+        \hlstd{Ktminusone} \hlkwb{=} \hlstd{table[i}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{4}\hlstd{]}
+
+        \hlstd{It} \hlkwb{=} \hlstd{Pt}
+        \hlstd{Kt} \hlkwb{=} \hlstd{((}\hlnum{1} \hlopt{-} \hlstd{delta)} \hlopt{*} \hlstd{Ktminusone)} \hlopt{+} \hlstd{It}
+        \hlstd{Rt} \hlkwb{=} \hlnum{120} \hlopt{-} \hlstd{Kt}
+        \hlstd{Ptplusone} \hlkwb{=} \hlstd{(((}\hlnum{1} \hlopt{+} \hlstd{r)} \hlopt{/} \hlstd{(}\hlnum{1} \hlopt{-} \hlstd{delta))} \hlopt{*} \hlstd{(Pt} \hlopt{-} \hlstd{Rt))}
+
+        \hlstd{table[i,}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{Pt}
+        \hlstd{table[i,}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{Pt}
+        \hlstd{table[i,}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{Kt}
+        \hlstd{table[i,} \hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{Rt}
+        \hlstd{table[i,} \hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{Ptplusone}
+
+        \hlkwa{if}\hlstd{(totalsqdiff} \hlopt{<} \hlnum{.01}\hlstd{)\{}
+          \hlkwa{break}
+        \hlstd{\}}
+
+      \hlstd{\}}
+
+      \hlstd{Psqdiff} \hlkwb{=} \hlstd{(newSS[}\hlnum{1}\hlstd{]} \hlopt{-} \hlstd{table[i,}\hlnum{2}\hlstd{])}\hlopt{^}\hlnum{2}
+      \hlstd{Isqdiff} \hlkwb{=} \hlstd{(newSS[}\hlnum{2}\hlstd{]} \hlopt{-} \hlstd{table[i,}\hlnum{3}\hlstd{])}\hlopt{^}\hlnum{2}
+      \hlstd{Ksqdiff} \hlkwb{=} \hlstd{(newSS[}\hlnum{3}\hlstd{]} \hlopt{-} \hlstd{table[i,}\hlnum{4}\hlstd{])}\hlopt{^}\hlnum{2}
+      \hlstd{Rsqdiff} \hlkwb{=} \hlstd{(newSS[}\hlnum{4}\hlstd{]} \hlopt{-} \hlstd{table[i,}\hlnum{5}\hlstd{])}\hlopt{^}\hlnum{2}
+      \hlstd{totalsqdiff} \hlkwb{=} \hlstd{Psqdiff} \hlopt{+} \hlstd{Isqdiff} \hlopt{+} \hlstd{Ksqdiff} \hlopt{+} \hlstd{Rsqdiff}
+      \hlstd{table[i,}\hlnum{7}\hlstd{]}  \hlkwb{=} \hlstd{totalsqdiff}
+
+    \hlstd{\}}
+  \hlstd{\}}
+
+  \hlstd{tablecopy} \hlkwb{<-} \hlstd{table}
+  \hlstd{tablecopy} \hlkwb{<-} \hlstd{tablecopy[,}\hlopt{-}\hlnum{6}\hlstd{]}
+
+  \hlkwd{return}\hlstd{(tablecopy)}
+
+\hlstd{\}}
+
+\hlkwd{adjustPathlimited}\hlstd{(guess,} \hlnum{40}\hlstd{, newSS, oldSS,} \hlnum{3}\hlstd{,} \hlnum{0.1}\hlstd{,} \hlnum{0.2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##       Period             P             I             K            R
+##  [1,]      1  9.756098e+00  9.756098e+00  9.756098e+01 2.439024e+00
+##  [2,]      2  9.756098e+00  9.756098e+00  9.756098e+01 2.439024e+00
+##  [3,]      3  8.000000e+00  8.000000e+00  9.580488e+01 2.419512e+01
+##  [4,]      4 -2.159350e+01 -2.159350e+01  6.463089e+01 5.536911e+01
+##  [5,]      5 -1.026168e+02 -1.026168e+02 -4.444900e+01 1.644490e+02
+##  [6,]      6 -3.560877e+02 -3.560877e+02 -3.960918e+02 5.160918e+02
+##  [7,]      7 -1.162906e+03 -1.162906e+03 -1.519389e+03 1.639389e+03
+##  [8,]      8 -3.736393e+03 -3.736393e+03 -5.103843e+03 5.223843e+03
+##  [9,]      9 -1.194698e+04 -1.194698e+04 -1.654044e+04 1.666044e+04
+## [10,]     10 -3.814323e+04 -3.814323e+04 -5.302962e+04 5.314962e+04
+## [11,]     11 -1.217238e+05 -1.217238e+05 -1.694505e+05 1.695705e+05
+## [12,]     12 -3.883924e+05 -3.883924e+05 -5.408978e+05 5.410178e+05
+## [13,]     13 -1.239214e+06 -1.239214e+06 -1.726022e+06 1.726142e+06
+## [14,]     14 -3.953807e+06 -3.953807e+06 -5.507226e+06 5.507346e+06
+## [15,]     15 -1.261487e+07 -1.261487e+07 -1.757137e+07 1.757149e+07
+## [16,]     16 -4.024849e+07 -4.024849e+07 -5.606272e+07 5.606284e+07
+## [17,]     17 -1.284151e+08 -1.284151e+08 -1.788716e+08 1.788717e+08
+## [18,]     18 -4.097157e+08 -4.097157e+08 -5.707001e+08 5.707002e+08
+## [19,]     19 -1.307221e+09 -1.307221e+09 -1.820851e+09 1.820851e+09
+## [20,]     20 -4.170764e+09 -4.170764e+09 -5.809530e+09 5.809530e+09
+## [21,]     21 -1.330706e+10 -1.330706e+10 -1.853563e+10 1.853563e+10
+## [22,]     22 -4.245692e+10 -4.245692e+10 -5.913900e+10 5.913900e+10
+## [23,]     23 -1.354612e+11 -1.354612e+11 -1.886863e+11 1.886863e+11
+## [24,]     24 -4.321967e+11 -4.321967e+11 -6.020144e+11 6.020144e+11
+## [25,]     25 -1.378948e+12 -1.378948e+12 -1.920761e+12 1.920761e+12
+## [26,]     26 -4.399612e+12 -4.399612e+12 -6.128298e+12 6.128298e+12
+## [27,]     27 -1.403721e+13 -1.403721e+13 -1.955268e+13 1.955268e+13
+## [28,]     28 -4.478653e+13 -4.478653e+13 -6.238394e+13 6.238394e+13
+## [29,]     29 -1.428940e+14 -1.428940e+14 -1.990395e+14 1.990395e+14
+## [30,]     30 -4.559113e+14 -4.559113e+14 -6.350468e+14 6.350468e+14
+## [31,]     31 -1.454611e+15 -1.454611e+15 -2.026153e+15 2.026153e+15
+## [32,]     32 -4.641018e+15 -4.641018e+15 -6.464556e+15 6.464556e+15
+## [33,]     33 -1.480743e+16 -1.480743e+16 -2.062553e+16 2.062553e+16
+## [34,]     34 -4.724395e+16 -4.724395e+16 -6.580693e+16 6.580693e+16
+## [35,]     35 -1.507345e+17 -1.507345e+17 -2.099608e+17 2.099608e+17
+## [36,]     36 -4.809270e+17 -4.809270e+17 -6.698917e+17 6.698917e+17
+## [37,]     37 -1.534425e+18 -1.534425e+18 -2.137327e+18 2.137327e+18
+## [38,]     38 -4.895670e+18 -4.895670e+18 -6.819265e+18 6.819265e+18
+## [39,]     39 -1.561991e+19 -1.561991e+19 -2.175725e+19 2.175725e+19
+## [40,]     40 -4.983622e+19 -4.983622e+19 -6.941774e+19 6.941774e+19
+##            Sq Diff
+##  [1,] 3.885782e+02
+##  [2,] 3.885782e+02
+##  [3,] 9.321689e+02
+##  [4,] 7.718273e+03
+##  [5,] 7.831883e+04
+##  [6,] 7.972230e+05
+##  [7,] 8.115448e+06
+##  [8,] 8.261244e+07
+##  [9,] 8.409660e+08
+## [10,] 8.560741e+09
+## [11,] 8.714537e+10
+## [12,] 8.871096e+11
+## [13,] 9.030467e+12
+## [14,] 9.192702e+13
+## [15,] 9.357851e+14
+## [16,] 9.525967e+15
+## [17,] 9.697103e+16
+## [18,] 9.871314e+17
+## [19,] 1.004865e+19
+## [20,] 1.022918e+20
+## [21,] 1.041295e+21
+## [22,] 1.060002e+22
+## [23,] 1.079045e+23
+## [24,] 1.098431e+24
+## [25,] 1.118164e+25
+## [26,] 1.138252e+26
+## [27,] 1.158701e+27
+## [28,] 1.179518e+28
+## [29,] 1.200708e+29
+## [30,] 1.222279e+30
+## [31,] 1.244238e+31
+## [32,] 1.266591e+32
+## [33,] 1.289345e+33
+## [34,] 1.312509e+34
+## [35,] 1.336088e+35
+## [36,] 1.360091e+36
+## [37,] 1.384526e+37
+## [38,] 1.409399e+38
+## [39,] 1.434719e+39
+## [40,] 1.460494e+40
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsubsection{Write a function that calls the function above and returns the sum of squared differences between the last period produed and the steady state values}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{guess} \hlkwb{=} \hlnum{8}
+
+\hlstd{oldSS} \hlkwb{=} \hlkwd{oldsteadystatefunction}\hlstd{(testr1, testdelt1)}
+\hlstd{newSS} \hlkwb{=} \hlkwd{newsteadystatefunction}\hlstd{(testr1, testdelt1)}
+
+\hlstd{squaresfunction} \hlkwb{<-} \hlkwa{function}\hlstd{()\{}
+
+  \hlstd{z} \hlkwb{<-} \hlkwd{adjustPathlimited}\hlstd{(guess,} \hlnum{40}\hlstd{, newSS, oldSS,} \hlnum{3}\hlstd{,} \hlnum{0.1}\hlstd{,} \hlnum{0.2}\hlstd{)}
+  \hlstd{z2} \hlkwb{<-} \hlstd{z[,}\hlnum{6}\hlstd{]}
+  \hlstd{out} \hlkwb{<-} \hlkwd{tail}\hlstd{(}\hlkwd{na.omit}\hlstd{(z2),}\hlnum{1}\hlstd{)}
+  \hlkwd{return}\hlstd{(out)}
+\hlstd{\}}
+
+\hlkwd{squaresfunction}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.460494e+40
+\end{verbatim}
+\begin{alltt}
+\hlstd{guess} \hlkwb{=} \hlnum{10}
+
+\hlkwd{squaresfunction}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.071208e+40
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsubsection{Use the "optimize" command and the function written above to solve for the optimum p3}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{optimum} \hlkwb{<-} \hlkwd{optimize}\hlstd{(squaresfunction,} \hlkwc{maxperiods} \hlstd{=} \hlnum{40}\hlstd{,} \hlkwc{newSS} \hlstd{= newSS,} \hlkwc{oldSS} \hlstd{= oldSS,}
+\hlkwc{shockperiod} \hlstd{=} \hlnum{3}\hlstd{,} \hlkwc{delta} \hlstd{=} \hlnum{0.1}\hlstd{,} \hlkwc{r} \hlstd{=} \hlnum{0.2}\hlstd{,} \hlkwc{lower} \hlstd{=} \hlnum{.1}\hlstd{,} \hlkwc{upper} \hlstd{=} \hlnum{100}\hlstd{)[}\hlnum{1}\hlstd{]}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in f(arg, ...): unused arguments (arg, maxperiods = 40, newSS = c(11.7073170731707, 11.7073170731707, 117.073170731707, 2.92682926829268), oldSS = c(9.75609756097561, 9.75609756097561, 97.5609756097561, 2.4390243902439), shockperiod = 3, delta = 0.1, r = 0.2)}}\begin{alltt}
+\hlkwd{print}\hlstd{(optimum)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in print(optimum): object 'optimum' not found}}\end{kframe}
+\end{knitrout}
+
+
+
+
   
 
 

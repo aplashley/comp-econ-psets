@@ -9,8 +9,78 @@
 
 
 \begin{document}
+
+\section{Solving for steady state}
+\subsection{Write an equation that expresses price at period t as the discounted future flow of rent}
+
+\begin{math}
+P_t = R_t + ((1 - \delta) / (1 + r))R_t+1 + ((1 - \delta)^2 / (1 + r)^2)R_t+2 + \ldots
+\end{math}
+
+\subsection{Write down steady state equations}
+
+\begin{math}
+K_s = (1 - \delta)K_s + I_s \newline
+R_s = P_s - (1 - \delta) / (1 + r))P_s \newline
+K_s = 100 - R_s \newline
+I_s = P_s \newline
+\end{math}
+
+\subsection{Analytically solve steady state equations}
+
+\begin{math}
+P_s = 100(1 + r)(\delta) / (\delta^2 + (1 + \delta)r + 1) \\
+I_s = 100(1 + r)(\delta) / (\delta^2 + (1 + \delta)r + 1) \\
+K_s = 100(1 + r) / (\delta^2 + (1 + \delta)r + 1) \\
+R_s = 100 - (100(1 + r) / (\delta^2 + (1 + \delta)r + 1)) \\
+\end{math}
+
+\subsection{How do the steady state values change if r increases? What's the intuition?}
+
+\begin{itemize}
+  \item Steady state price level should increase, assuming $\delta >$ 1/99. \\
+  \item Steady state investment level should increase. \\
+  \item Steady state capital stock should increase. \\
+  \item Steady state capital stock should decrease. \\
+\end{itemize}
+
+Economic Intuition: If investors can now make more money keeping money in the bank or investing elsewhere in the economy, they will need more of an incentive to continue to invest in housing, and that incentive is higher prices. These higher prices will drive an increase in capital stock which will eventualy cause the natural steady-stat price to fall as there is now more housing stock.
+
+\subsection{How do the steady state values change if delta increases? What's the intuition?}
+\begin{itemize}
+  \item Steady state price level should increase\\
+  \item Steady state investment level should increase. \\
+  \item Steady state capital stock should decrease. \\
+  \item Steady state capital stock should increase. \\
+\end{itemize}
+
+Economic Intuition: An increase in delta means that houses depreciate more quickly, which means that more investment is required to maintain housing stock for demand, but this increase in depreciation also means that overall housing stock will go down as housing becomes a less appealing asset. and rents will increase as the PDV of a house shifts more towards the present.
+
+\subsection{Suppose demand shifts to 120 - R}
+
+If demand changes to 120 - R. this essentially means that the maximum rent that someone is willing to pay in time t has increased from 100 to 120. This upward/rightward shift in the demand curve means that steady-state price, investment, and housing stock values will increase as there becomes essentially more price discrimination in the market and the market will expand to create stock fo rthe new high-end demand, and rents should decrease as consumers now have more housing options. 
+
+\subsection{Suppose gov't begins taxing housing construction. How will this change steady state?}
+
+This effectively means that there is a tax on investment, which increase the steady state price of a house, and steady state investment rates, but has no effect on rental rates at steady state or housing stock. 
+
+If the gov't decided to begin taxing rent, it obviously means that steady-state rental rates would go up with the tax, and that demand and housing stock would fall, with investment and the price of a house
+
+\section{Counterfactual analysis}
+
+Graphs to follow. /newline
+
+
+
+
+
+
+
+
+
 \section{Numerically solving for the steady state}
 \subsection{Write a function that analytically solves for the steady state of the model in section 1 given δ and r as inputs into the function}
+
 <<>>==
 
 library(ggplot2)
@@ -70,7 +140,7 @@ return(out)
 set.seed(20866) 
 library(nleqslv)
 
-steadystateSolve <- function(x,r,δ){
+oldsteadystateSolve <- function(x,r,δ){
   
   P = x[1]
   I = x[2]
@@ -85,14 +155,32 @@ steadystateSolve <- function(x,r,δ){
   return(c(Pss=F1, Iss=F4, Kss=F3, Rss=F2))
 }
 
+newsteadystateSolve <- function(x,r,δ){
+  
+  P = x[1]
+  I = x[2]
+  K = x[3]
+  R = x[4]
+  
+  F1 = (δ * K) - P
+  F2 = P - (((1 - δ)/(1 + r)) * P) - R
+  F3 = 120 - R - K
+  F4 = P - I
+
+  return(c(Pss=F1, Iss=F4, Kss=F3, Rss=F2))
+}
+
 sol1 <- nleqslv(x=c(10,10,10,10),
-fn = steadystateSolve, r = .2, δ = .1)
+fn = oldsteadystateSolve, r = .2, δ = .1)
 
 sol2 <- nleqslv(x=c(10,10,10,10),
-fn = steadystateSolve, r = .3, δ = .1)
+fn = oldsteadystateSolve, r = .3, δ = .1)
 
 sol3 <- nleqslv(x=c(10,10,10,10),
-fn = steadystateSolve, r = .2, δ = .9)
+fn = oldsteadystateSolve, r = .2, δ = .9)
+
+newsteadystateSolve(c(10,10,97.56098,2.439024), .2, .1)
+
 
 print(sol1$x)
 print(sol2$x)
@@ -111,21 +199,215 @@ guess = 10
 oldSS = oldsteadystatefunction(testr1, testdelt1)
 newSS = newsteadystatefunction(testr1, testdelt1)
 
+print(newSS)
+
+
+
+
 adjustPath <- function(p = guess, maxperiods = 100, newSS, oldSS, 
 shockperiod = 3, delta = 0.1, r = 0.2) {
-  
+   
   table <- matrix(ncol = 4, nrow = maxperiods)
   Period <- c(1:nrow(table))
-  table <- cbind(Period,table)
-  colnames(table) <- c("Period","P", "I", "K", "R")
+  PlusOneColumn <- c(rep(NA, nrow(table)))
+  table <- cbind(Period,table,PlusOneColumn)
+  colnames(table) <- c("Period","P", "I", "K", "R", "Pt + 1")
+   
+  for (i in 1:nrow(table)){
+    
+    if (i < shockperiod){
+      
+      table[i,2:5] = oldSS
+      
+    }
+    
+    if (i == shockperiod){
+      
+      Pt = guess
+      Ktminusone = table[i-1,4]
+      
+      It = Pt
+      Kt = ((1 - delta) * Ktminusone) + It
+      Rt = 120 - Kt
+      Ptplusone = (((1 + r) / (1 - delta)) * (Pt - Rt))
+      
+      table[i,2] = guess
+      table[i,3] = guess
+      table[i,4] = Kt
+      table[i, 5] = Rt
+      table[i, 6] = Ptplusone
+      
+    }
+    
+    if (i > shockperiod){
+      
+      Pt = table[i-1, 6]
+      Ktminusone = table[i-1,4]
+    
+      It = Pt
+      Kt = ((1 - delta) * Ktminusone) + It
+      Rt = 120 - Kt
+      Ptplusone = (((1 + r) / (1 - delta)) * (Pt - Rt))
+      
+      table[i,2] = Pt
+      table[i,3] = Pt
+      table[i,4] = Kt
+      table[i, 5] = Rt
+      table[i, 6] = Ptplusone
+      
+    }
+    
+  }
   
+  table <- table[,-6]
+  ## Remove P t + 1 column
   
+  table <- table[-14:-100,]
+  ## Remove all entries exceeding 10
+  ## time periods past shock for display
+  
+  return(table)  
   
 }
 
 adjustPath(guess, 100, newSS, oldSS, 3, 0.1, 0.2)
            
 @
+
+\subsubsection{Modify the function so that rather than filling every period of maxperiods, it only fills in rows of the matrix until sum of squared diff is less than .01 OR you reach max periods}
+
+<<>>==
+
+guess = 8
+
+oldSS = oldsteadystatefunction(testr1, testdelt1)
+newSS = newsteadystatefunction(testr1, testdelt1)
+
+
+
+adjustPathlimited <- function(p = guess, maxperiods = 40, newSS, oldSS, 
+shockperiod = 3, delta = 0.1, r = 0.2) {
+   
+  table <- matrix(ncol = 4, nrow = maxperiods)
+  Period <- c(1:nrow(table))
+  PlusOneColumn <- c(rep(NA, nrow(table)))
+  SqDiffColumn <- c(rep(NA, nrow(table)))
+  table <- cbind(Period,table,PlusOneColumn,SqDiffColumn)
+  colnames(table) <- c("Period","P", "I", "K", "R", "Pt + 1", "Sq Diff")
+  
+  cycles <- 0
+  totalsqdiff <- 100000000000
+  
+  while (cycles < maxperiods){
+    
+    for (i in 1:nrow(table)){
+      cycles <- cycles + 1
+    
+      if (i < shockperiod){
+      
+        table[i,2:5] = oldSS
+      
+      }
+    
+      if (i == shockperiod){
+      
+        Pt = guess
+        Ktminusone = table[i-1,4]
+      
+        It = Pt
+        Kt = ((1 - delta) * Ktminusone) + It
+        Rt = 120 - Kt
+        Ptplusone = (((1 + r) / (1 - delta)) * (Pt - Rt))
+      
+        table[i,2] = guess
+        table[i,3] = guess
+        table[i,4] = Kt
+        table[i, 5] = Rt
+        table[i, 6] = Ptplusone
+      
+      }
+    
+      if (i > shockperiod){
+      
+        Pt = table[i-1, 6]
+        Ktminusone = table[i-1,4]
+    
+        It = Pt
+        Kt = ((1 - delta) * Ktminusone) + It
+        Rt = 120 - Kt
+        Ptplusone = (((1 + r) / (1 - delta)) * (Pt - Rt))
+      
+        table[i,2] = Pt
+        table[i,3] = Pt
+        table[i,4] = Kt
+        table[i, 5] = Rt
+        table[i, 6] = Ptplusone
+        
+        if(totalsqdiff < .01){
+          break
+        }
+      
+      }
+    
+      Psqdiff = (newSS[1] - table[i,2])^2
+      Isqdiff = (newSS[2] - table[i,3])^2
+      Ksqdiff = (newSS[3] - table[i,4])^2
+      Rsqdiff = (newSS[4] - table[i,5])^2
+      totalsqdiff = Psqdiff + Isqdiff + Ksqdiff + Rsqdiff
+      table[i,7]  = totalsqdiff
+    
+    }
+  }
+  
+  tablecopy <- table
+  tablecopy <- tablecopy[,-6]
+  
+  return(tablecopy)  
+  
+}
+
+adjustPathlimited(guess, 40, newSS, oldSS, 3, 0.1, 0.2)
+
+@
+
+\subsubsection{Write a function that calls the function above and returns the sum of squared differences between the last period produed and the steady state values}
+
+<<>>=
+
+guess = 8
+
+oldSS = oldsteadystatefunction(testr1, testdelt1)
+newSS = newsteadystatefunction(testr1, testdelt1)
+
+squaresfunction <- function(){
+  
+  z <- adjustPathlimited(guess, 40, newSS, oldSS, 3, 0.1, 0.2)
+  z2 <- z[,6]
+  out <- tail(na.omit(z2),1)
+  return(out)
+}
+
+squaresfunction()
+
+guess = 10
+
+squaresfunction()
+
+@
+
+\subsubsection{Use the "optimize" command and the function written above to solve for the optimum p3}
+
+<<>>==
+
+optimum <- optimize(squaresfunction, maxperiods = 40, newSS = newSS, oldSS = oldSS, 
+shockperiod = 3, delta = 0.1, r = 0.2, lower = .1, upper = 100)[1]
+print(optimum)
+
+@
+
+
+
+
   
 
 

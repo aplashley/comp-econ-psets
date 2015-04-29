@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  19 APR 2015 20:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  20 APR 2015 09:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,99 +244,538 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Missing character: There is no Î in font cmbx12!
-Missing character: There is no ´ in font cmbx12!
-Package color Info: Redefining color shadecolor on input line 63.
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 65.
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 90.
+Underfull \hbox (badness 10000) in paragraph at lines 70--76
+
+ []
 
 
-(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
-File: omscmtt.fd 
+Underfull \hbox (badness 10000) in paragraph at lines 79--85
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 89.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 89.
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+
+ []
 
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package color Info: Redefining color shadecolor on input line 138.
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
-Missing character: There is no Î in font cmtt10!
-Missing character: There is no ´ in font cmtt10!
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
+
+Overfull \hbox (7.00145pt too wide) in paragraph at lines 111--111
+[]\OT1/cmr/bx/n/12 Suppose gov't be-gins tax-ing hous-ing con-struc-tion. How
+ []
+
+Missing character: There is no Î in font cmbx12!
+Missing character: There is no ´ in font cmbx12!
+Package color Info: Redefining color shadecolor on input line 133.
 [2]
-Package color Info: Redefining color shadecolor on input line 192.
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 135.
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 160
+.
+ (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
+File: omscmtt.fd 
+)
+LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
  [3]
-Underfull \vbox (badness 10000) detected at line 316
+Package color Info: Redefining color shadecolor on input line 208.
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+Missing character: There is no Î in font cmtt10!
+Missing character: There is no ´ in font cmtt10!
+ [4]
+Package color Info: Redefining color shadecolor on input line 284.
+ [5]
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##       Period             P             I             K   
+         R[] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 316
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [1,]      1  9.756098e+00  9.756098e+00  9.756098e+01 2.
+439024e+00[] 
  []
 
-[4]
-Underfull \vbox (badness 10000) detected at line 316
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [2,]      2  9.756098e+00  9.756098e+00  9.756098e+01 2.
+439024e+00[] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 316
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [3,]      3  1.000000e+01  1.000000e+01  9.780488e+01 2.
+219512e+01[] 
  []
 
-[5] [6] (./Problem_Set_3_Beginnings.aux) ) 
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [4,]      4 -1.626016e+01 -1.626016e+01  7.176423e+01 4.
+823577e+01[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [5,]      5 -8.599458e+01 -8.599458e+01 -2.140678e+01 1.
+414068e+02[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [6,]      6 -3.032018e+02 -3.032018e+02 -3.224679e+02 4.
+424679e+02[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [7,]      7 -9.942263e+02 -9.942263e+02 -1.284447e+03 1.
+404447e+03[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [8,]      8 -3.198232e+03 -3.198232e+03 -4.354234e+03 4.
+474234e+03[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ##  [9,]      9 -1.022995e+04 -1.022995e+04 -1.414877e+04 1.
+426877e+04[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ## [10,]     10 -3.266496e+04 -3.266496e+04 -4.539885e+04 4.
+551885e+04[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ## [11,]     11 -1.042451e+05 -1.042451e+05 -1.451040e+05 1.
+452240e+05[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ## [12,]     12 -3.326255e+05 -3.326255e+05 -4.632191e+05 4.
+633391e+05[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 380--380
+[]\OT1/cmtt/m/n/10 ## [13,]     13 -1.061286e+06 -1.061286e+06 -1.478183e+06 1.
+478303e+06[] 
+ []
+
+[6]
+Package color Info: Redefining color shadecolor on input line 387.
+ [7]
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 396--396
+[][]\OT1/cmtt/m/n/10 adjustPathlimited[] []<-[] []function[][]([][]p[] []= gues
+s,[] []maxperiods[] []=[] []40[][],[] []newSS[][],[] []oldSS[][],[][] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 404--404
+[]  []\OT1/cmtt/m/n/10 colnames[][](table)[] []<-[] []c[][]([][]"Period"[][],[]
+[]"P"[][],[] []"I"[][],[] []"K"[][],[] []"R"[][],[] []"Pt + 1"[][],[] []"Sq Dif
+f"[][])[][] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##       Period             P             I             K   
+         R[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [1,]      1  9.756098e+00  9.756098e+00  9.756098e+01 2.
+439024e+00[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [2,]      2  9.756098e+00  9.756098e+00  9.756098e+01 2.
+439024e+00[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [3,]      3  8.000000e+00  8.000000e+00  9.580488e+01 2.
+419512e+01[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [4,]      4 -2.159350e+01 -2.159350e+01  6.463089e+01 5.
+536911e+01[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [5,]      5 -1.026168e+02 -1.026168e+02 -4.444900e+01 1.
+644490e+02[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [6,]      6 -3.560877e+02 -3.560877e+02 -3.960918e+02 5.
+160918e+02[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [7,]      7 -1.162906e+03 -1.162906e+03 -1.519389e+03 1.
+639389e+03[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [8,]      8 -3.736393e+03 -3.736393e+03 -5.103843e+03 5.
+223843e+03[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ##  [9,]      9 -1.194698e+04 -1.194698e+04 -1.654044e+04 1.
+666044e+04[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [10,]     10 -3.814323e+04 -3.814323e+04 -5.302962e+04 5.
+314962e+04[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [11,]     11 -1.217238e+05 -1.217238e+05 -1.694505e+05 1.
+695705e+05[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [12,]     12 -3.883924e+05 -3.883924e+05 -5.408978e+05 5.
+410178e+05[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [13,]     13 -1.239214e+06 -1.239214e+06 -1.726022e+06 1.
+726142e+06[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [14,]     14 -3.953807e+06 -3.953807e+06 -5.507226e+06 5.
+507346e+06[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [15,]     15 -1.261487e+07 -1.261487e+07 -1.757137e+07 1.
+757149e+07[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [16,]     16 -4.024849e+07 -4.024849e+07 -5.606272e+07 5.
+606284e+07[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [17,]     17 -1.284151e+08 -1.284151e+08 -1.788716e+08 1.
+788717e+08[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [18,]     18 -4.097157e+08 -4.097157e+08 -5.707001e+08 5.
+707002e+08[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [19,]     19 -1.307221e+09 -1.307221e+09 -1.820851e+09 1.
+820851e+09[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [20,]     20 -4.170764e+09 -4.170764e+09 -5.809530e+09 5.
+809530e+09[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [21,]     21 -1.330706e+10 -1.330706e+10 -1.853563e+10 1.
+853563e+10[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [22,]     22 -4.245692e+10 -4.245692e+10 -5.913900e+10 5.
+913900e+10[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [23,]     23 -1.354612e+11 -1.354612e+11 -1.886863e+11 1.
+886863e+11[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [24,]     24 -4.321967e+11 -4.321967e+11 -6.020144e+11 6.
+020144e+11[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [25,]     25 -1.378948e+12 -1.378948e+12 -1.920761e+12 1.
+920761e+12[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [26,]     26 -4.399612e+12 -4.399612e+12 -6.128298e+12 6.
+128298e+12[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [27,]     27 -1.403721e+13 -1.403721e+13 -1.955268e+13 1.
+955268e+13[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [28,]     28 -4.478653e+13 -4.478653e+13 -6.238394e+13 6.
+238394e+13[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [29,]     29 -1.428940e+14 -1.428940e+14 -1.990395e+14 1.
+990395e+14[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [30,]     30 -4.559113e+14 -4.559113e+14 -6.350468e+14 6.
+350468e+14[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [31,]     31 -1.454611e+15 -1.454611e+15 -2.026153e+15 2.
+026153e+15[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [32,]     32 -4.641018e+15 -4.641018e+15 -6.464556e+15 6.
+464556e+15[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [33,]     33 -1.480743e+16 -1.480743e+16 -2.062553e+16 2.
+062553e+16[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [34,]     34 -4.724395e+16 -4.724395e+16 -6.580693e+16 6.
+580693e+16[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [35,]     35 -1.507345e+17 -1.507345e+17 -2.099608e+17 2.
+099608e+17[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [36,]     36 -4.809270e+17 -4.809270e+17 -6.698917e+17 6.
+698917e+17[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [37,]     37 -1.534425e+18 -1.534425e+18 -2.137327e+18 2.
+137327e+18[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [38,]     38 -4.895670e+18 -4.895670e+18 -6.819265e+18 6.
+819265e+18[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [39,]     39 -1.561991e+19 -1.561991e+19 -2.175725e+19 2.
+175725e+19[] 
+ []
+
+
+Overfull \hbox (22.4968pt too wide) in paragraph at lines 562--562
+[]\OT1/cmtt/m/n/10 ## [40,]     40 -4.983622e+19 -4.983622e+19 -6.941774e+19 6.
+941774e+19[] 
+ []
+
+[8]
+Underfull \vbox (badness 10000) detected at line 563
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 563
+ []
+
+[9] [10]
+Package color Info: Redefining color shadecolor on input line 569.
+ [11]
+Package color Info: Redefining color shadecolor on input line 603.
+
+Overfull \hbox (90.7462pt too wide) in paragraph at lines 605--605
+[][]\OT1/cmtt/m/n/10 optimum[] []<-[] []optimize[][](squaresfunction,[] []maxpe
+riods[] []=[] []40[][],[] []newSS[] []= newSS,[] []oldSS[] []= oldSS,[][] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 606--606
+[][]\OT1/cmtt/m/n/10 shockperiod[] []=[] []3[][],[] []delta[] []=[] []0.1[][],[
+] []r[] []=[] []0.2[][],[] []lower[] []=[] [].1[][],[] []upper[] []=[] []100[][
+])[[][]1[][]][][] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 610--610
+[]\OT1/cmtt/m/n/10 ## Error in f(arg, ...): unused arguments (arg, maxperiods =
+ 40, newSS
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 610--610
+\OT1/cmtt/m/n/10 = c(11.7073170731707, 11.7073170731707, 117.073170731707, 2.92
+682926829268),
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 610--610
+\OT1/cmtt/m/n/10 oldSS = c(9.75609756097561, 9.75609756097561, 97.5609756097561
+, 2.4390243902439),
+ []
+
+[12] (./Problem_Set_3_Beginnings.aux) ) 
 Here is how much of TeX's memory you used:
- 2773 strings out of 493117
- 40252 string characters out of 6135433
- 123181 words of memory out of 5000000
- 6206 multiletter control sequences out of 15000+600000
- 5494 words of font info for 21 fonts, out of 8000000 for 9000
+ 2791 strings out of 493117
+ 40555 string characters out of 6135433
+ 135569 words of memory out of 5000000
+ 6220 multiletter control sequences out of 15000+600000
+ 5948 words of font info for 23 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,5n,23p,302b,283s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Problem_Set_3_Beginnings.pdf (6 pages, 72439 bytes).
+ 38i,5n,23p,519b,283s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2014/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2014/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmtt10.pfb>
+Output written on Problem_Set_3_Beginnings.pdf (12 pages, 126523 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
- 32 compressed objects within 1 object stream
+ 79 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
