@@ -64,10 +64,11 @@ incomeadjust <- function(data.m = datamatrix){
   }
   
  
-  top <- head(datamatrix, n=5)
-  bottom<- tail(datamatrix, n=5)
+  top <- head(datamatrix, n=15)
+  bottom<- tail(datamatrix, n=15)
   
   sample <- rbind(top,bottom)
+  row.names(sample) <- NULL
   return(sample)
   
 }
@@ -82,8 +83,8 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 <<>>==
 
-sample <- incomeadjust(datamatrix)
-logVar <- c(rep(NA, nrow(sample)))
+sample <- incomeadjust(datamatrix) 
+logInc <- c(rep(NA, nrow(sample)))
 sample <- cbind(sample, logVar)
 
 
@@ -98,7 +99,7 @@ logVarf <- function(data.m = sample){
   }  
   
   ## return(datamatrix) Commenting out so it doesn't actually return this
-  print(sample)
+  return(sample)
   
 }
 
@@ -222,11 +223,18 @@ potExpf <- function(data.m = sample){
   }  
   
   ## return(datamatrix) Commenting out so it doesn't actually return this
-  print(sample)
+  return(sample)
   
 }
 
 potExpf(sample)
+
+@
+
+\subsection{Make a table comparing the following regressions for 2014 and 2014}
+
+<<>>==
+
 
 
 @

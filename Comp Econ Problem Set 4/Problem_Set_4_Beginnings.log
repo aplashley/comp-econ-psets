@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 APR 2015 19:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  29 APR 2015 22:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -267,76 +267,196 @@ File: omscmtt.fd
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK
- INCWAGE AdjInc[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INC
+WAGE AdjInc[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           2004     11  59   2  100     13      10       2
-   60000  75000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [1,] 2004     11  59   2  100     13      10       2   6
+0000  75000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           2004     11  49   1  100     10      10      20
-   32000  40000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [2,] 2004     11  49   1  100     10      10      20   3
+2000  40000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     15      10      40
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [3,] 2004     11  42   2  100     15      10      40   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           2004     11  68   2  100     15      10      20
-   18000  22500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [4,] 2004     11  68   2  100     15      10      20   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     10      10      24
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [5,] 2004     11  42   2  100     10      10      24   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ## [168263,] 2014     42  26   1  652     10      10      32
-   39000  39000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [6,] 2004     11  45   1  100     13      10      33   5
+0000  62500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ## [168264,] 2014     42  20   1  652     10      30       0
-    3480   3480[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [7,] 2004     11  20   1  100     10      30       0   1
+5000  18750[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ## [168265,] 2014     42  36   2  100     13      21       0
-   55300  55300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [8,] 2004     11  19   1  100     10      10      44   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ## [168266,] 2014     42  47   1  807     10      32       0
-   35000  35000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ##  [9,] 2004     11  18   2  100      8      10      20   1
+0000  12500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 146--146
-[]\OT1/cmtt/m/n/10 ## [168267,] 2014     42  21   2  807     11      10      19
-   10300  10300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [10,] 2004     11  59   2  100      8      10      25   2
+0285  25356[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [11,] 2004     11  74   1  100     15      10      26   1
+9000  23750[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [12,] 2004     11  73   2  100     14      10      32   2
+4250  30312[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [13,] 2004     11  71   2  802     11      32       0    
+5270   6588[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [14,] 2004     11  47   2  802     17      10      30   2
+0900  26125[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [15,] 2004     11  36   1  100     10      10      19   2
+6048  32560[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [16,] 2014     42  58   1  651     11      10      40   5
+0000  50000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [17,] 2014     42  30   2  652     16      10      40   2
+5000  25000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [18,] 2014     42  30   1  652     13      12       0    
+5000   5000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [19,] 2014     42  48   1  651     10      10      50   4
+3160  43160[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [20,] 2014     42  42   2  651     10      10      80   5
+5120  55120[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [21,] 2014     42  35   1  802     10      10      40   2
+4000  24000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [22,] 2014     42  50   1  804     10      10      40   1
+4000  14000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [23,] 2014     42  39   1  651     15      10      40   2
+7000  27000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [24,] 2014     42  26   1  651     10      10      15   1
+8000  18000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [25,] 2014     42  24   2  651     17      10      40   6
+0000  60000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [26,] 2014     42  26   1  652     10      10      32   3
+9000  39000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [27,] 2014     42  20   1  652     10      30       0    
+3480   3480[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [28,] 2014     42  36   2  100     13      21       0   5
+5300  55300[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [29,] 2014     42  47   1  807     10      32       0   3
+5000  35000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 167--167
+[]\OT1/cmtt/m/n/10 ## [30,] 2014     42  21   2  807     11      10      19   1
+0300  10300[] 
  []
 
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
-Overfull \hbox (175.41953pt too wide) in paragraph at lines 150--151
+Overfull \hbox (175.41953pt too wide) in paragraph at lines 171--172
 \OT1/cmr/m/n/10 1\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 25\OML/cmm/m/it/10 in\OT1/cm
 r/m/n/10 2014\OML/cmm/m/it/10 :Therefore; toadjust\OT1/cmr/m/n/10 2004\OML/cmm/
 m/it/10 incometoits\OT1/cmr/m/n/10 2014\OML/cmm/m/it/10 equivalent; Iwroteafunc
@@ -344,247 +464,425 @@ tionthatmultipliedall\OT1/cmr/m/n/10 2004\OML/cmm/m/it/10 incomesby$\OT1/cmr/m/
 n/10 1.25. 
  []
 
-Package color Info: Redefining color shadecolor on input line 155.
+Package color Info: Redefining color shadecolor on input line 176.
 
-Overfull \hbox (39.98277pt too wide) in paragraph at lines 172--172
+Overfull \hbox (39.98277pt too wide) in paragraph at lines 193--193
 []  []\OT1/cmtt/m/it/10 ## return(datamatrix) Commenting out so it doesn^^Mt ac
 tually return this[][] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK
- INCWAGE AdjInc[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INC
+WAGE AdjInc[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           2004     11  59   2  100     13      10       2
-   60000  75000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [1,] 2004     11  59   2  100     13      10       2   6
+0000  75000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           2004     11  49   1  100     10      10      20
-   32000  40000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [2,] 2004     11  49   1  100     10      10      20   3
+2000  40000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     15      10      40
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [3,] 2004     11  42   2  100     15      10      40   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           2004     11  68   2  100     15      10      20
-   18000  22500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [4,] 2004     11  68   2  100     15      10      20   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     10      10      24
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [5,] 2004     11  42   2  100     10      10      24   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ## [168263,] 2014     42  26   1  652     10      10      32
-   39000  39000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [6,] 2004     11  45   1  100     13      10      33   5
+0000  62500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ## [168264,] 2014     42  20   1  652     10      30       0
-    3480   3480[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [7,] 2004     11  20   1  100     10      30       0   1
+5000  18750[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ## [168265,] 2014     42  36   2  100     13      21       0
-   55300  55300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [8,] 2004     11  19   1  100     10      10      44   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ## [168266,] 2014     42  47   1  807     10      32       0
-   35000  35000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ##  [9,] 2004     11  18   2  100      8      10      20   1
+0000  12500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 202--202
-[]\OT1/cmtt/m/n/10 ## [168267,] 2014     42  21   2  807     11      10      19
-   10300  10300[] 
- []
-
-[3]
-Package color Info: Redefining color shadecolor on input line 209.
-
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK
- INCWAGE AdjInc[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [10,] 2004     11  59   2  100      8      10      25   2
+0285  25356[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           2004     11  59   2  100     13      10       2
-   60000  75000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [11,] 2004     11  74   1  100     15      10      26   1
+9000  23750[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           2004     11  49   1  100     10      10      20
-   32000  40000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [12,] 2004     11  73   2  100     14      10      32   2
+4250  30312[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     15      10      40
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [13,] 2004     11  71   2  802     11      32       0    
+5270   6588[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           2004     11  68   2  100     15      10      20
-   18000  22500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [14,] 2004     11  47   2  802     17      10      30   2
+0900  26125[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     10      10      24
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [15,] 2004     11  36   1  100     10      10      19   2
+6048  32560[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ## [168263,] 2014     42  26   1  652     10      10      32
-   39000  39000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [16,] 2014     42  58   1  651     11      10      40   5
+0000  50000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ## [168264,] 2014     42  20   1  652     10      30       0
-    3480   3480[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [17,] 2014     42  30   2  652     16      10      40   2
+5000  25000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ## [168265,] 2014     42  36   2  100     13      21       0
-   55300  55300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [18,] 2014     42  30   1  652     13      12       0    
+5000   5000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ## [168266,] 2014     42  47   1  807     10      32       0
-   35000  35000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [19,] 2014     42  48   1  651     10      10      50   4
+3160  43160[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 236--236
-[]\OT1/cmtt/m/n/10 ## [168267,] 2014     42  21   2  807     11      10      19
-   10300  10300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [20,] 2014     42  42   2  651     10      10      80   5
+5120  55120[] 
  []
 
 
-Overfull \hbox (39.98277pt too wide) in paragraph at lines 348--348
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [21,] 2014     42  35   1  802     10      10      40   2
+4000  24000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [22,] 2014     42  50   1  804     10      10      40   1
+4000  14000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [23,] 2014     42  39   1  651     15      10      40   2
+7000  27000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [24,] 2014     42  26   1  651     10      10      15   1
+8000  18000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [25,] 2014     42  24   2  651     17      10      40   6
+0000  60000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [26,] 2014     42  26   1  652     10      10      32   3
+9000  39000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [27,] 2014     42  20   1  652     10      30       0    
+3480   3480[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [28,] 2014     42  36   2  100     13      21       0   5
+5300  55300[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [29,] 2014     42  47   1  807     10      32       0   3
+5000  35000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 263--263
+[]\OT1/cmtt/m/n/10 ## [30,] 2014     42  21   2  807     11      10      19   1
+0300  10300[] 
+ []
+
+[3] [4]
+Package color Info: Redefining color shadecolor on input line 270.
+
+Overfull \hbox (39.98277pt too wide) in paragraph at lines 383--383
 []  []\OT1/cmtt/m/it/10 ## return(datamatrix) Commenting out so it doesn^^Mt ac
 tually return this[][] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK
- INCWAGE AdjInc[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INC
+WAGE AdjInc[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           2004     11  59   2  100     13      10       2
-   60000  75000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [1,] 2004     11  59   2  100     13      10       2   6
+0000  75000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           2004     11  49   1  100     10      10      20
-   32000  40000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [2,] 2004     11  49   1  100     10      10      20   3
+2000  40000[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     15      10      40
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [3,] 2004     11  42   2  100     15      10      40   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           2004     11  68   2  100     15      10      20
-   18000  22500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [4,] 2004     11  68   2  100     15      10      20   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ##           2004     11  42   2  100     10      10      24
-   30000  37500[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [5,] 2004     11  42   2  100     10      10      24   3
+0000  37500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ## [168263,] 2014     42  26   1  652     10      10      32
-   39000  39000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [6,] 2004     11  45   1  100     13      10      33   5
+0000  62500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ## [168264,] 2014     42  20   1  652     10      30       0
-    3480   3480[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [7,] 2004     11  20   1  100     10      30       0   1
+5000  18750[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ## [168265,] 2014     42  36   2  100     13      21       0
-   55300  55300[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [8,] 2004     11  19   1  100     10      10      44   1
+8000  22500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ## [168266,] 2014     42  47   1  807     10      32       0
-   35000  35000[] 
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ##  [9,] 2004     11  18   2  100      8      10      20   1
+0000  12500[] 
  []
 
 
-Overfull \hbox (48.74657pt too wide) in paragraph at lines 378--378
-[]\OT1/cmtt/m/n/10 ## [168267,] 2014     42  21   2  807     11      10      19
-   10300  10300[] 
- []
-
-[4] [5]
-Underfull \vbox (badness 10000) detected at line 379
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [10,] 2004     11  59   2  100      8      10      25   2
+0285  25356[] 
  []
 
 
-Underfull \vbox (badness 10000) detected at line 379
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [11,] 2004     11  74   1  100     15      10      26   1
+9000  23750[] 
  []
 
-[6] [7] (./Problem_Set_4_Beginnings.aux) ) 
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [12,] 2004     11  73   2  100     14      10      32   2
+4250  30312[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [13,] 2004     11  71   2  802     11      32       0    
+5270   6588[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [14,] 2004     11  47   2  802     17      10      30   2
+0900  26125[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [15,] 2004     11  36   1  100     10      10      19   2
+6048  32560[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [16,] 2014     42  58   1  651     11      10      40   5
+0000  50000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [17,] 2014     42  30   2  652     16      10      40   2
+5000  25000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [18,] 2014     42  30   1  652     13      12       0    
+5000   5000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [19,] 2014     42  48   1  651     10      10      50   4
+3160  43160[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [20,] 2014     42  42   2  651     10      10      80   5
+5120  55120[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [21,] 2014     42  35   1  802     10      10      40   2
+4000  24000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [22,] 2014     42  50   1  804     10      10      40   1
+4000  14000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [23,] 2014     42  39   1  651     15      10      40   2
+7000  27000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [24,] 2014     42  26   1  651     10      10      15   1
+8000  18000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [25,] 2014     42  24   2  651     17      10      40   6
+0000  60000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [26,] 2014     42  26   1  652     10      10      32   3
+9000  39000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [27,] 2014     42  20   1  652     10      30       0    
+3480   3480[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [28,] 2014     42  36   2  100     13      21       0   5
+5300  55300[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [29,] 2014     42  47   1  807     10      32       0   3
+5000  35000[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 453--453
+[]\OT1/cmtt/m/n/10 ## [30,] 2014     42  21   2  807     11      10      19   1
+0300  10300[] 
+ []
+
+[5]
+Overfull \vbox (2.5pt too high) detected at line 454
+ []
+
+[6]
+Underfull \vbox (badness 10000) detected at line 454
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 454
+ []
+
+[7] [8] [9] (./Problem_Set_4_Beginnings.aux) ) 
 Here is how much of TeX's memory you used:
  2774 strings out of 493117
  40264 string characters out of 6135433
- 133906 words of memory out of 5000000
+ 141394 words of memory out of 5000000
  6207 multiletter control sequences out of 15000+600000
  5640 words of font info for 22 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,5n,23p,377b,283s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Problem_Set_4_Beginnings.pdf (7 pages, 90417 bytes).
+</usr/local/texlive/2014/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2014/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2014/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2014/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Problem_Set_4_Beginnings.pdf (9 pages, 93057 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 58 PDF objects out of 1000 (max. 8388607)
+ 40 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
