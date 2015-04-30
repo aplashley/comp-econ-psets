@@ -32,9 +32,6 @@ datamatrix <- as.matrix(read.csv("cps_00005.csv"))
 datamatrix <- datamatrix[,-5:-8]
 datamatrix <- datamatrix[,-2:-3]
 
-AdjInc <- c(rep(NA, nrow(datamatrix)))
-
-datamatrix <- cbind(datamatrix, AdjInc)
 
 datamatrix <- datamatrix[datamatrix[,9]!= 0,]
 datamatrix <- datamatrix[datamatrix[,9]!= 9999999,]
@@ -42,30 +39,33 @@ datamatrix <- datamatrix[datamatrix[,9]!= 9999999,]
 
 
 incomeadjust <- function(data.m = datamatrix, sampq = TRUE){
+
+  AdjInc <- c(rep(NA, nrow(data.m)))
+  data.m <- cbind(data.m, AdjInc)
   
   for (i in 1:nrow(datamatrix)){
     
-    year <- as.numeric(datamatrix[i,1])
-    income <- as.numeric(datamatrix[i,9])
+    year <- as.numeric(data.m[i,1])
+    income <- as.numeric(data.m[i,9])
     
     if (year == 2004){
       
       AdjustedIncome <- income * 1.25
-      datamatrix[i,10] = round(AdjustedIncome)
+      data.m[i,10] = round(AdjustedIncome)
     }
     
     if (year == 2014){
       
       AdjustedIncome <- income
-      datamatrix[i,10] = round(AdjustedIncome)
+      data.m[i,10] = round(AdjustedIncome)
     }
     
     
   }
   
  if (sampq == TRUE){
-  top <- head(datamatrix, n=15)
-  bottom<- tail(datamatrix, n=15)
+  top <- head(data.m, n=15)
+  bottom<- tail(data.m, n=15)
   
   sample <- rbind(top,bottom)
   row.names(sample) <- NULL
@@ -74,7 +74,7 @@ incomeadjust <- function(data.m = datamatrix, sampq = TRUE){
  }
  
  if (sampq == FALSE){
-   return(datamatrix)
+   return(data.m)
  }
 }
 
