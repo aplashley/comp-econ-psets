@@ -41,7 +41,7 @@ datamatrix <- datamatrix[datamatrix[,9]!= 9999999,]
 
 
 
-incomeadjust <- function(data.m = datamatrix){
+incomeadjust <- function(data.m = datamatrix, sampq = TRUE){
   
   for (i in 1:nrow(datamatrix)){
     
@@ -63,7 +63,7 @@ incomeadjust <- function(data.m = datamatrix){
     
   }
   
- 
+ if (sampq == TRUE){
   top <- head(datamatrix, n=15)
   bottom<- tail(datamatrix, n=15)
   
@@ -71,9 +71,14 @@ incomeadjust <- function(data.m = datamatrix){
   row.names(sample) <- NULL
   return(sample)
   
+ }
+ 
+ if (sampq == FALSE){
+   return(datamatrix)
+ }
 }
 
-incomeadjust(datamatrix)
+incomeadjust(datamatrix, TRUE)
 
 @
 
@@ -85,7 +90,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 sample <- incomeadjust(datamatrix) 
 logInc <- c(rep(NA, nrow(sample)))
-sample <- cbind(sample, logVar)
+sample <- cbind(sample, logInc)
 
 
 
@@ -235,6 +240,11 @@ potExpf(sample)
 
 <<>>==
 
+library(stargazer)
+
+sample <- potExpf(sample)
+
+fit <- lm()
 
 
 @
