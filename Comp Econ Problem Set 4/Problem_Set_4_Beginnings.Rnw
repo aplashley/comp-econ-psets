@@ -88,27 +88,26 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 <<>>==
 
-sample <- incomeadjust(datamatrix, TRUE) 
-logInc <- c(rep(NA, nrow(sample)))
-sample <- cbind(sample, logInc)
+testdata <- incomeadjust(datamatrix, TRUE) 
 
-
-
-logVarf <- function(data.m = sample){
+logVarf <- function(data.m = testdata){
   
-  for (i in 1:nrow(sample)){
+  logInc <- c(rep(NA, nrow(data.m)))
+  data.m <- cbind(data.m, logInc)
+  
+  for (i in 1:nrow(data.m)){
     
-    rowIncomeLog <- log(sample[i,10]) 
-    sample[i,11] <- rowIncomeLog
+    rowIncomeLog <- log(data.m[i,10]) 
+    data.m[i,11] <- rowIncomeLog
     
   }  
   
   ## return(datamatrix) Commenting out so it doesn't actually return this
-  return(sample)
+  return(data.m)
   
 }
 
-logVarf(sample)
+logVarf(testdata)
 
 @
 
@@ -116,135 +115,135 @@ logVarf(sample)
 
 <<>>==
 
-sample <- logVarf(sample)
+sample <- logVarf(testdata)
 
-potExp <- c(rep(NA, nrow(sample)))
-YrsOfSch <- c(rep(NA, nrow(sample)))
-sample <- cbind(sample, potExp, YrsOfSch)
-
-potExpf <- function(data.m = sample){
+potExpf <- function(data.m = testdata){
   
-  for (i in 1:nrow(sample)){
+  potExp <- c(rep(NA, nrow(data.m)))
+  YrsOfSch <- c(rep(NA, nrow(data.m)))
+  data.m <- cbind(data.m, potExp, YrsOfSch)
+  
+  for (i in 1:nrow(data.m)){
     
-    indAge = as.numeric(sample[i,3])
-    indEduCode = as.numeric(sample[i,6])
+    indAge = as.numeric(data.m[i,3])
+    indEduCode = as.numeric(data.m[i,6])
     
     if (indEduCode < 6){
       indYrsOfSch = 9
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 6){
       indYrsOfSch = 10
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 7){
       indYrsOfSch = 11
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 8){
       indYrsOfSch = 12
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 9){
       indYrsOfSch = 13
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 10){
       indYrsOfSch = 13
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 11){
       indYrsOfSch = 14
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 12){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 13){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 14){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 15){
       indYrsOfSch = 17
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 16){
       indYrsOfSch = 19
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 17){
       indYrsOfSch = 19
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
     if (indEduCode == 18){
       indYrsOfSch = 22
       indPotExp = indAge - indYrsOfSch - 5
-      sample[i,12] = indPotExp
-      sample[i,13] = indYrsOfSch
+      data.m[i,12] = indPotExp
+      data.m[i,13] = indYrsOfSch
       
     }
     
   }  
   
   ## return(datamatrix) Commenting out so it doesn't actually return this
-  return(sample)
+  return(data.m)
   
 }
 

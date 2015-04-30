@@ -180,27 +180,26 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{sample} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{TRUE}\hlstd{)}
-\hlstd{logInc} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
-\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, logInc)}
+\hlstd{testdata} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{TRUE}\hlstd{)}
 
+\hlstd{logVarf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= testdata)\{}
 
+  \hlstd{logInc} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(data.m)))}
+  \hlstd{data.m} \hlkwb{<-} \hlkwd{cbind}\hlstd{(data.m, logInc)}
 
-\hlstd{logVarf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(data.m))\{}
 
-  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
-
-    \hlstd{rowIncomeLog} \hlkwb{<-} \hlkwd{log}\hlstd{(sample[i,}\hlnum{10}\hlstd{])}
-    \hlstd{sample[i,}\hlnum{11}\hlstd{]} \hlkwb{<-} \hlstd{rowIncomeLog}
+    \hlstd{rowIncomeLog} \hlkwb{<-} \hlkwd{log}\hlstd{(data.m[i,}\hlnum{10}\hlstd{])}
+    \hlstd{data.m[i,}\hlnum{11}\hlstd{]} \hlkwb{<-} \hlstd{rowIncomeLog}
 
   \hlstd{\}}
 
   \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
-  \hlkwd{return}\hlstd{(sample)}
+  \hlkwd{return}\hlstd{(data.m)}
 
 \hlstd{\}}
 
-\hlkwd{logVarf}\hlstd{(sample)}
+\hlkwd{logVarf}\hlstd{(testdata)}
 \end{alltt}
 \begin{verbatim}
 ##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
@@ -274,135 +273,135 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{sample} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(sample)}
+\hlstd{sample} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(testdata)}
 
-\hlstd{potExp} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
-\hlstd{YrsOfSch} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
-\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, potExp, YrsOfSch)}
+\hlstd{potExpf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= testdata)\{}
 
-\hlstd{potExpf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
+  \hlstd{potExp} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(data.m)))}
+  \hlstd{YrsOfSch} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(data.m)))}
+  \hlstd{data.m} \hlkwb{<-} \hlkwd{cbind}\hlstd{(data.m, potExp, YrsOfSch)}
 
-  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(data.m))\{}
 
-    \hlstd{indAge} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{3}\hlstd{])}
-    \hlstd{indEduCode} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{6}\hlstd{])}
+    \hlstd{indAge} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(data.m[i,}\hlnum{3}\hlstd{])}
+    \hlstd{indEduCode} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(data.m[i,}\hlnum{6}\hlstd{])}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{<} \hlnum{6}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{9}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{6}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{10}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{7}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{11}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{8}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{12}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{9}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{10}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{11}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{14}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{12}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{13}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{14}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{15}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{17}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{16}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{17}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
     \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{18}\hlstd{)\{}
       \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{22}
       \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+      \hlstd{data.m[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{data.m[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
 
     \hlstd{\}}
 
   \hlstd{\}}
 
   \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
-  \hlkwd{return}\hlstd{(sample)}
+  \hlkwd{return}\hlstd{(data.m)}
 
 \hlstd{\}}
 
