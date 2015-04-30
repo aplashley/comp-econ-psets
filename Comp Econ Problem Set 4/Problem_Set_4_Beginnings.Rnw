@@ -27,14 +27,19 @@ library(stargazer)
 
 setwd("/Users/Tony/Downloads")
 
-data <- read.csv("cps_00004.csv")
-datamatrix <- as.matrix(read.csv("cps_00004.csv"))
+data <- read.csv("cps_00005.csv")
+datamatrix <- as.matrix(read.csv("cps_00005.csv"))
 datamatrix <- datamatrix[,-5:-8]
 datamatrix <- datamatrix[,-2:-3]
 
 AdjInc <- c(rep(NA, nrow(datamatrix)))
 
 datamatrix <- cbind(datamatrix, AdjInc)
+
+datamatrix <- datamatrix[datamatrix[,9]!= 0,]
+datamatrix <- datamatrix[datamatrix[,9]!= 9999999,]
+
+
 
 incomeadjust <- function(data.m = datamatrix){
   
@@ -47,14 +52,12 @@ incomeadjust <- function(data.m = datamatrix){
       
       AdjustedIncome <- income * 1.25
       datamatrix[i,10] = round(AdjustedIncome)
-      
     }
     
     if (year == 2014){
       
       AdjustedIncome <- income
       datamatrix[i,10] = round(AdjustedIncome)
-      
     }
     
     
@@ -90,7 +93,7 @@ logVarf <- function(data.m = sample){
   for (i in 1:nrow(sample)){
     
     rowIncomeLog <- log(sample[i,10]) 
-    sample[i,11] <- round(rowIncomeLog)
+    sample[i,11] <- rowIncomeLog
     
   }  
   
@@ -107,7 +110,7 @@ logVarf(sample)
 
 <<>>==
 
-sample <- logvarf(sample)
+sample <- logVarf(sample)
 potExp <- c(rep(NA, nrow(sample)))
 sample <- cbind(sample, potExp)
 
@@ -115,8 +118,106 @@ potExpf <- function(data.m = sample){
   
   for (i in 1:nrow(sample)){
     
-    rowPotExp <- log(sample[i,10]) 
-    sample[i,11] <- round(rowIncomeLog)
+    indAge = as.numeric(sample[i,3])
+    indEduCode = as.numeric(sample[i,6])
+    
+    if (indEduCode < 6){
+      indYrsOfSch = 9
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 6){
+      indYrsOfSch = 10
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 7){
+      indYrsOfSch = 11
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 8){
+      indYrsOfSch = 12
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 9){
+      indYrsOfSch = 13
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 10){
+      indYrsOfSch = 13
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 11){
+      indYrsOfSch = 14
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 12){
+      indYrsOfSch = 15
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 13){
+      indYrsOfSch = 15
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 14){
+      indYrsOfSch = 15
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 15){
+      indYrsOfSch = 17
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 16){
+      indYrsOfSch = 19
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 17){
+      indYrsOfSch = 19
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
+    
+    if (indEduCode == 18){
+      indYrsOfSch = 22
+      indPotExp = indAge - indYrsOfSch - 5
+      sample[i,12] = indPotExp
+      
+    }
     
   }  
   
@@ -124,6 +225,8 @@ potExpf <- function(data.m = sample){
   print(sample)
   
 }
+
+potExpf(sample)
 
 
 @
