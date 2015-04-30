@@ -135,7 +135,355 @@
  \hlstd{\}}
 \hlstd{\}}
 
-\hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{FALSE}\hlstd{)}
+\hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
+##  [1,] 2004     11  59   2  100     13      10       2   60000  75000
+##  [2,] 2004     11  49   1  100     10      10      20   32000  40000
+##  [3,] 2004     11  42   2  100     15      10      40   30000  37500
+##  [4,] 2004     11  68   2  100     15      10      20   18000  22500
+##  [5,] 2004     11  42   2  100     10      10      24   30000  37500
+##  [6,] 2004     11  45   1  100     13      10      33   50000  62500
+##  [7,] 2004     11  20   1  100     10      30       0   15000  18750
+##  [8,] 2004     11  19   1  100     10      10      44   18000  22500
+##  [9,] 2004     11  18   2  100      8      10      20   10000  12500
+## [10,] 2004     11  59   2  100      8      10      25   20285  25356
+## [11,] 2004     11  74   1  100     15      10      26   19000  23750
+## [12,] 2004     11  73   2  100     14      10      32   24250  30312
+## [13,] 2004     11  71   2  802     11      32       0    5270   6588
+## [14,] 2004     11  47   2  802     17      10      30   20900  26125
+## [15,] 2004     11  36   1  100     10      10      19   26048  32560
+## [16,] 2014     42  58   1  651     11      10      40   50000  50000
+## [17,] 2014     42  30   2  652     16      10      40   25000  25000
+## [18,] 2014     42  30   1  652     13      12       0    5000   5000
+## [19,] 2014     42  48   1  651     10      10      50   43160  43160
+## [20,] 2014     42  42   2  651     10      10      80   55120  55120
+## [21,] 2014     42  35   1  802     10      10      40   24000  24000
+## [22,] 2014     42  50   1  804     10      10      40   14000  14000
+## [23,] 2014     42  39   1  651     15      10      40   27000  27000
+## [24,] 2014     42  26   1  651     10      10      15   18000  18000
+## [25,] 2014     42  24   2  651     17      10      40   60000  60000
+## [26,] 2014     42  26   1  652     10      10      32   39000  39000
+## [27,] 2014     42  20   1  652     10      30       0    3480   3480
+## [28,] 2014     42  36   2  100     13      21       0   55300  55300
+## [29,] 2014     42  47   1  807     10      32       0   35000  35000
+## [30,] 2014     42  21   2  807     11      10      19   10300  10300
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator, which told me that a dollar in 2004 has the same buying power as $1.25 in 2014. Therefore, to adjust 2004 income to its 2014 equivalent, I wrote a function that multiplied all 2004 incomes by $1.25.
+
+\subsection{Make a new variable that is log wage income in your data}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sample} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{TRUE}\hlstd{)}
+\hlstd{logInc} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
+\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, logInc)}
+
+
+
+\hlstd{logVarf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
+
+    \hlstd{rowIncomeLog} \hlkwb{<-} \hlkwd{log}\hlstd{(sample[i,}\hlnum{10}\hlstd{])}
+    \hlstd{sample[i,}\hlnum{11}\hlstd{]} \hlkwb{<-} \hlstd{rowIncomeLog}
+
+  \hlstd{\}}
+
+  \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
+  \hlkwd{return}\hlstd{(sample)}
+
+\hlstd{\}}
+
+\hlkwd{logVarf}\hlstd{(sample)}
+\end{alltt}
+\begin{verbatim}
+##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
+##  [1,] 2004     11  59   2  100     13      10       2   60000  75000
+##  [2,] 2004     11  49   1  100     10      10      20   32000  40000
+##  [3,] 2004     11  42   2  100     15      10      40   30000  37500
+##  [4,] 2004     11  68   2  100     15      10      20   18000  22500
+##  [5,] 2004     11  42   2  100     10      10      24   30000  37500
+##  [6,] 2004     11  45   1  100     13      10      33   50000  62500
+##  [7,] 2004     11  20   1  100     10      30       0   15000  18750
+##  [8,] 2004     11  19   1  100     10      10      44   18000  22500
+##  [9,] 2004     11  18   2  100      8      10      20   10000  12500
+## [10,] 2004     11  59   2  100      8      10      25   20285  25356
+## [11,] 2004     11  74   1  100     15      10      26   19000  23750
+## [12,] 2004     11  73   2  100     14      10      32   24250  30312
+## [13,] 2004     11  71   2  802     11      32       0    5270   6588
+## [14,] 2004     11  47   2  802     17      10      30   20900  26125
+## [15,] 2004     11  36   1  100     10      10      19   26048  32560
+## [16,] 2014     42  58   1  651     11      10      40   50000  50000
+## [17,] 2014     42  30   2  652     16      10      40   25000  25000
+## [18,] 2014     42  30   1  652     13      12       0    5000   5000
+## [19,] 2014     42  48   1  651     10      10      50   43160  43160
+## [20,] 2014     42  42   2  651     10      10      80   55120  55120
+## [21,] 2014     42  35   1  802     10      10      40   24000  24000
+## [22,] 2014     42  50   1  804     10      10      40   14000  14000
+## [23,] 2014     42  39   1  651     15      10      40   27000  27000
+## [24,] 2014     42  26   1  651     10      10      15   18000  18000
+## [25,] 2014     42  24   2  651     17      10      40   60000  60000
+## [26,] 2014     42  26   1  652     10      10      32   39000  39000
+## [27,] 2014     42  20   1  652     10      30       0    3480   3480
+## [28,] 2014     42  36   2  100     13      21       0   55300  55300
+## [29,] 2014     42  47   1  807     10      32       0   35000  35000
+## [30,] 2014     42  21   2  807     11      10      19   10300  10300
+##          logInc
+##  [1,] 11.225243
+##  [2,] 10.596635
+##  [3,] 10.532096
+##  [4,] 10.021271
+##  [5,] 10.532096
+##  [6,] 11.042922
+##  [7,]  9.838949
+##  [8,] 10.021271
+##  [9,]  9.433484
+## [10,] 10.140771
+## [11,] 10.075338
+## [12,] 10.319299
+## [13,]  8.793005
+## [14,] 10.170648
+## [15,] 10.390840
+## [16,] 10.819778
+## [17,] 10.126631
+## [18,]  8.517193
+## [19,] 10.672669
+## [20,] 10.917268
+## [21,] 10.085809
+## [22,]  9.546813
+## [23,] 10.203592
+## [24,]  9.798127
+## [25,] 11.002100
+## [26,] 10.571317
+## [27,]  8.154788
+## [28,] 10.920528
+## [29,] 10.463103
+## [30,]  9.239899
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Construct "potential experience", which will be "Age - years of schooling - 5"}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{sample} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(sample)}
+
+\hlstd{potExp} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
+\hlstd{YrsOfSch} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
+\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, potExp, YrsOfSch)}
+
+\hlstd{potExpf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
+
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
+
+    \hlstd{indAge} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{3}\hlstd{])}
+    \hlstd{indEduCode} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{6}\hlstd{])}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{<} \hlnum{6}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{9}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{6}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{10}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{7}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{11}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{8}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{12}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{9}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{10}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{11}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{14}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{12}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{13}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{14}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{15}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{17}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{16}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{17}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{18}\hlstd{)\{}
+      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{22}
+      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
+      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
+      \hlstd{sample[i,}\hlnum{13}\hlstd{]} \hlkwb{=} \hlstd{indYrsOfSch}
+
+    \hlstd{\}}
+
+  \hlstd{\}}
+
+  \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
+  \hlkwd{return}\hlstd{(sample)}
+
+\hlstd{\}}
+
+\hlkwd{potExpf}\hlstd{(sample)}
+\end{alltt}
+\begin{verbatim}
+##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
+##  [1,] 2004     11  59   2  100     13      10       2   60000  75000
+##  [2,] 2004     11  49   1  100     10      10      20   32000  40000
+##  [3,] 2004     11  42   2  100     15      10      40   30000  37500
+##  [4,] 2004     11  68   2  100     15      10      20   18000  22500
+##  [5,] 2004     11  42   2  100     10      10      24   30000  37500
+##  [6,] 2004     11  45   1  100     13      10      33   50000  62500
+##  [7,] 2004     11  20   1  100     10      30       0   15000  18750
+##  [8,] 2004     11  19   1  100     10      10      44   18000  22500
+##  [9,] 2004     11  18   2  100      8      10      20   10000  12500
+## [10,] 2004     11  59   2  100      8      10      25   20285  25356
+## [11,] 2004     11  74   1  100     15      10      26   19000  23750
+## [12,] 2004     11  73   2  100     14      10      32   24250  30312
+## [13,] 2004     11  71   2  802     11      32       0    5270   6588
+## [14,] 2004     11  47   2  802     17      10      30   20900  26125
+## [15,] 2004     11  36   1  100     10      10      19   26048  32560
+## [16,] 2014     42  58   1  651     11      10      40   50000  50000
+## [17,] 2014     42  30   2  652     16      10      40   25000  25000
+## [18,] 2014     42  30   1  652     13      12       0    5000   5000
+## [19,] 2014     42  48   1  651     10      10      50   43160  43160
+## [20,] 2014     42  42   2  651     10      10      80   55120  55120
+## [21,] 2014     42  35   1  802     10      10      40   24000  24000
+## [22,] 2014     42  50   1  804     10      10      40   14000  14000
+## [23,] 2014     42  39   1  651     15      10      40   27000  27000
+## [24,] 2014     42  26   1  651     10      10      15   18000  18000
+## [25,] 2014     42  24   2  651     17      10      40   60000  60000
+## [26,] 2014     42  26   1  652     10      10      32   39000  39000
+## [27,] 2014     42  20   1  652     10      30       0    3480   3480
+## [28,] 2014     42  36   2  100     13      21       0   55300  55300
+## [29,] 2014     42  47   1  807     10      32       0   35000  35000
+## [30,] 2014     42  21   2  807     11      10      19   10300  10300
+##          logInc potExp YrsOfSch
+##  [1,] 11.225243     39       15
+##  [2,] 10.596635     31       13
+##  [3,] 10.532096     20       17
+##  [4,] 10.021271     46       17
+##  [5,] 10.532096     24       13
+##  [6,] 11.042922     25       15
+##  [7,]  9.838949      2       13
+##  [8,] 10.021271      1       13
+##  [9,]  9.433484      1       12
+## [10,] 10.140771     42       12
+## [11,] 10.075338     52       17
+## [12,] 10.319299     53       15
+## [13,]  8.793005     52       14
+## [14,] 10.170648     23       19
+## [15,] 10.390840     18       13
+## [16,] 10.819778     39       14
+## [17,] 10.126631      6       19
+## [18,]  8.517193     10       15
+## [19,] 10.672669     30       13
+## [20,] 10.917268     24       13
+## [21,] 10.085809     17       13
+## [22,]  9.546813     32       13
+## [23,] 10.203592     17       17
+## [24,]  9.798127      8       13
+## [25,] 11.002100      0       19
+## [26,] 10.571317      8       13
+## [27,]  8.154788      2       13
+## [28,] 10.920528     16       15
+## [29,] 10.463103     29       13
+## [30,]  9.239899      2       14
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Make a table comparing the following regressions for 2014 and 2014}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(stargazer)}
+
+\hlstd{regData} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{FALSE}\hlstd{)}
+\hlkwd{print}\hlstd{(regData)}
 \end{alltt}
 \begin{verbatim}
 ##           YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE  AdjInc
@@ -10140,309 +10488,11 @@
 ##   [9999,] 2004     11  36   1  100     10      10      45   38000   47500
 ##  [ reached getOption("max.print") -- omitted 158268 rows ]
 \end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator, which told me that a dollar in 2004 has the same buying power as $1.25 in 2014. Therefore, to adjust 2004 income to its 2014 equivalent, I wrote a function that multiplied all 2004 incomes by $1.25.
-
-\subsection{Make a new variable that is log wage income in your data}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{sample} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix)}
-\hlstd{logInc} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
-\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, logInc)}
-
-
-
-\hlstd{logVarf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
-
-  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
-
-    \hlstd{rowIncomeLog} \hlkwb{<-} \hlkwd{log}\hlstd{(sample[i,}\hlnum{10}\hlstd{])}
-    \hlstd{sample[i,}\hlnum{11}\hlstd{]} \hlkwb{<-} \hlstd{rowIncomeLog}
-
-  \hlstd{\}}
-
-  \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
-  \hlkwd{return}\hlstd{(sample)}
-
-\hlstd{\}}
-
-\hlkwd{logVarf}\hlstd{(sample)}
+\hlstd{regData} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(regData)}
+\hlstd{regData} \hlkwb{<-} \hlkwd{potExpf}\hlstd{(regData)}
 \end{alltt}
-\begin{verbatim}
-##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
-##  [1,] 2004     11  59   2  100     13      10       2   60000  75000
-##  [2,] 2004     11  49   1  100     10      10      20   32000  40000
-##  [3,] 2004     11  42   2  100     15      10      40   30000  37500
-##  [4,] 2004     11  68   2  100     15      10      20   18000  22500
-##  [5,] 2004     11  42   2  100     10      10      24   30000  37500
-##  [6,] 2004     11  45   1  100     13      10      33   50000  62500
-##  [7,] 2004     11  20   1  100     10      30       0   15000  18750
-##  [8,] 2004     11  19   1  100     10      10      44   18000  22500
-##  [9,] 2004     11  18   2  100      8      10      20   10000  12500
-## [10,] 2004     11  59   2  100      8      10      25   20285  25356
-## [11,] 2004     11  74   1  100     15      10      26   19000  23750
-## [12,] 2004     11  73   2  100     14      10      32   24250  30312
-## [13,] 2004     11  71   2  802     11      32       0    5270   6588
-## [14,] 2004     11  47   2  802     17      10      30   20900  26125
-## [15,] 2004     11  36   1  100     10      10      19   26048  32560
-## [16,] 2014     42  58   1  651     11      10      40   50000  50000
-## [17,] 2014     42  30   2  652     16      10      40   25000  25000
-## [18,] 2014     42  30   1  652     13      12       0    5000   5000
-## [19,] 2014     42  48   1  651     10      10      50   43160  43160
-## [20,] 2014     42  42   2  651     10      10      80   55120  55120
-## [21,] 2014     42  35   1  802     10      10      40   24000  24000
-## [22,] 2014     42  50   1  804     10      10      40   14000  14000
-## [23,] 2014     42  39   1  651     15      10      40   27000  27000
-## [24,] 2014     42  26   1  651     10      10      15   18000  18000
-## [25,] 2014     42  24   2  651     17      10      40   60000  60000
-## [26,] 2014     42  26   1  652     10      10      32   39000  39000
-## [27,] 2014     42  20   1  652     10      30       0    3480   3480
-## [28,] 2014     42  36   2  100     13      21       0   55300  55300
-## [29,] 2014     42  47   1  807     10      32       0   35000  35000
-## [30,] 2014     42  21   2  807     11      10      19   10300  10300
-##          logInc
-##  [1,] 11.225243
-##  [2,] 10.596635
-##  [3,] 10.532096
-##  [4,] 10.021271
-##  [5,] 10.532096
-##  [6,] 11.042922
-##  [7,]  9.838949
-##  [8,] 10.021271
-##  [9,]  9.433484
-## [10,] 10.140771
-## [11,] 10.075338
-## [12,] 10.319299
-## [13,]  8.793005
-## [14,] 10.170648
-## [15,] 10.390840
-## [16,] 10.819778
-## [17,] 10.126631
-## [18,]  8.517193
-## [19,] 10.672669
-## [20,] 10.917268
-## [21,] 10.085809
-## [22,]  9.546813
-## [23,] 10.203592
-## [24,]  9.798127
-## [25,] 11.002100
-## [26,] 10.571317
-## [27,]  8.154788
-## [28,] 10.920528
-## [29,] 10.463103
-## [30,]  9.239899
-\end{verbatim}
 \end{kframe}
-\end{knitrout}
-
-\subsection{Construct "potential experience", which will be "Age - years of schooling - 5"}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{sample} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(sample)}
-\hlstd{potExp} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{NA}\hlstd{,} \hlkwd{nrow}\hlstd{(sample)))}
-\hlstd{sample} \hlkwb{<-} \hlkwd{cbind}\hlstd{(sample, potExp)}
-
-\hlstd{potExpf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= sample)\{}
-
-  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(sample))\{}
-
-    \hlstd{indAge} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{3}\hlstd{])}
-    \hlstd{indEduCode} \hlkwb{=} \hlkwd{as.numeric}\hlstd{(sample[i,}\hlnum{6}\hlstd{])}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{<} \hlnum{6}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{9}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{6}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{10}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{7}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{11}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{8}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{12}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{9}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{10}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{13}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{11}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{14}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{12}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{13}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{14}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{15}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{15}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{17}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{16}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{17}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{19}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-    \hlkwa{if} \hlstd{(indEduCode} \hlopt{==} \hlnum{18}\hlstd{)\{}
-      \hlstd{indYrsOfSch} \hlkwb{=} \hlnum{22}
-      \hlstd{indPotExp} \hlkwb{=} \hlstd{indAge} \hlopt{-} \hlstd{indYrsOfSch} \hlopt{-} \hlnum{5}
-      \hlstd{sample[i,}\hlnum{12}\hlstd{]} \hlkwb{=} \hlstd{indPotExp}
-
-    \hlstd{\}}
-
-  \hlstd{\}}
-
-  \hlcom{## return(datamatrix) Commenting out so it doesn't actually return this}
-  \hlkwd{return}\hlstd{(sample)}
-
-\hlstd{\}}
-
-\hlkwd{potExpf}\hlstd{(sample)}
-\end{alltt}
-\begin{verbatim}
-##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
-##  [1,] 2004     11  59   2  100     13      10       2   60000  75000
-##  [2,] 2004     11  49   1  100     10      10      20   32000  40000
-##  [3,] 2004     11  42   2  100     15      10      40   30000  37500
-##  [4,] 2004     11  68   2  100     15      10      20   18000  22500
-##  [5,] 2004     11  42   2  100     10      10      24   30000  37500
-##  [6,] 2004     11  45   1  100     13      10      33   50000  62500
-##  [7,] 2004     11  20   1  100     10      30       0   15000  18750
-##  [8,] 2004     11  19   1  100     10      10      44   18000  22500
-##  [9,] 2004     11  18   2  100      8      10      20   10000  12500
-## [10,] 2004     11  59   2  100      8      10      25   20285  25356
-## [11,] 2004     11  74   1  100     15      10      26   19000  23750
-## [12,] 2004     11  73   2  100     14      10      32   24250  30312
-## [13,] 2004     11  71   2  802     11      32       0    5270   6588
-## [14,] 2004     11  47   2  802     17      10      30   20900  26125
-## [15,] 2004     11  36   1  100     10      10      19   26048  32560
-## [16,] 2014     42  58   1  651     11      10      40   50000  50000
-## [17,] 2014     42  30   2  652     16      10      40   25000  25000
-## [18,] 2014     42  30   1  652     13      12       0    5000   5000
-## [19,] 2014     42  48   1  651     10      10      50   43160  43160
-## [20,] 2014     42  42   2  651     10      10      80   55120  55120
-## [21,] 2014     42  35   1  802     10      10      40   24000  24000
-## [22,] 2014     42  50   1  804     10      10      40   14000  14000
-## [23,] 2014     42  39   1  651     15      10      40   27000  27000
-## [24,] 2014     42  26   1  651     10      10      15   18000  18000
-## [25,] 2014     42  24   2  651     17      10      40   60000  60000
-## [26,] 2014     42  26   1  652     10      10      32   39000  39000
-## [27,] 2014     42  20   1  652     10      30       0    3480   3480
-## [28,] 2014     42  36   2  100     13      21       0   55300  55300
-## [29,] 2014     42  47   1  807     10      32       0   35000  35000
-## [30,] 2014     42  21   2  807     11      10      19   10300  10300
-##          logInc potExp
-##  [1,] 11.225243     39
-##  [2,] 10.596635     31
-##  [3,] 10.532096     20
-##  [4,] 10.021271     46
-##  [5,] 10.532096     24
-##  [6,] 11.042922     25
-##  [7,]  9.838949      2
-##  [8,] 10.021271      1
-##  [9,]  9.433484      1
-## [10,] 10.140771     42
-## [11,] 10.075338     52
-## [12,] 10.319299     53
-## [13,]  8.793005     52
-## [14,] 10.170648     23
-## [15,] 10.390840     18
-## [16,] 10.819778     39
-## [17,] 10.126631      6
-## [18,]  8.517193     10
-## [19,] 10.672669     30
-## [20,] 10.917268     24
-## [21,] 10.085809     17
-## [22,]  9.546813     32
-## [23,] 10.203592     17
-## [24,]  9.798127      8
-## [25,] 11.002100      0
-## [26,] 10.571317      8
-## [27,]  8.154788      2
-## [28,] 10.920528     16
-## [29,] 10.463103     29
-## [30,]  9.239899      2
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-\subsection{Make a table comparing the following regressions for 2014 and 2014}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{library}\hlstd{(stargazer)}
-
-\hlstd{sample} \hlkwb{<-} \hlkwd{potExpf}\hlstd{(sample)}
-
-\hlstd{fit} \hlkwb{<-} \hlkwd{lm}\hlstd{()}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in terms.formula(formula, data = data): argument is not a valid model}}\end{kframe}
 \end{knitrout}
 
 \end{document}

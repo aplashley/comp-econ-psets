@@ -88,7 +88,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 <<>>==
 
-sample <- incomeadjust(datamatrix) 
+sample <- incomeadjust(datamatrix, TRUE) 
 logInc <- c(rep(NA, nrow(sample)))
 sample <- cbind(sample, logInc)
 
@@ -117,8 +117,10 @@ logVarf(sample)
 <<>>==
 
 sample <- logVarf(sample)
+
 potExp <- c(rep(NA, nrow(sample)))
-sample <- cbind(sample, potExp)
+YrsOfSch <- c(rep(NA, nrow(sample)))
+sample <- cbind(sample, potExp, YrsOfSch)
 
 potExpf <- function(data.m = sample){
   
@@ -131,6 +133,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 9
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -138,6 +141,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 10
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -145,6 +149,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 11
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -152,6 +157,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 12
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -159,6 +165,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 13
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -166,6 +173,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 13
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -173,6 +181,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 14
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -180,6 +189,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -187,6 +197,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -194,6 +205,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 15
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -201,6 +213,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 17
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -208,6 +221,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 19
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -215,6 +229,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 19
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -222,6 +237,7 @@ potExpf <- function(data.m = sample){
       indYrsOfSch = 22
       indPotExp = indAge - indYrsOfSch - 5
       sample[i,12] = indPotExp
+      sample[i,13] = indYrsOfSch
       
     }
     
@@ -242,9 +258,11 @@ potExpf(sample)
 
 library(stargazer)
 
-sample <- potExpf(sample)
+regData <- incomeadjust(datamatrix, FALSE)
+regData <- logVarf(regData)
+regData <- potExpf(regData)
 
-fit <- lm()
+
 
 
 @
