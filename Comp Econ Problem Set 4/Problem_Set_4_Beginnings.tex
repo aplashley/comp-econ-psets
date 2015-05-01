@@ -55,6 +55,7 @@
 
 \usepackage{mathtools}
 \usepackage{graphicx}
+\usepackage{dcolumn}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
@@ -476,7 +477,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \subsection{Make a table comparing the following regressions for 2014 and 2014}
 
-\begin{knitrout}
+\begin{knitrout}\tiny
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(stargazer)}
@@ -484,8 +485,213 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 \hlstd{regData} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{FALSE}\hlstd{)}
 \hlstd{regData} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(regData)}
 \hlstd{regData} \hlkwb{<-} \hlkwd{potExpf}\hlstd{(regData)}
+
+\hlstd{regData} \hlkwb{<-} \hlkwd{as.data.frame}\hlstd{(regData)}
+
+\hlstd{data04} \hlkwb{<-} \hlstd{regData[regData[,}\hlnum{1}\hlstd{]}\hlopt{==} \hlnum{2004}\hlstd{,]}
+\hlstd{data14} \hlkwb{<-} \hlstd{regData[regData[,}\hlnum{1}\hlstd{]}\hlopt{==} \hlnum{2014}\hlstd{,]}
+\hlstd{data04m} \hlkwb{<-} \hlstd{data04[data04[,}\hlnum{4}\hlstd{]}\hlopt{==} \hlnum{1}\hlstd{,]}
+\hlstd{data04f} \hlkwb{<-} \hlstd{data04[data04[,}\hlnum{4}\hlstd{]}\hlopt{==} \hlnum{2}\hlstd{,]}
+\hlstd{data14m} \hlkwb{<-} \hlstd{data14[data14[,}\hlnum{4}\hlstd{]}\hlopt{==} \hlnum{1}\hlstd{,]}
+\hlstd{data14f} \hlkwb{<-} \hlstd{data14[data14[,}\hlnum{4}\hlstd{]}\hlopt{==} \hlnum{2}\hlstd{,]}
+
+\hlstd{fit04} \hlkwb{<-} \hlkwd{lm}\hlstd{(data04}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data04}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data04}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data04}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data04 )}
+
+\hlstd{fit04m} \hlkwb{<-} \hlkwd{lm}\hlstd{(data04m}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data04m}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data04m}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data04m}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data04m )}
+
+\hlstd{fit04f} \hlkwb{<-} \hlkwd{lm}\hlstd{(data04f}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data04f}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data04f}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data04f}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data04f )}
+
+\hlstd{fit14} \hlkwb{<-} \hlkwd{lm}\hlstd{(data14}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data14}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data14}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data14}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data14 )}
+
+\hlstd{fit14m} \hlkwb{<-} \hlkwd{lm}\hlstd{(data14m}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data14m}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data14m}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data14m}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data14m )}
+
+\hlstd{fit14f} \hlkwb{<-} \hlkwd{lm}\hlstd{(data14f}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data14f}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data14f}\hlopt{$}\hlstd{potExp}
+          \hlopt{+} \hlkwd{I}\hlstd{(data14f}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data14f)}
+
+
+\hlkwd{stargazer}\hlstd{(fit04, fit04m, fit04f)}
 \end{alltt}
+\begin{verbatim}
+## 
+## % Table created by stargazer v.5.1 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+## % Date and time: Thu, Apr 30, 2015 - 19:46:49
+## \begin{table}[!htbp] \centering 
+##   \caption{} 
+##   \label{} 
+## \begin{tabular}{@{\extracolsep{5pt}}lccc} 
+## \\[-1.8ex]\hline 
+## \hline \\[-1.8ex] 
+##  & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+## \cline{2-4} 
+## \\[-1.8ex] & logInc & logInc & logInc \\ 
+## \\[-1.8ex] & (1) & (2) & (3)\\ 
+## \hline \\[-1.8ex] 
+##  YrsOfSch & 0.163$^{***}$ &  &  \\ 
+##   & (0.001) &  &  \\ 
+##   & & & \\ 
+##  potExp & 0.106$^{***}$ &  &  \\ 
+##   & (0.001) &  &  \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) & $-$0.002$^{***}$ &  &  \\ 
+##   & (0.00002) &  &  \\ 
+##   & & & \\ 
+##  YrsOfSch &  & 0.160$^{***}$ &  \\ 
+##   &  & (0.002) &  \\ 
+##   & & & \\ 
+##  potExp &  & 0.120$^{***}$ &  \\ 
+##   &  & (0.001) &  \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) &  & $-$0.002$^{***}$ &  \\ 
+##   &  & (0.00002) &  \\ 
+##   & & & \\ 
+##  YrsOfSch &  &  & 0.171$^{***}$ \\ 
+##   &  &  & (0.002) \\ 
+##   & & & \\ 
+##  potExp &  &  & 0.091$^{***}$ \\ 
+##   &  &  & (0.001) \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) &  &  & $-$0.002$^{***}$ \\ 
+##   &  &  & (0.00002) \\ 
+##   & & & \\ 
+##  Constant & 6.719$^{***}$ & 6.869$^{***}$ & 6.501$^{***}$ \\ 
+##   & (0.019) & (0.024) & (0.030) \\ 
+##   & & & \\ 
+## \hline \\[-1.8ex] 
+## Observations & 103,084 & 52,848 & 50,236 \\ 
+## R$^{2}$ & 0.310 & 0.385 & 0.266 \\ 
+## Adjusted R$^{2}$ & 0.310 & 0.385 & 0.266 \\ 
+## Residual Std. Error & 1.026 (df = 103080) & 0.942 (df = 52844) & 1.045 (df = 50232) \\ 
+## F Statistic & 15,448.400$^{***}$ (df = 3; 103080) & 11,041.710$^{***}$ (df = 3; 52844) & 6,081.976$^{***}$ (df = 3; 50232) \\ 
+## \hline 
+## \hline \\[-1.8ex] 
+## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+## \end{tabular} 
+## \end{table}
+\end{verbatim}
+\begin{alltt}
+\hlkwd{stargazer}\hlstd{(fit14, fit14m, fit14f)}
+\end{alltt}
+\begin{verbatim}
+## 
+## % Table created by stargazer v.5.1 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+## % Date and time: Thu, Apr 30, 2015 - 19:46:50
+## \begin{table}[!htbp] \centering 
+##   \caption{} 
+##   \label{} 
+## \begin{tabular}{@{\extracolsep{5pt}}lccc} 
+## \\[-1.8ex]\hline 
+## \hline \\[-1.8ex] 
+##  & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+## \cline{2-4} 
+## \\[-1.8ex] & logInc & logInc & logInc \\ 
+## \\[-1.8ex] & (1) & (2) & (3)\\ 
+## \hline \\[-1.8ex] 
+##  YrsOfSch & 0.166$^{***}$ &  &  \\ 
+##   & (0.002) &  &  \\ 
+##   & & & \\ 
+##  potExp & 0.093$^{***}$ &  &  \\ 
+##   & (0.001) &  &  \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) & $-$0.002$^{***}$ &  &  \\ 
+##   & (0.00002) &  &  \\ 
+##   & & & \\ 
+##  YrsOfSch &  & 0.164$^{***}$ &  \\ 
+##   &  & (0.002) &  \\ 
+##   & & & \\ 
+##  potExp &  & 0.105$^{***}$ &  \\ 
+##   &  & (0.001) &  \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) &  & $-$0.002$^{***}$ &  \\ 
+##   &  & (0.00002) &  \\ 
+##   & & & \\ 
+##  YrsOfSch &  &  & 0.179$^{***}$ \\ 
+##   &  &  & (0.002) \\ 
+##   & & & \\ 
+##  potExp &  &  & 0.078$^{***}$ \\ 
+##   &  &  & (0.001) \\ 
+##   & & & \\ 
+##  potExp$\hat{\mkern6mu}$2) &  &  & $-$0.001$^{***}$ \\ 
+##   &  &  & (0.00003) \\ 
+##   & & & \\ 
+##  Constant & 6.752$^{***}$ & 6.864$^{***}$ & 6.474$^{***}$ \\ 
+##   & (0.024) & (0.031) & (0.036) \\ 
+##   & & & \\ 
+## \hline \\[-1.8ex] 
+## Observations & 65,183 & 33,760 & 31,423 \\ 
+## R$^{2}$ & 0.287 & 0.339 & 0.266 \\ 
+## Adjusted R$^{2}$ & 0.287 & 0.339 & 0.266 \\ 
+## Residual Std. Error & 1.001 (df = 65179) & 0.948 (df = 33756) & 1.005 (df = 31419) \\ 
+## F Statistic & 8,759.542$^{***}$ (df = 3; 65179) & 5,763.025$^{***}$ (df = 3; 33756) & 3,794.622$^{***}$ (df = 3; 31419) \\ 
+## \hline 
+## \hline \\[-1.8ex] 
+## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+## \end{tabular} 
+## \end{table}
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}}lccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\
+\cline{2-4}
+\\[-1.8ex] & logInc & logInc & logInc \\
+\\[-1.8ex] & (1) & (2) & (3)\\
+\hline \\[-1.8ex]
+ YrsOfSch & 0.163$^{***}$ & 0.160$^{***}$ & 0.171$^{***}$ \\
+  &(0.001)& (0.002)& (0.002)\\
+  & & & \\
+ potExp & 0.106$^{***}$ & 0.120$^{***}$ & 0.091$^{***}$ \\
+  &(0.001)& (0.001)& (0.001)\\
+  & & & \\
+ potExp$\hat{\mkern6mu}$2 & $-$0.002$^{***}$ & $-$0.002$^{***}$ & $-$0.002$^{***}$ \\
+  & (0.00002) & (0.00002) & (0.00002) \\
+  & & & \\
+ Constant & 6.719$^{***}$ & 6.869$^{***}$ & 6.501$^{***}$ \\
+  & (0.019) & (0.024) & (0.030) \\
+  & & & \\
+\hline \\[-1.8ex]
+Observations & 103,084 & 52,848 & 50,236 \\
+R$^{2}$ & 0.310 & 0.385 & 0.266 \\
+Adjusted R$^{2}$ & 0.310 & 0.385 & 0.266 \\
+Residual Std. Error & 1.026 (df = 103080) & 0.942 (df = 52844) & 1.045 (df = 50232) \\
+F Statistic & 15,448.400$^{***}$ (df = 3; 103080) & 11,041.710$^{***}$ (df = 3; 52844) & 6,081.976$^{***}$ (df = 3; 50232) \\
+\hline
+\hline \\[-1.8ex]
+\textit{Note:} & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\
+\end{tabular}
+\end{table}
+
+ 
+ 
+ 
+  
+ 
+  
+ 
+
+
+
+
+
+ 
+
+  
+
+ 
+ 
+ 
+
+
+
 
 \end{document}
