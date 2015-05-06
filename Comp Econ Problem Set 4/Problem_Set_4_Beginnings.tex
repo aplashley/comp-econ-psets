@@ -54,19 +54,22 @@
 \date{April 30, 2015}
 
 \usepackage{mathtools}
+\usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage{dcolumn}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
+
 \section{Function Approximation Warmup}
 \subsection{Exploring and downloading the data}
 
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{rm}\hlstd{(}\hlkwc{list}\hlstd{=}\hlkwd{ls}\hlstd{())}           \hlcom{# Clear the workspace}
 \hlkwd{set.seed}\hlstd{(}\hlnum{20866}\hlstd{)}
+\hlkwd{library}\hlstd{(}\hlstr{"knitr"}\hlstd{)}
 \hlkwd{library}\hlstd{(ggplot2)}
 \hlkwd{library}\hlstd{(sandwich)}
 \hlkwd{library}\hlstd{(car)}
@@ -83,6 +86,8 @@
 
 
 {\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Please cite as: \\\#\# \\\#\#\ \ Hlavac, Marek (2014). stargazer: LaTeX code and ASCII text for well-formatted regression and summary statistics tables.\\\#\#\ \ R package version 5.1. http://CRAN.R-project.org/package=stargazer}}\begin{alltt}
+\hlstd{opts_chunk}\hlopt{$}\hlkwd{set}\hlstd{(}\hlkwc{out.width} \hlstd{=}\hlstr{'\textbackslash{}\textbackslash{}textwidth'}\hlstd{)}
+
 \hlkwd{setwd}\hlstd{(}\hlstr{"/Users/Tony/Downloads"}\hlstd{)}
 
 \hlstd{data} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"cps_00005.csv"}\hlstd{)}
@@ -125,9 +130,9 @@
   \hlstd{top} \hlkwb{<-} \hlkwd{head}\hlstd{(data.m,} \hlkwc{n}\hlstd{=}\hlnum{15}\hlstd{)}
   \hlstd{bottom}\hlkwb{<-} \hlkwd{tail}\hlstd{(data.m,} \hlkwc{n}\hlstd{=}\hlnum{15}\hlstd{)}
 
-  \hlstd{sample} \hlkwb{<-} \hlkwd{rbind}\hlstd{(top,bottom)}
-  \hlkwd{row.names}\hlstd{(sample)} \hlkwb{<-} \hlkwa{NULL}
-  \hlkwd{return}\hlstd{(sample)}
+  \hlstd{sample1} \hlkwb{<-} \hlkwd{rbind}\hlstd{(top,bottom)}
+  \hlkwd{row.names}\hlstd{(sample1)} \hlkwb{<-} \hlkwa{NULL}
+  \hlkwd{return}\hlstd{(sample1)}
 
  \hlstd{\}}
 
@@ -178,7 +183,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \subsection{Make a new variable that is log wage income in your data}
 
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{testdata} \hlkwb{<-} \hlkwd{incomeadjust}\hlstd{(datamatrix,} \hlnum{TRUE}\hlstd{)}
@@ -271,10 +276,10 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \subsection{Construct "potential experience", which will be "Age - years of schooling - 5"}
 
-\begin{knitrout}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{sample} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(testdata)}
+\hlstd{sample1} \hlkwb{<-} \hlkwd{logVarf}\hlstd{(testdata)}
 
 \hlstd{potExpf} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data.m} \hlstd{= testdata)\{}
 
@@ -406,7 +411,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \hlstd{\}}
 
-\hlkwd{potExpf}\hlstd{(sample)}
+\hlkwd{potExpf}\hlstd{(sample1)}
 \end{alltt}
 \begin{verbatim}
 ##       YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
@@ -477,7 +482,7 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \subsection{Make a table comparing the following regressions for 2014 and 2014}
 
-\begin{knitrout}\tiny
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(stargazer)}
@@ -512,140 +517,19 @@ To find the CPI, I used the Bureau of Labor Statistics CPI Inflation Calculator,
 
 \hlstd{fit14f} \hlkwb{<-} \hlkwd{lm}\hlstd{(data14f}\hlopt{$}\hlstd{logInc} \hlopt{~} \hlstd{data14f}\hlopt{$}\hlstd{YrsOfSch} \hlopt{+} \hlstd{data14f}\hlopt{$}\hlstd{potExp}
           \hlopt{+} \hlkwd{I}\hlstd{(data14f}\hlopt{$}\hlstd{potExp}\hlopt{^}\hlnum{2}\hlstd{),} \hlkwc{data}\hlstd{=data14f)}
-
-
-\hlkwd{stargazer}\hlstd{(fit04, fit04m, fit04f)}
 \end{alltt}
-\begin{verbatim}
-## 
-## % Table created by stargazer v.5.1 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Thu, Apr 30, 2015 - 19:46:49
-## \begin{table}[!htbp] \centering 
-##   \caption{} 
-##   \label{} 
-## \begin{tabular}{@{\extracolsep{5pt}}lccc} 
-## \\[-1.8ex]\hline 
-## \hline \\[-1.8ex] 
-##  & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
-## \cline{2-4} 
-## \\[-1.8ex] & logInc & logInc & logInc \\ 
-## \\[-1.8ex] & (1) & (2) & (3)\\ 
-## \hline \\[-1.8ex] 
-##  YrsOfSch & 0.163$^{***}$ &  &  \\ 
-##   & (0.001) &  &  \\ 
-##   & & & \\ 
-##  potExp & 0.106$^{***}$ &  &  \\ 
-##   & (0.001) &  &  \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) & $-$0.002$^{***}$ &  &  \\ 
-##   & (0.00002) &  &  \\ 
-##   & & & \\ 
-##  YrsOfSch &  & 0.160$^{***}$ &  \\ 
-##   &  & (0.002) &  \\ 
-##   & & & \\ 
-##  potExp &  & 0.120$^{***}$ &  \\ 
-##   &  & (0.001) &  \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) &  & $-$0.002$^{***}$ &  \\ 
-##   &  & (0.00002) &  \\ 
-##   & & & \\ 
-##  YrsOfSch &  &  & 0.171$^{***}$ \\ 
-##   &  &  & (0.002) \\ 
-##   & & & \\ 
-##  potExp &  &  & 0.091$^{***}$ \\ 
-##   &  &  & (0.001) \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) &  &  & $-$0.002$^{***}$ \\ 
-##   &  &  & (0.00002) \\ 
-##   & & & \\ 
-##  Constant & 6.719$^{***}$ & 6.869$^{***}$ & 6.501$^{***}$ \\ 
-##   & (0.019) & (0.024) & (0.030) \\ 
-##   & & & \\ 
-## \hline \\[-1.8ex] 
-## Observations & 103,084 & 52,848 & 50,236 \\ 
-## R$^{2}$ & 0.310 & 0.385 & 0.266 \\ 
-## Adjusted R$^{2}$ & 0.310 & 0.385 & 0.266 \\ 
-## Residual Std. Error & 1.026 (df = 103080) & 0.942 (df = 52844) & 1.045 (df = 50232) \\ 
-## F Statistic & 15,448.400$^{***}$ (df = 3; 103080) & 11,041.710$^{***}$ (df = 3; 52844) & 6,081.976$^{***}$ (df = 3; 50232) \\ 
-## \hline 
-## \hline \\[-1.8ex] 
-## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-## \end{tabular} 
-## \end{table}
-\end{verbatim}
-\begin{alltt}
-\hlkwd{stargazer}\hlstd{(fit14, fit14m, fit14f)}
-\end{alltt}
-\begin{verbatim}
-## 
-## % Table created by stargazer v.5.1 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Thu, Apr 30, 2015 - 19:46:50
-## \begin{table}[!htbp] \centering 
-##   \caption{} 
-##   \label{} 
-## \begin{tabular}{@{\extracolsep{5pt}}lccc} 
-## \\[-1.8ex]\hline 
-## \hline \\[-1.8ex] 
-##  & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
-## \cline{2-4} 
-## \\[-1.8ex] & logInc & logInc & logInc \\ 
-## \\[-1.8ex] & (1) & (2) & (3)\\ 
-## \hline \\[-1.8ex] 
-##  YrsOfSch & 0.166$^{***}$ &  &  \\ 
-##   & (0.002) &  &  \\ 
-##   & & & \\ 
-##  potExp & 0.093$^{***}$ &  &  \\ 
-##   & (0.001) &  &  \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) & $-$0.002$^{***}$ &  &  \\ 
-##   & (0.00002) &  &  \\ 
-##   & & & \\ 
-##  YrsOfSch &  & 0.164$^{***}$ &  \\ 
-##   &  & (0.002) &  \\ 
-##   & & & \\ 
-##  potExp &  & 0.105$^{***}$ &  \\ 
-##   &  & (0.001) &  \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) &  & $-$0.002$^{***}$ &  \\ 
-##   &  & (0.00002) &  \\ 
-##   & & & \\ 
-##  YrsOfSch &  &  & 0.179$^{***}$ \\ 
-##   &  &  & (0.002) \\ 
-##   & & & \\ 
-##  potExp &  &  & 0.078$^{***}$ \\ 
-##   &  &  & (0.001) \\ 
-##   & & & \\ 
-##  potExp$\hat{\mkern6mu}$2) &  &  & $-$0.001$^{***}$ \\ 
-##   &  &  & (0.00003) \\ 
-##   & & & \\ 
-##  Constant & 6.752$^{***}$ & 6.864$^{***}$ & 6.474$^{***}$ \\ 
-##   & (0.024) & (0.031) & (0.036) \\ 
-##   & & & \\ 
-## \hline \\[-1.8ex] 
-## Observations & 65,183 & 33,760 & 31,423 \\ 
-## R$^{2}$ & 0.287 & 0.339 & 0.266 \\ 
-## Adjusted R$^{2}$ & 0.287 & 0.339 & 0.266 \\ 
-## Residual Std. Error & 1.001 (df = 65179) & 0.948 (df = 33756) & 1.005 (df = 31419) \\ 
-## F Statistic & 8,759.542$^{***}$ (df = 3; 65179) & 5,763.025$^{***}$ (df = 3; 33756) & 3,794.622$^{***}$ (df = 3; 31419) \\ 
-## \hline 
-## \hline \\[-1.8ex] 
-## \textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-## \end{tabular} 
-## \end{table}
-\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
-\begin{table}[!htbp] \centering
-  \caption{}
-  \label{}
+\begin{table}[!htbp] 
+\centering
+\caption{Regressing Income on Yrs. of School and Exp.}
+\begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{@{\extracolsep{5pt}}lccc}
 \\[-1.8ex]\hline
 \hline \\[-1.8ex]
- & \multicolumn{3}{c}{\textit{Dependent variable:}} \\
-\cline{2-4}
-\\[-1.8ex] & logInc & logInc & logInc \\
-\\[-1.8ex] & (1) & (2) & (3)\\
+\\[-1.8ex] & LogAdjInc & LogAdjInc & LogAdjInc \\
+\\[-1.8ex] & (2004) & (2004 Males) & (2004 Females)\\
 \hline \\[-1.8ex]
  YrsOfSch & 0.163$^{***}$ & 0.160$^{***}$ & 0.171$^{***}$ \\
   &(0.001)& (0.002)& (0.002)\\
@@ -669,29 +553,46 @@ F Statistic & 15,448.400$^{***}$ (df = 3; 103080) & 11,041.710$^{***}$ (df = 3; 
 \hline \\[-1.8ex]
 \textit{Note:} & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\
 \end{tabular}
+\end{adjustbox}
 \end{table}
 
- 
- 
- 
-  
- 
-  
- 
+\vspace{100ex}
 
+\section{Function Approximation}
+\subsection{Model for four-fifths of data, test on other fifth}
 
-
-
-
- 
-
-  
-
- 
- 
- 
-
-
-
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fourfifthsdata} \hlkwb{<-} \hlstd{regData[}\hlkwd{sample}\hlstd{(}\hlkwd{nrow}\hlstd{(regData),}\hlkwc{size} \hlstd{=((}\hlnum{4}\hlopt{/}\hlnum{5}\hlstd{)} \hlopt{*} \hlstd{(}\hlkwd{nrow}\hlstd{(regData))),}\hlkwc{replace}\hlstd{=}\hlnum{FALSE}\hlstd{),]}
+\hlstd{fourfifthstop} \hlkwb{<-} \hlkwd{head}\hlstd{(fourfifthsdata,} \hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{)}
+\hlkwd{print}\hlstd{(fourfifthstop)}
+\end{alltt}
+\begin{verbatim}
+##        YEAR REGION AGE SEX RACE EDUC99 EMPSTAT HRSWORK INCWAGE AdjInc
+## 118566 2014     21  27   2  100      5      10      40    8000   8000
+## 65939  2004     32  45   2  200     15      10      40   48000  60000
+## 68036  2004     32  39   2  100     15      10      40   29000  36250
+## 34552  2004     21  30   2  100     11      10      40   53000  66250
+## 145324 2014     33  21   1  100     11      32       0   33000  33000
+## 81157  2004     41  29   2  100     13      10      40   28000  35000
+## 156704 2014     41  41   2  100     11      10      40   45000  45000
+## 132185 2014     31  51   1  100     11      10      40   35000  35000
+## 168216 2014     42  42   2  804     14      10      50  110000 110000
+## 150695 2014     33  61   1  100      5      10      40   12000  12000
+##           logInc potExp YrsOfSch
+## 118566  8.987197     13        9
+## 65939  11.002100     23       17
+## 68036  10.498195     17       17
+## 34552  11.101191     11       14
+## 145324 10.404263      2       14
+## 81157  10.463103      9       15
+## 156704 10.714418     22       14
+## 132185 10.463103     32       14
+## 168216 11.608236     22       15
+## 150695  9.392662     47        9
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \end{document}
